@@ -51,4 +51,4 @@ function obtenerBanderas(id1, id2, id3) {
 }
 
 // Ejemplo de uso
-obtenerBanderas(1, 7, 2); // Llama a la función con los IDs de los países que quieras
+obtenerBanderas(7, 16, 1); // Llama a la función con los IDs de los países que quieras

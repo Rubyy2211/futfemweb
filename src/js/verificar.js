@@ -18,7 +18,6 @@ async function Verificar(){
             if (columna !== null) {
                 // Obtener los equipos
                 const equipos = await obtenerEquipos(nombreJugadora);
-
                 if (equipos) {
                     // Comparar los equipos con las imágenes en la tabla y obtener la fila
                     const fila = verificarEquipo(equipos);
@@ -55,9 +54,9 @@ async function obtenerIdPais(nombre) {
             throw new Error(data.error);
         }
 
-        // Comprobar si data es un objeto y tiene un campo id_pais
-        if (data) {
-            return parseInt(data, 10); // Convertir a entero
+        // Comprobar si data es un array y contiene al menos un objeto
+        if (Array.isArray(data) && data.length > 0 && data[0].Pais) {
+            return parseInt(data[0].Pais, 10); // Convertir a entero
         } else {
             console.warn('ID del país no proporcionado en la respuesta:', data);
             return null;

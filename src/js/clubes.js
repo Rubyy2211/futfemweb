@@ -44,4 +44,4 @@ function obtenerClubes(id1, id2, id3) {
 }
 
 // Llama a la función con los IDs de los equipos que quieras
-obtenerClubes(1, 3, 4);
+obtenerClubes(2, 3, 4);

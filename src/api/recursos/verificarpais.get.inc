@@ -11,27 +11,34 @@ if (!$nombre) {
 
 // Preparar y ejecutar la consulta
 $query = "
-    SELECT p.id_pais
-    FROM jugadoras j
-    JOIN paises p ON j.nacionalidad = p.id_pais
-    WHERE j.Nombre = ?
+    SELECT p.id_pais, CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) AS Completo
+    FROM jugadoras 
+    JOIN paises p ON jugadoras.nacionalidad = p.id_pais
+    WHERE CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) LIKE ?;
 ";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param("s", $nombre);
+$nombreLike = '%' . $nombre . '%';
+$stmt->bind_param("s", $nombreLike);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$idPais = null;
+$idPais = [];
 
 if ($result->num_rows > 0) {
-    $fila = $result->fetch_assoc();
-    $idPais = $fila['id_pais'];
+    while ($fila = $result->fetch_assoc()) {
+        $idPais[] = [
+            'Pais' => $fila['id_pais'],
+            'NCompleto' => $fila['Completo']
+        ];
+    }
+} else {
+    $idPais = ["error" => "No se encontró ninguna jugadora con ese nombre"];
 }
 
 $stmt->close();
 $conn->close();
 
-// Devolver el ID del país como JSON
+// Devolver el resultado como JSON
 $salida=$idPais;
 ?>

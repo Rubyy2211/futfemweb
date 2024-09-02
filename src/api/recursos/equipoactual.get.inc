@@ -5,7 +5,8 @@ require_once "includes/conexion-bbdd.php"; // Asegúrate de que esta ruta sea co
 $nombre = isset($_GET['nombre']) ? trim($_GET['nombre']) : '';
 
 if (!$nombre) {
-    $salida["error"]="Nombre de jugadora no proporcionado";
+    $salida["error"] = "Nombre de jugadora no proporcionado";
+    echo json_encode($salida);
     exit;
 }
 
@@ -18,7 +19,7 @@ SELECT
 FROM 
     jugadoras j
 WHERE 
-    j.Nombre = ?
+    CONCAT(j.Nombre, ' ', j.apellidos) LIKE ?
 
 UNION ALL
 
@@ -31,11 +32,12 @@ FROM
 JOIN 
     jugadoras j ON j.id_jugadora = t.jugadora
 WHERE 
-    j.Nombre = ?
+    CONCAT(j.Nombre, ' ', j.apellidos) LIKE ?;
 ";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param("ss", $nombre, $nombre); // Usar dos veces el parámetro para ambas partes del UNION ALL
+$searchTerm = "%$nombre%"; // Modificar el término de búsqueda
+$stmt->bind_param("ss", $searchTerm, $searchTerm); // Usar el término de búsqueda modificado
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -51,7 +53,5 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 
-// Devolver los resultados como JSON
 $salida=$data;
-
 ?>
