@@ -9,17 +9,16 @@ if (!$nombre) {
     exit;
 }
 
-// Preparar y ejecutar la consulta
+// Preparar y ejecutar la consulta usando REGEXP para buscar coincidencias de palabras completas
 $query = "
     SELECT p.id_pais, CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) AS Completo
     FROM jugadoras 
     JOIN paises p ON jugadoras.nacionalidad = p.id_pais
-    WHERE CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) LIKE ?;
+    WHERE CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) REGEXP CONCAT('(^|[[:space:]])', ?, '([[:space:]]|$)');
 ";
 
 $stmt = $conn->prepare($query);
-$nombreLike = '%' . $nombre . '%';
-$stmt->bind_param("s", $nombreLike);
+$stmt->bind_param("s", $nombre);
 $stmt->execute();
 $result = $stmt->get_result();
 
