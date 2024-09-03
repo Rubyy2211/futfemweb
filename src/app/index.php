@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="game-button">
-                <img src="../img/Captura%20de%20pantalla%202024-09-01%20201329.png" alt="Game 1">
+                <img src="../img/trayectoria.jpg" alt="Game 1">
                 <h4>Futfem Trajectory</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='trayectoria.php'">PLAY</button>
             </div>

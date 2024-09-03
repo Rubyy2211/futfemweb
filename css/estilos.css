@@ -17,6 +17,14 @@ header .container{
     justify-content: space-between;
     align-items: center;
 }
+
+header .botones a{
+    text-decoration: none;
+    padding: 10px;
+    background: #dddddd;
+    border-radius: 20px;
+    color: purple;
+}
 h1{
     margin-top: 7.5vh;
 }
@@ -30,12 +38,18 @@ button{
     border-radius: 20px;
     height: 35px;
     border: none;
-    width: 75px;
+    width: 100px;
+    color: white;
+    font-weight: bold;
+    background: purple;
 }
 
 input {
     padding: 10px;
     font-size: 16px;
     width: 200px;
+    background: rgba(128, 0, 128, 0.3);
+    border: 2px solid purple;
+    border-radius: 20px;
 }
 
