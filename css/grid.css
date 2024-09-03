@@ -1,0 +1,59 @@
+
+table {
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+div.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.oculto{
+    border: none;
+    background: none;
+}
+th{
+    background: purple;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 0px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#c11 img {
+    display: block;
+}
+#c12 img {
+    display: block;
+}
+#c13 img {
+    display: block;
+}
+#c21 img {
+    display: block;
+}
+#c22 img {
+    display: block;
+}
+#c23 img {
+    display: block;
+}
+#c31 img {
+    display: block;
+}
+#c32 img {
+    display: block;
+}
+#c33 img {
+    display: block;
+}

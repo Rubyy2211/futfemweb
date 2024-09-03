@@ -7,6 +7,7 @@
     grid-template-columns: repeat(5, 60px);
     grid-gap: 10px;
     margin-bottom: 20px;
+    justify-content: center;
 }
 #message {
     margin-top: 20px;

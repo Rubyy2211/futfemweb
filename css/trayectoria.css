@@ -1,0 +1,52 @@
+
+
+#game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+#trayectoria {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mystery{
+    width: 200px;
+    border-radius: 20px;
+}
+/* Añade esto a tu archivo CSS o dentro de una etiqueta <style> en el HTML */
+.ocultar {
+    display: none;
+}
+#equipos{
+    margin-top: 1vh;
+}
+#trayectoria img {
+    object-fit: contain; /* Asegura que la imagen se escale dentro del contenedor sin recortarse */
+    width: 50px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    margin: 0 5px; /* Espaciado entre los escudos */
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+p {
+    font-weight: bold;
+}
+
+#respuesta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

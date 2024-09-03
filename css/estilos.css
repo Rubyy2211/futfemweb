@@ -5,11 +5,6 @@ body {
     align-items: center;
     background: #480048;
 }
-
-table {
-    border-collapse: collapse;
-    margin: 20px 0;
-}
 header{
     width: 100%;
     background: purple;
@@ -22,6 +17,12 @@ header .container{
     justify-content: space-between;
     align-items: center;
 }
+h1{
+    margin-top: 7.5vh;
+}
+h1,p{
+    color: white;
+}
 header img{
     height: 10vh;
 }
@@ -32,58 +33,9 @@ button{
     width: 75px;
 }
 
-.oculto{
-    border: none;
-    background: none;
-}
-th{
-    background: purple;
-}
-th, td {
-    border: 1px solid #ddd;
-    padding: 0px;
-    text-align: center;
-    width: 100px;
-    height: 100px;
-    position: relative;
-}
-
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-#c11 img {
-    display: block;
-}
-#c12 img {
-    display: block;
-}
-#c13 img {
-    display: block;
-}
-#c21 img {
-    display: block;
-}
-#c22 img {
-    display: block;
-}
-#c23 img {
-    display: block;
-}
-#c31 img {
-    display: block;
-}
-#c32 img {
-    display: block;
-}
-#c33 img {
-    display: block;
-}
-
 input {
-    margin-top: 20px;
     padding: 10px;
     font-size: 16px;
     width: 200px;
 }
+
