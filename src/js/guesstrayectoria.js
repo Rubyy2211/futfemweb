@@ -30,9 +30,9 @@ function displayTrayectoria(data) {
     fotosJugadorasDiv.id = 'fotos'; // Mover id a fuera del loop
 
     data.forEach(item => {
-        if (item.EscudoImagen) {
+        if (item.escudo) {
             const escudoImg = document.createElement('img');
-            escudoImg.src = item.EscudoImagen;
+            escudoImg.src = item.escudo;
             escudoImg.alt = 'Escudo';
             escudoImg.style.width = '100px';
             escudoImg.style.height = '100px';
@@ -40,15 +40,15 @@ function displayTrayectoria(data) {
             escudosDiv.id='equipos';
         }
 
-        if (item.JugadoraImagen) {
+        if (item.imagen) {
             const jugadoraImg = document.createElement('img');
-            jugadoraImg.src = item.JugadoraImagen;
+            jugadoraImg.src = item.imagen;
             jugadoraImg.alt = 'Imagen de la Jugadora';
             jugadoraImg.style.width = '100px';
             jugadoraImg.style.height = '100px';
             jugadoraImg.classList.add('ocultar');
             fotosJugadorasDiv.appendChild(jugadoraImg);
-            fotosJugadorasDiv.classList.add(`id-${item.IdJugadora}`); // Usar prefijo para evitar conflictos de clase
+            fotosJugadorasDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
         }
     });
 
