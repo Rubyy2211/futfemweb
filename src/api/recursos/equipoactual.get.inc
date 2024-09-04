@@ -13,17 +13,6 @@ if (!$nombre) {
 // Preparar y ejecutar la consulta
 $query = "
 SELECT 
-    'Equipo de Jugadora' AS Tipo,
-    j.equipo AS Equipo,
-    j.imagen AS JugadoraImagen
-FROM 
-    jugadoras j
-WHERE 
-    CONCAT(j.Nombre, ' ', j.apellidos) LIKE ?
-
-UNION ALL
-
-SELECT 
     'Equipo de Trayectoria' AS Tipo,
     t.equipo AS Equipo,
     t.imagen AS JugadoraImagen
@@ -32,12 +21,13 @@ FROM
 JOIN 
     jugadoras j ON j.id_jugadora = t.jugadora
 WHERE 
-    CONCAT(j.Nombre, ' ', j.apellidos) LIKE ?;
+    CONCAT(j.Nombre, ' ', j.apellidos) REGEXP CONCAT('(^|[[:space:]])', ?, '([[:space:]]|$)')
+    ORDER BY t.años DESC;
 ";
 
 $stmt = $conn->prepare($query);
 $searchTerm = "%$nombre%"; // Modificar el término de búsqueda
-$stmt->bind_param("ss", $searchTerm, $searchTerm); // Usar el término de búsqueda modificado
+$stmt->bind_param("s", $nombre); // Usar el término de búsqueda modificado
 $stmt->execute();
 $result = $stmt->get_result();
 
