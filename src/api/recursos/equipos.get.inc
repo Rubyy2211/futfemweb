@@ -21,10 +21,11 @@ if ($id1 !== null && $id2 !== null && $id3 !== null) {
             $equipos[] = [
                 'club' =>$fila['id_equipo'],
                 'nombre' => $fila['nombre'],
-                'escudo' => $fila['escudo'] // Usar directamente la URL del escudo
+                'escudo' => 'data:image/jpeg;base64,' . base64_encode($fila['escudo'])
             ];
         }
     }
+
 
     $stmt->close();
     $conn->close();

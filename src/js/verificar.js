@@ -20,7 +20,7 @@ async function Verificar(){
                 const equipos = await obtenerEquipos(nombreJugadora);
                 if (equipos) {
                     // Comparar los equipos con las imágenes en la tabla y obtener la fila
-                    const fila = verificarEquipo(equipos);
+                    const fila = verificarEquipo(equipos,columna);
                     if (fila !== null) {
                         // Colocar la imagen en la celda correcta usando la fila y columna
                         colocarImagenEnTabla(fila.columna, columna, fila.foto);
@@ -130,7 +130,7 @@ async function obtenerEquipos(nombre) {
 
 
 // Función que compara el ID del país con los ID de las imágenes en la tabla
-function verificarEquipo(equipos) {
+function verificarEquipo(equipos,columna) {
     console.log("Equipos para verificar:", equipos);
 
     const columnas = ["Equipo1", "Equipo2", "Equipo3"];
@@ -145,9 +145,17 @@ function verificarEquipo(equipos) {
                     resultadoEncontrado = index + 1;
                     const resultado = document.getElementById("resultado");
                     resultado.textContent = `El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`;
-                    console.log(`El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`);
-                    console.log(equipo.JugadoraImagen);
-                    return  {'columna': resultadoEncontrado, 'foto' : equipo.JugadoraImagen};
+                    //console.log(`El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`);
+                    const idCelda = `c${resultadoEncontrado}${columna}`;
+                    const td = document.getElementById(idCelda);
+                    if (td) {
+                        // Verificar si la celda ya contiene una imagen
+                        if (!td.querySelector('img')) {
+                            return  {'columna': resultadoEncontrado, 'foto' : equipo.JugadoraImagen};
+                        }
+                    }
+
+
                 }
             }
         }

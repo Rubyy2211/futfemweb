@@ -23,6 +23,21 @@
 }
 #equipos{
     margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#equipos div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los años debajo del escudo */
+    margin: 0 10px; /* Añadir espacio entre los conjuntos de escudo y años */
+}
+#fotos{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
 }
 #trayectoria img {
     object-fit: contain; /* Asegura que la imagen se escale dentro del contenedor sin recortarse */

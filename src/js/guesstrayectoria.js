@@ -1,4 +1,4 @@
-const jugadoraId = 1;
+const jugadoraId = 6;
 
 async function loadJugadoraById(id) {
     try {
@@ -31,13 +31,20 @@ function displayTrayectoria(data) {
 
     data.forEach(item => {
         if (item.escudo) {
+            const equipoInfo = document.createElement('div');
             const escudoImg = document.createElement('img');
             escudoImg.src = item.escudo;
             escudoImg.alt = 'Escudo';
             escudoImg.style.width = '100px';
             escudoImg.style.height = '100px';
-            escudosDiv.appendChild(escudoImg);
             escudosDiv.id='equipos';
+            // Crear y añadir el texto de los años
+            const anyos = document.createElement('p');
+            anyos.textContent = item.años;
+            anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
+            equipoInfo.appendChild(escudoImg);
+            equipoInfo.appendChild(anyos);
+            escudosDiv.appendChild(equipoInfo);
         }
 
         if (item.imagen) {
