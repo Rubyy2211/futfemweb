@@ -1,0 +1,44 @@
+
+function showModalForSelection(jugadoras) {
+    const modal = document.getElementById('selectionModal');
+    const jugadoraList = document.getElementById('jugadoraList');
+    jugadoraList.innerHTML = ''; // Limpiar la lista anterior
+
+    jugadoras.forEach(jugadora => {
+        const li = document.createElement('li');
+        li.textContent = jugadora.Nombre_Completo;
+        li.classList.add('jugadora-option');
+        li.dataset.id = jugadora.id_jugadora;
+
+        li.addEventListener('click', () => {
+            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo);
+            closeModal();
+        });
+
+        jugadoraList.appendChild(li);
+    });
+
+    // Mostrar el modal
+    modal.classList.remove('ocultar');
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    const modal = document.getElementById('selectionModal');
+    modal.classList.add('ocultar');
+    modal.style.display = 'none';
+}
+
+function handleSelectedJugadora(idJugadora, nombreCompleto) {
+    const div = document.getElementById('fotos');
+    const idClass = `id-${idJugadora}`;
+    const found = div.classList.contains(idClass);
+
+    const resultDiv = document.getElementById('result');
+    if (found) {
+        resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
+        removeOcultarFromChildren();
+    } else {
+        resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
+    }
+}

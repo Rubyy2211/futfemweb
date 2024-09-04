@@ -81,19 +81,12 @@ async function checkAnswer() {
         console.log('Datos recibidos:', data);
 
         if (Array.isArray(data) && data.length > 0) {
-            const idJugadora = data[0].id_jugadora;
-            console.log("ID de la jugadora recibida:", idJugadora);
-
-            const div = document.getElementById('fotos');
-            const idClass = `id-${idJugadora}`;
-            const found = div.classList.contains(idClass);
-
-            const resultDiv = document.getElementById('result');
-            if (found) {
-                resultDiv.textContent = `Nombre completo de la jugadora: ${data[0].Nombre_Completo}`;
-                removeOcultarFromChildren();
+            if (data.length === 1) {
+                // Solo un resultado, no es necesario mostrar el modal
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo);
             } else {
-                resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
+                // Múltiples resultados, mostrar el modal
+                showModalForSelection(data);
             }
         } else {
             throw new Error("La respuesta no contiene los datos esperados.");

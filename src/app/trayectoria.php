@@ -17,12 +17,24 @@
   <div id="trayectoria">
     <!-- Aquí se mostrarán los escudos de los equipos -->
   </div>
-  <div id="respuesta">
+    <!-- Modal Structure -->
+    <div id="selectionModal" class="modal ocultar">
+        <div class="modal-content">
+            <h4>Selecciona una jugadora</h4>
+            <ul id="jugadoraList"></ul>
+        </div>
+        <div class="modal-footer">
+            <button id="modalClose" class="modal-close">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="respuesta">
   <label for="jugadoraInput"><input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora"></label>
   <button onclick="checkAnswer()">Verificar</button>
   <p id="result"></p>
   </div>
 </div>
+<script src="../js/opciones_jugadora.js"></script>
 <script src="../js/guesstrayectoria.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
