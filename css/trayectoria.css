@@ -12,6 +12,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #c547f6;
+    border-radius: 20px;
+    padding: 1rem 0rem;
 }
 .mystery{
     width: 200px;
@@ -26,12 +29,17 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-content: center;
 }
 #equipos div {
     display: flex;
     flex-direction: column;
     align-items: center; /* Centra los años debajo del escudo */
     margin: 0 10px; /* Añadir espacio entre los conjuntos de escudo y años */
+}
+#equipos div p{
+    align-self: center;
+    margin-block-end: 0em;
 }
 #fotos{
     display: flex;

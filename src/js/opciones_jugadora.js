@@ -43,6 +43,7 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }
     }else if(modo==='grid'){
-        Verificar();
+        console.log(`Jugadora seleccionada: ${nombreCompleto} (ID: ${idJugadora})`);
+        Verificar(nombreCompleto);
     }
 }

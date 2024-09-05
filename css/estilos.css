@@ -51,8 +51,11 @@ input {
     background: rgba(128, 0, 128, 0.3);
     border: 2px solid purple;
     border-radius: 20px;
+    color: white;
 }
-
+input::placeholder{
+    color:white;
+}
 /* Basic modal styles */
 .modal {
     display: none;

@@ -1,4 +1,4 @@
-const jugadoraId = 25;
+const jugadoraId = 19;
 
 async function loadJugadoraById(id) {
     try {

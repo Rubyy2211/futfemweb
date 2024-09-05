@@ -1,5 +1,5 @@
-async function Verificar(){
-    const nombreJugadora = document.getElementById('input').value;
+async function Verificar(nombreJugadora){
+    console.log('Procesando jugadora:', nombreJugadora);
     if (!nombreJugadora) {
         alert("Por favor, introduce el nombre de la jugadora.");
         return;
