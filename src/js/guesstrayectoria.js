@@ -1,4 +1,4 @@
-const jugadoraId = 19;
+const jugadoraId = 1;
 
 async function loadJugadoraById(id) {
     try {
@@ -83,7 +83,7 @@ async function checkAnswer() {
         if (Array.isArray(data) && data.length > 0) {
             if (data.length === 1) {
                 // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'trayectoria');
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo, data[0].imagen, 'trayectoria');
             } else {
                 // Múltiples resultados, mostrar el modal
                 showModalForSelection(data,'trayectoria');
@@ -108,6 +108,24 @@ function removeOcultarFromChildren() {
         console.error("No se encontró el div con el ID 'fotos'.");
     }
 }
+
+function cambiarImagenConFlip(nuevaImagenBase64) {
+    const flipContainer = document.getElementById('flip-container');
+    const imagenTrasera = document.getElementById('trasera');
+
+    // Cambiar la imagen trasera antes de iniciar la animación
+    imagenTrasera.src = nuevaImagenBase64;
+
+    // Añadir la clase para empezar el volteo
+    flipContainer.querySelector('.flipper').classList.add('flipping');
+
+    // Opcional: Si deseas cambiar la imagen frontal a la misma que la trasera después del volteo
+    setTimeout(() => {
+        const imagenFrontal = document.getElementById('frontal');
+        imagenFrontal.src = nuevaImagenBase64;
+    }, 1200); // Tiempo de la animación
+}
+
 
 
 
