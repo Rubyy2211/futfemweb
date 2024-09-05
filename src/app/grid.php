@@ -41,11 +41,23 @@
     </tr>
     </tbody>
 </table>
+<!-- Modal Structure -->
+<div id="selectionModal" class="modal ocultar">
+    <div class="modal-content">
+        <h4>Selecciona una jugadora</h4>
+        <ul id="jugadoraList"></ul>
+    </div>
+    <div class="modal-footer">
+        <button id="modalClose" class="modal-close">Cancelar</button>
+    </div>
+</div>
+
 <div class="container">
 <label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
-<button onclick="Verificar()">Verificar</button>
+<button onclick="obtenerJugadoras()">Verificar</button>
 </div>
 <p id="resultado"></p>
+<script src="../js/opciones_jugadora.js"></script>
 <script src="../js/verificar.js"></script>
 <script src="../js/banderas.js"></script>
 <script src="../js/clubes.js"></script>

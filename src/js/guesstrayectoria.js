@@ -1,4 +1,4 @@
-const jugadoraId = 6;
+const jugadoraId = 25;
 
 async function loadJugadoraById(id) {
     try {
@@ -83,10 +83,10 @@ async function checkAnswer() {
         if (Array.isArray(data) && data.length > 0) {
             if (data.length === 1) {
                 // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo);
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'trayectoria');
             } else {
                 // Múltiples resultados, mostrar el modal
-                showModalForSelection(data);
+                showModalForSelection(data,'trayectoria');
             }
         } else {
             throw new Error("La respuesta no contiene los datos esperados.");

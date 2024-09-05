@@ -1,5 +1,5 @@
 
-function showModalForSelection(jugadoras) {
+function showModalForSelection(jugadoras,modo) {
     const modal = document.getElementById('selectionModal');
     const jugadoraList = document.getElementById('jugadoraList');
     jugadoraList.innerHTML = ''; // Limpiar la lista anterior
@@ -11,7 +11,7 @@ function showModalForSelection(jugadoras) {
         li.dataset.id = jugadora.id_jugadora;
 
         li.addEventListener('click', () => {
-            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo);
+            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo,modo);
             closeModal();
         });
 
@@ -29,16 +29,20 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-function handleSelectedJugadora(idJugadora, nombreCompleto) {
-    const div = document.getElementById('fotos');
-    const idClass = `id-${idJugadora}`;
-    const found = div.classList.contains(idClass);
+function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
+    if(modo==='trayectoria') {
+        const div = document.getElementById('fotos');
+        const idClass = `id-${idJugadora}`;
+        const found = div.classList.contains(idClass);
 
-    const resultDiv = document.getElementById('result');
-    if (found) {
-        resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
-        removeOcultarFromChildren();
-    } else {
-        resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
+        const resultDiv = document.getElementById('result');
+        if (found) {
+            resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
+            removeOcultarFromChildren();
+        } else {
+            resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
+        }
+    }else if(modo==='grid'){
+        Verificar();
     }
 }
