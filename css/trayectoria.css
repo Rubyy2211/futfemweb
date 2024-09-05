@@ -10,7 +10,7 @@
 #trayectoria {
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     background-color: #c547f6;
     border-radius: 20px;
@@ -67,4 +67,36 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+/* Responsive: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    #trayectoria {
+        width: 90%;
+        padding: 1rem;
+        flex: 1 1 0;
+    }
+
+    #equipos div {
+        margin: 5px 10px;
+    }
+
+    #trayectoria img {
+        width: 30px;
+        height: 30px;
+        flex: 1 1 0;
+    }
+
+    input {
+        width: 90%;
+        font-size: 14px;
+    }
+
+    button {
+        width: 90%;
+        padding: 8px;
+    }
+
+    p {
+        font-size: 16px;
+    }
 }

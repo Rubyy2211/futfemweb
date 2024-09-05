@@ -31,14 +31,14 @@ function closeModal() {
 
 function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
     if(modo==='trayectoria') {
-        const div = document.getElementById('fotos');
+        const div = document.getElementById('trayectoria');
         const idClass = `id-${idJugadora}`;
         const found = div.classList.contains(idClass);
 
         const resultDiv = document.getElementById('result');
         if (found) {
             resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
-            removeOcultarFromChildren();
+            cambiarImagenConFlip();
         } else {
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }

@@ -1,4 +1,4 @@
-const jugadoraId = 19;
+const jugadoraId = 1;
 
 async function loadJugadoraById(id) {
     try {
@@ -25,27 +25,36 @@ function displayTrayectoria(data) {
     const trayectoriaDiv = document.getElementById('trayectoria');
     trayectoriaDiv.innerHTML = ''; // Limpiar contenido previo
 
-    const escudosDiv = document.createElement('div');
-    const fotosJugadorasDiv = document.createElement('div');
-    fotosJugadorasDiv.id = 'fotos'; // Mover id a fuera del loop
-
     data.forEach(item => {
+        // Crear el contenedor del flip
+        const flipContainer = document.createElement('div');
+        flipContainer.classList.add('flip-container');
+
+        const flipper = document.createElement('div');
+        flipper.classList.add('flipper');
+
+        // Crear y añadir el lado frontal
+        const front = document.createElement('div');
+        front.classList.add('front');
+
         if (item.escudo) {
-            const equipoInfo = document.createElement('div');
             const escudoImg = document.createElement('img');
             escudoImg.src = item.escudo;
             escudoImg.alt = 'Escudo';
             escudoImg.style.width = '100px';
             escudoImg.style.height = '100px';
-            escudosDiv.id='equipos';
+            front.appendChild(escudoImg);
+
             // Crear y añadir el texto de los años
             const anyos = document.createElement('p');
             anyos.textContent = item.años;
             anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
-            equipoInfo.appendChild(escudoImg);
-            equipoInfo.appendChild(anyos);
-            escudosDiv.appendChild(equipoInfo);
+            front.appendChild(anyos);
         }
+
+        // Crear y añadir el lado trasero
+        const back = document.createElement('div');
+        back.classList.add('back');
 
         if (item.imagen) {
             const jugadoraImg = document.createElement('img');
@@ -53,14 +62,21 @@ function displayTrayectoria(data) {
             jugadoraImg.alt = 'Imagen de la Jugadora';
             jugadoraImg.style.width = '100px';
             jugadoraImg.style.height = '100px';
-            jugadoraImg.classList.add('ocultar');
-            fotosJugadorasDiv.appendChild(jugadoraImg);
-            fotosJugadorasDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
-        }
-    });
+            trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
+            back.appendChild(jugadoraImg);
 
-    trayectoriaDiv.appendChild(escudosDiv);
-    trayectoriaDiv.appendChild(fotosJugadorasDiv);
+            // Crear y añadir el texto de los años
+            const anyos = document.createElement('p');
+            anyos.textContent = item.años;
+            anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
+            back.appendChild(anyos);
+        }
+
+        flipper.appendChild(front);
+        flipper.appendChild(back);
+        flipContainer.appendChild(flipper);
+        trayectoriaDiv.appendChild(flipContainer);
+    });
 }
 
 loadJugadoraById(jugadoraId);
@@ -97,17 +113,27 @@ async function checkAnswer() {
     }
 }
 
-function removeOcultarFromChildren() {
-    const div = document.getElementById('fotos');
+function cambiarImagenConFlip() {
+    // Seleccionar todos los contenedores de flip
+    const flipContainers = document.querySelectorAll('.flip-container');
 
-    if (div) {
-        Array.from(div.children).forEach(child => {
-            child.classList.remove('ocultar');
-        });
-    } else {
-        console.error("No se encontró el div con el ID 'fotos'.");
-    }
+    flipContainers.forEach(container => {
+        const imagenTrasera = container.querySelector('.back img');
+        const imagenFrontal = container.querySelector('.front img');
+
+
+
+        // Añadir la clase para empezar el volteo
+        container.querySelector('.flipper').classList.add('flipping');
+
+        // Opcional: Si deseas cambiar la imagen frontal a la misma que la trasera después del volteo
+        setTimeout(() => {
+
+
+        }, 600); // Ajusta el tiempo según la duración de tu animación
+    });
 }
+
 
 
 
