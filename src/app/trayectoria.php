@@ -18,7 +18,7 @@
     <!-- Aquí se mostrarán los escudos de los equipos -->
   </div>
     <!-- Modal Structure -->
-    <div id="selectionModal" class="modal ocultar">
+    <div id="selectionModal" class="modal">
         <div class="modal-content">
             <h4>Selecciona una jugadora</h4>
             <ul id="jugadoraList"></ul>

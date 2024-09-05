@@ -67,12 +67,25 @@ input {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #480048;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #b000b6;
     width: 80%;
     max-width: 600px;
+    color: white;
+}
+.modal-content #jugadoraList{
+    list-style: none;
+    background-color: #f87bff;
+    margin: 0px auto;
+    width: 100%;
+    padding-inline-start: 0;
+}
+.modal-content #jugadoraList .jugadora-option{
+    border-top: 1px solid #480048;
+    border-bottom: 1px solid #480048;
+    padding-inline-start: 10px;
 }
 
 .modal-footer {
