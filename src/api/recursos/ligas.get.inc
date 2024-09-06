@@ -7,7 +7,7 @@ $id2 = isset($_GET['id2']) ? intval($_GET['id2']) : null;
 $id3 = isset($_GET['id3']) ? intval($_GET['id3']) : null;
 
 if ($id1 !== null && $id2 !== null && $id3 !== null) {
-    $query = "SELECT nombre, logo FROM ligas WHERE id_liga IN (?, ?, ?)";
+    $query = "SELECT id_liga AS liga, nombre, logo FROM ligas WHERE id_liga IN (?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("iii", $id1, $id2, $id3);
 
@@ -20,7 +20,8 @@ if ($id1 !== null && $id2 !== null && $id3 !== null) {
         while ($fila = $resultado->fetch_assoc()) {
             $paises[] = [
                 'nombre' => $fila['nombre'],
-                'bandera' => base64_encode($fila['logo']) // Codificar la imagen en base64
+                'bandera' => base64_encode($fila['logo']), // Codificar la imagen en base64
+                'liga' => $fila['liga'],
             ];
         }
     }
