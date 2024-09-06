@@ -102,7 +102,53 @@
                 console.log("La trayectoria no es un array o está vacía.");
             }
         }
+        if (img.alt.includes("Edad")) {
+            // Verificar si la clase contiene 'EdadMenor'
+            const claseEdadMenor = Array.from(img.classList).find(cls => cls.startsWith('EdadMenor'));
+            const claseEdadMayor = Array.from(img.classList).find(cls => cls.startsWith('EdadMayor'));
+            const claseEdad = Array.from(img.classList).find(cls => cls.startsWith('EdadIgual'));
+            if (claseEdadMenor) {
+                // Extraer el número después de 'EdadMenor'
+                const edadLimite = parseInt(claseEdadMenor.replace('EdadMenor', ''), 10);
 
+                if (jugador.edad < edadLimite) {
+                    console.log(`¡Coincidencia de edad menor de ${edadLimite}!`);
+                    bloquearCeldaEstilo(cell, jugador.foto); // Usar la imagen correcta
+                    hasMatch = true;
+                } else {
+                    console.log(`No hay coincidencia de edad menor de ${edadLimite}.`);
+                    hasMatch = false;
+                }
+            }
+            if (claseEdadMayor) {
+                // Extraer el número después de 'EdadMayor'
+                const edadLimite = parseInt(claseEdadMayor.replace('EdadMayor', ''), 10);
+
+                if (jugador.edad > edadLimite) {
+                    console.log(`¡Coincidencia de edad mayor de ${edadLimite}!`);
+                    bloquearCeldaEstilo(cell, jugador.foto); // Usar la imagen correcta
+                    hasMatch = true;
+                } else {
+                    console.log(`No hay coincidencia de edad mayor de ${edadLimite}.`);
+                    hasMatch = false;
+                }
+            }
+            // Si no es 'EdadMenor', verificar las otras clases de edad
+            if (claseEdad) {
+                // Extraer el número después de 'EdadMenor'
+                const edadLimite = parseInt(claseEdad.replace('EdadIgual', ''), 10);
+
+                if (jugador.edad === edadLimite) {
+                    console.log(`¡Coincidencia de edad igual a ${edadLimite}!`);
+                    bloquearCeldaEstilo(cell, jugador.foto); // Usar la imagen correcta
+                    hasMatch = true;
+                } else {
+                    console.log(`No hay coincidencia de edad igual a ${edadLimite}.`);
+                    hasMatch = false;
+                }
+            }
+
+        }
         return hasMatch;
     }
 
@@ -117,24 +163,26 @@
                 return response.json(); // Parsear la respuesta JSON
             })
             .then(async jugador => {
-                //console.log(jugador);
+                console.log(jugador);
 
                 // Actualizar el nombre y la imagen del jugador
                 document.getElementById("player-name").textContent = jugador.nombre;
                 document.getElementById("player-image").src = jugador.imagen;
 
-                // Obtener el país y equipos asociados al jugador
+                // Obtener la edad, país y equipos asociados al jugador
+                const edad = calcularEdad(jugador.Nacimiento);
                 const pais = await obtenerIdPais(jugador.nombre);
                 const equipos = await sacarEquipos(jugador.nombre);
 
                 if (equipos && equipos.length > 0) {
                     const nombresEquipos = equipos.map(e => e.Equipo); // Extraer los nombres de los equipos
                     const ligasEquipos = equipos.map(e => e.liga); // Extraer las ligas de los equipos
-                    let data = { 'pais': pais, 'trayectoria': nombresEquipos, 'foto': jugador.imagen, 'liga': ligasEquipos};
+                    let data = { 'pais': pais, 'edad': edad, 'trayectoria': nombresEquipos, 'foto': jugador.imagen, 'liga': ligasEquipos};
 
-       /*             console.log('Paises:', pais);
+                    console.log('Paises:', pais);
                     console.log('Equipos:', data);
-                    console.log('Ligas:', data.liga);*/
+                    console.log('Ligas:', data.liga);
+                    console.log('Edad:', data.edad);
 
                     // Remover event listeners anteriores
                     const cells = document.querySelectorAll('td');

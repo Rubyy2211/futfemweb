@@ -140,14 +140,50 @@ function ponerBanderas(id1, id2, id3, posicion1, posicion2, posicion3) {
             console.error('Error:', error);
         });
 }
+function ponerEdades(id1, id2, id3, rutaImagen1, rutaImagen2, rutaImagen3) {
+    // Obtener las celdas por sus IDs
+    const cell1 = document.getElementById(id1);
+    const cell2 = document.getElementById(id2);
+    const cell3 = document.getElementById(id3);
+
+    // Limpiar el contenido previo en cada celda
+    cell1.innerHTML = '';
+    cell2.innerHTML = '';
+    cell3.innerHTML = '';
+
+    // Crear imágenes y asignarles la ruta, clase y alt correspondiente
+    const img1 = document.createElement('img');
+    img1.src = rutaImagen1;
+    img1.classList.add('EdadMenor20');  // Clase para edad menor de 20
+    img1.alt = 'Edad';  // Asignar atributo alt
+    img1.style.width = '50px';
+
+    const img2 = document.createElement('img');
+    img2.src = rutaImagen2;
+    img2.classList.add('EdadMayor30');  // Clase para edad 25
+    img2.alt = 'Edad';  // Asignar atributo alt
+    img2.style.width = '50px';
+
+    const img3 = document.createElement('img');
+    img3.src = rutaImagen3;
+    img3.classList.add('EdadIgual25');  // Clase para edad 30
+    img3.alt = 'Edad';  // Asignar atributo alt
+    img3.style.width = '50px';
+
+    // Insertar las imágenes en las celdas correspondientes
+    cell1.appendChild(img1);
+    cell2.appendChild(img2);
+    cell3.appendChild(img3);
+}
+
 
 // Ejemplo de uso
 ponerBanderas(7, 16, 1, "c21", "c32", "c33"); // Llama a la función con los IDs de los países que quieras
 ponerLigas(1, 4, 5, "c13","c34"); // Llama a la función con los IDs de los países que quieras
-
-
 // Llama a la función con los IDs de los equipos que quieras
 ponerClubes(1,2, 44, "c12", "c14", "c31");
+ponerEdades( "c11", "c24", "c22", '../img/edades/menor20.png','../img/edades/mayor30.png', '../img/edades/igual25.png');
+
 async function sacarEquipos(nombre) {
     try {
         // Realizar la solicitud fetch
@@ -179,4 +215,18 @@ async function sacarEquipos(nombre) {
         return null;
     }
 }
+function calcularEdad(fechaNacimiento) {
+    const hoy = new Date(); // Fecha actual
+    const nacimiento = new Date(fechaNacimiento); // Convertir la fecha de nacimiento a un objeto Date
+    let edad = hoy.getFullYear() - nacimiento.getFullYear(); // Calcular la diferencia de años
+    const mes = hoy.getMonth() - nacimiento.getMonth(); // Calcular la diferencia de meses
+
+    // Ajustar la edad si el cumpleaños de este año aún no ha ocurrido
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+    }
+
+    return edad;
+}
+
 
