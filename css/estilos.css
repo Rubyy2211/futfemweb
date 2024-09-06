@@ -4,6 +4,7 @@ body {
     flex-direction: column;
     align-items: center;
     background: #480048;
+    margin: 0;
 }
 header{
     width: 100%;

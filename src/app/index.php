@@ -35,9 +35,9 @@
         </div>
         <div class="col-md-3">
             <div class="game-button">
-                <img src="#" alt="Game 4">
-                <h4>Futbol11 Bingo</h4>
-                <button class="btn btn-primary btn-block">PLAY</button>
+                <img src="../img/Bingo.png" alt="Game 4">
+                <h4>Futfem Bingo</h4>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='bingo.php'">PLAY</button>
             </div>
         </div>
     </div>

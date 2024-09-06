@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Fútbol</title>
-    <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bingo.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
 </head>
 <body>
-<div class="container">
+<?php require_once 'header.html'?>
+<div class="contenedor">
     <!-- Imagen y nombre del jugador -->
     <div class="player">
         <img id="player-image" src="../img/predeterm.jpg" alt="Jugador">
@@ -213,7 +215,8 @@
     });
 </script>
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../js/verificar.js"></script>
 <script src="../js/bingo.js"></script>
 </body>
