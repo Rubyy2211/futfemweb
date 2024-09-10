@@ -1,28 +1,33 @@
 <?php
 require_once "includes/conexion-bbdd.php";
 
-// Obtener los IDs pasados por GET
-$id1 = isset($_GET['id1']) ? intval($_GET['id1']) : null;
-$id2 = isset($_GET['id2']) ? intval($_GET['id2']) : null;
-$id3 = isset($_GET['id3']) ? intval($_GET['id3']) : null;
+// Obtener los IDs pasados por GET como un array
+$ids = isset($_GET['id']) ? $_GET['id'] : [];
 
-if ($id1 !== null && $id2 !== null && $id3 !== null) {
-    $query = "SELECT nombre, bandera, id_pais FROM paises WHERE id_pais IN (?, ?, ?)";
+// Validar que se ha pasado al menos un ID
+if (!empty($ids)) {
+    // Sanitizar y validar los IDs
+    $ids = array_map('intval', $ids);
+
+    // Crear la cláusula IN para la consulta SQL
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $query = "SELECT nombre, bandera, id_pais FROM paises WHERE id_pais IN ($placeholders)";
+
+    // Preparar y ejecutar la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("iii", $id1, $id2, $id3);
+    $stmt->bind_param(str_repeat('i', count($ids)), ...$ids);
 
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    $ligas = [];
+    $paises = [];
 
     if ($resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
-            $ligas[] = [
+            $paises[] = [
                 'nombre' => $fila['nombre'],
                 'bandera' => base64_encode($fila['bandera']), // Codificar la imagen en base64
                 'pais' => $fila['id_pais'],
-
             ];
         }
     }
@@ -32,9 +37,10 @@ if ($id1 !== null && $id2 !== null && $id3 !== null) {
 
     // Devolver los resultados como JSON
     header('Content-Type: application/json');
-    $salida["success"] = $ligas;
+    $salida['success'] = $paises;
 
 } else {
-    // Si no se encontraron huertos disponibles, agregar un mensaje de error
-    $salida["error"] = "No hay huertos pais";
+    // Si no se encontraron IDs, devolver un mensaje de error
+    header('Content-Type: application/json');
+    $salida['error'] = "No se han proporcionado IDs de países";
 }

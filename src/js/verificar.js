@@ -79,7 +79,7 @@ function verificarNacionalidad(idPais) {
         const th = document.getElementById(id);
         if (th) {
             const img = th.querySelector('img');
-            if (img && img.classList.contains(idPais.toString())) {
+            if (img && img.className==="pais"+idPais){
                 columnaEncontrada = index + 1; // Las columnas comienzan en 1
             }
         }
@@ -141,7 +141,7 @@ function verificarEquipo(equipos,columna) {
             const th = document.getElementById(columnas[index]);
             if (th) {
                 const img = th.querySelector('img');
-                if (img && img.classList.contains(equipo.Equipo.toString())) {
+                if (img && img.className==='club'+equipo.Equipo) {
                     resultadoEncontrado = index + 1;
                     const resultado = document.getElementById("resultado");
                     resultado.textContent = `El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`;

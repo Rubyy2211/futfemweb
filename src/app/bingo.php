@@ -63,7 +63,7 @@
         // Verificar si es un país o un club según el atributo alt de la imagen
         if (img.alt === "Pais") {
             if (imgClass === `pais${jugador.pais}`) { // Compara con el campo de país del jugador
-                console.log("¡Coincidencia de país encontrada!");
+                //console.log("¡Coincidencia de país encontrada!");
                 bloquearCeldaEstilo(cell, jugador.foto); // Usar la imagen correcta
                 hasMatch = true;
             } else {
@@ -163,7 +163,7 @@
                 return response.json(); // Parsear la respuesta JSON
             })
             .then(async jugador => {
-                console.log(jugador);
+                //console.log(jugador);
 
                 // Actualizar el nombre y la imagen del jugador
                 document.getElementById("player-name").textContent = jugador.nombre;
@@ -179,10 +179,10 @@
                     const ligasEquipos = equipos.map(e => e.liga); // Extraer las ligas de los equipos
                     let data = { 'pais': pais, 'edad': edad, 'trayectoria': nombresEquipos, 'foto': jugador.imagen, 'liga': ligasEquipos};
 
-                    console.log('Paises:', pais);
+                    /*console.log('Paises:', pais);
                     console.log('Equipos:', data);
                     console.log('Ligas:', data.liga);
-                    console.log('Edad:', data.edad);
+                    console.log('Edad:', data.edad);*/
 
                     // Remover event listeners anteriores
                     const cells = document.querySelectorAll('td');
@@ -265,6 +265,7 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../js/funciones-tablas.js"></script>
 <script src="../js/verificar.js"></script>
 <script src="../js/bingo.js"></script>
 </body>
