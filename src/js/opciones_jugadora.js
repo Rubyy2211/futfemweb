@@ -44,6 +44,6 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
         }
     }else if(modo==='grid'){
         console.log(`Jugadora seleccionada: ${nombreCompleto} (ID: ${idJugadora})`);
-        Verificar(nombreCompleto);
+        Verificar(idJugadora);
     }
 }

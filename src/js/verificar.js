@@ -1,40 +1,3 @@
-async function Verificar(nombreJugadora){
-    console.log('Procesando jugadora:', nombreJugadora);
-    if (!nombreJugadora) {
-        alert("Por favor, introduce el nombre de la jugadora.");
-        return;
-    }
-
-    try {
-        // Obtener el ID del país
-        const idPais = await obtenerIdPais(nombreJugadora);
-
-        if (idPais !== null) {
-            console.log('ID del país:', idPais);
-
-            // Verificar la nacionalidad y obtener la columna
-            const columna = verificarNacionalidad(idPais);
-
-            if (columna !== null) {
-                // Obtener los equipos
-                const equipos = await obtenerEquipos(nombreJugadora);
-                if (equipos) {
-                    // Comparar los equipos con las imágenes en la tabla y obtener la fila
-                    const fila = verificarEquipo(equipos,columna);
-                    if (fila !== null) {
-                        // Colocar la imagen en la celda correcta usando la fila y columna
-                        colocarImagenEnTabla(fila.columna, columna, fila.foto);
-                    }
-                }
-            }
-        } else {
-            console.log('No se encontró el ID del país.');
-        }
-    } catch (error) {
-        console.error('Error en el proceso de verificación:', error);
-    }
-}
-
 async function obtenerIdPais(nombre) {
     try {
         // Realizar la solicitud fetch
@@ -99,7 +62,7 @@ function verificarNacionalidad(idPais) {
 async function obtenerEquipos(nombre) {
     try {
         // Realizar la solicitud fetch
-        const response = await fetch(`../api/equipoactual?nombre=${encodeURIComponent(nombre)}`);
+        const response = await fetch(`../api/guesstrayectoria?id=${encodeURIComponent(nombre)}`);
 
         // Verificar que la solicitud fue exitosa
         if (!response.ok) {
@@ -132,26 +95,26 @@ async function obtenerEquipos(nombre) {
 // Función que compara el ID del país con los ID de las imágenes en la tabla
 function verificarEquipo(equipos,columna) {
     console.log("Equipos para verificar:", equipos);
-
+    const trayectoria=equipos.reverse();
     const columnas = ["Equipo1", "Equipo2", "Equipo3"];
     let resultadoEncontrado = null;
 
-    for (let equipo of equipos) {
+    for (let equipo of trayectoria) {
         for (let index = 0; index < columnas.length; index++) {
             const th = document.getElementById(columnas[index]);
             if (th) {
                 const img = th.querySelector('img');
-                if (img && img.className==='club'+equipo.Equipo) {
+                if (img && img.className==='club'+equipo.equipo) {
                     resultadoEncontrado = index + 1;
                     const resultado = document.getElementById("resultado");
-                    resultado.textContent = `El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`;
+                    resultado.textContent = `El equipo ${equipo.equipo} se encuentra en la fila número ${resultadoEncontrado}.`;
                     //console.log(`El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`);
                     const idCelda = `c${resultadoEncontrado}${columna}`;
                     const td = document.getElementById(idCelda);
                     if (td) {
                         // Verificar si la celda ya contiene una imagen
                         if (!td.querySelector('img')) {
-                            return  {'columna': resultadoEncontrado, 'foto' : equipo.JugadoraImagen};
+                            return  {'columna': resultadoEncontrado, 'foto' : equipo.imagen};
                         }
                     }
 
