@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FUTFEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/estilos.css">
@@ -35,9 +38,9 @@
         </div>
         <div class="col-md-3">
             <div class="game-button">
-                <img src="#" alt="Game 4">
-                <h4>Futbol11 Bingo</h4>
-                <button class="btn btn-primary btn-block">PLAY</button>
+                <img src="../img/Bingo.png" alt="Game 4">
+                <h4>Futfem Bingo</h4>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='bingo.php'">PLAY</button>
             </div>
         </div>
     </div>

@@ -31,20 +31,19 @@ function closeModal() {
 
 function handleSelectedJugadora(idJugadora, nombreCompleto, imagen, modo) {
     if(modo==='trayectoria') {
-        const div = document.getElementById('fotos');
+        const div = document.getElementById('trayectoria');
         const idClass = `id-${idJugadora}`;
         const found = div.classList.contains(idClass);
 
         const resultDiv = document.getElementById('result');
         if (found) {
             resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
-            cambiarImagenConFlip(imagen);
-            removeOcultarFromChildren();
+            cambiarImagenConFlip();
         } else {
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }
     }else if(modo==='grid'){
         console.log(`Jugadora seleccionada: ${nombreCompleto} (ID: ${idJugadora})`);
-        Verificar(nombreCompleto);
+        Verificar(idJugadora);
     }
 }

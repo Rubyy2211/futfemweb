@@ -1,9 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #480048;
+    margin: 0;
 }
 header{
     width: 100%;
@@ -105,8 +106,13 @@ input::placeholder{
 }
 .flip-container {
     perspective: 1000px;
+<<<<<<< HEAD
     width: 200px;
     height: 200px;
+=======
+    width: 150px;
+    height: 125px;
+>>>>>>> develop
     position: relative;
 }
 
@@ -119,7 +125,11 @@ input::placeholder{
 }
 
 .flipping {
+<<<<<<< HEAD
     transform: rotateY(180deg); /* Voltea 180 grados para revelar la parte trasera */
+=======
+    transform: rotateY(180deg); /* Voltea 180 grados para revelar la parte trasera y se mantiene ahí */
+>>>>>>> develop
 }
 
 .front, .back {
@@ -132,11 +142,26 @@ input::placeholder{
 .front {
     z-index: 2; /* Mostrar primero la cara frontal */
     transform: rotateY(0deg);
+<<<<<<< HEAD
+=======
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+>>>>>>> develop
 }
 
 .back {
     transform: rotateY(180deg); /* La parte trasera está volteada inicialmente */
+<<<<<<< HEAD
 }
 
 
 
+=======
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+>>>>>>> develop

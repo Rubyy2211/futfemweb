@@ -1,14 +1,14 @@
 <?php
 require_once "includes/conexion-bbdd.php";
 
-$query = "SELECT nombre FROM jugadoras WHERE LENGTH(nombre) = 5 ORDER BY RAND() LIMIT 1"; // Selecciona una palabra aleatoria
+$query = "SELECT Apodo FROM jugadoras WHERE LENGTH(Apodo) = 5 ORDER BY RAND() LIMIT 1"; // Selecciona una palabra aleatoria
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
 if ($resultado->num_rows > 0) {
     $fila = $resultado->fetch_assoc();
-    $palabra = $fila['nombre'];
+    $palabra = $fila['Apodo'];
 } else {
     $palabra = ""; // En caso de que no haya resultados
 }
