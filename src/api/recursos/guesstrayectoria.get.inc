@@ -11,11 +11,24 @@ if ($idJugadora <= 0) {
 
 // Preparar y ejecutar la consulta para obtener la información de la jugadora y su trayectoria
 $query = "
-    SELECT trayectoria.jugadora, trayectoria.equipo, trayectoria.años, trayectoria.imagen, equipos.escudo, equipos.liga 
-    FROM trayectoria 
-    JOIN equipos ON trayectoria.equipo = equipos.id_equipo 
-    WHERE trayectoria.jugadora = ? 
-    ORDER BY trayectoria.años;
+    SELECT 
+    trayectoria.jugadora, 
+    trayectoria.equipo, 
+    trayectoria.años, 
+    trayectoria.imagen, 
+    equipos.escudo, 
+    equipos.liga, 
+    jugadoras.imagen AS ImagenJugadora 
+FROM 
+    trayectoria 
+JOIN 
+    equipos ON trayectoria.equipo = equipos.id_equipo 
+JOIN 
+    jugadoras ON trayectoria.jugadora = jugadoras.id_jugadora 
+WHERE 
+    trayectoria.jugadora = ?
+ORDER BY 
+    trayectoria.años;
 ";
 
 $stmt = $conn->prepare($query);
@@ -28,6 +41,9 @@ while ($row = $result->fetch_assoc()) {
     // Codificar la imagen de la jugadora en base64 si está disponible
     if (!empty($row['imagen'])) {
         $row['imagen'] = 'data:image/jpeg;base64,' . base64_encode($row['imagen']);
+    }
+    if (!empty($row['ImagenJugadora'])) {
+        $row['ImagenJugadora'] = 'data:image/jpeg;base64,' . base64_encode($row['ImagenJugadora']);
     }
     // Codificar el escudo del equipo en base64 si está disponible
     if (!empty($row['escudo'])) {

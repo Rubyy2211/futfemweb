@@ -2,7 +2,7 @@
 ponerBanderas([7, 16, 1], ["PaisA", "PaisB", "PaisC"]); // Llama a la función con los IDs de los países que quieras
 
 // Ejemplo de uso
-ponerClubes([1, 3, 44], ["Equipo1", "Equipo2", "Equipo3"]); // Llama a la función con los IDs de los países que quieras
+ponerClubes([1, 3, 11], ["Equipo1", "Equipo2", "Equipo3"]); // Llama a la función con los IDs de los países que quieras
 
 async function Verificar(nombreJugadora){
     console.log('Procesando jugadora:', nombreJugadora);
@@ -28,8 +28,8 @@ async function Verificar(nombreJugadora){
                     // Comparar los equipos con las imágenes en la tabla y obtener la fila
                     const fila = verificarEquipo(equipos,columna);
                     if (fila !== null) {
-                        // Colocar la imagen en la celda correcta usando la fila y columna
-                        colocarImagenEnTabla(fila.columna, columna, fila.foto);
+                            // Colocar la imagen en la celda correcta usando la fila y columna
+                            colocarImagenEnTabla(fila.columna, columna, fila.foto);
                     }
                 }
             }

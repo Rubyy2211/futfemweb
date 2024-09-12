@@ -114,11 +114,13 @@ function verificarEquipo(equipos,columna) {
                     if (td) {
                         // Verificar si la celda ya contiene una imagen
                         if (!td.querySelector('img')) {
-                            return  {'columna': resultadoEncontrado, 'foto' : equipo.imagen};
+                            if (equipo.imagen===''){
+                                return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
+                            }else{
+                                return  {'columna': resultadoEncontrado, 'foto' : equipo.imagen};
+                            }
                         }
                     }
-
-
                 }
             }
         }
