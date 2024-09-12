@@ -13,7 +13,9 @@ if (!$nombre) {
 $query = "
 SELECT 
     id_jugadora, 
-    CONCAT(Nombre, ' ', Apellidos) AS Completo
+    CONCAT(Nombre, ' ', Apellidos) AS Completo,
+    imagen,
+    apodo
 FROM 
     jugadoras
 WHERE 
@@ -35,7 +37,10 @@ if ($result->num_rows > 0) {
     while ($fila = $result->fetch_assoc()) {
         $jugadoras[] = [
             'id_jugadora' => $fila['id_jugadora'],
-            'Nombre_Completo' => $fila['Completo']
+            'Nombre_Completo' => $fila['Completo'],
+            'imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']), // Codificar la imagen en base64
+            'Apodo' => $fila['apodo'],
+
         ];
     }
 } else {

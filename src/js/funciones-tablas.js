@@ -187,3 +187,32 @@ function ponerEdades(id1, id2, id3, rutaImagen1, rutaImagen2, rutaImagen3) {
 //----------------------------------------------------------------------------------
 //---------------Funciones para verificar banderas, clubes, edades------------------
 //----------------------------------------------------------------------------------
+async function sacarJugadora() {
+    try {
+        const jugInput = document.getElementById('input');
+        const texto = jugInput.value.trim();
+        const urlj = `../api/guessjugadora?nombre=${encodeURIComponent(texto)}`;
+
+        const response = await fetch(urlj);
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+
+        if (Array.isArray(data) && data.length > 0) {
+            if (data.length === 1) {
+                // Solo un resultado, no es necesario mostrar el modal
+                return data;
+            } else {
+                // Múltiples resultados, mostrar el modal
+                return null;
+            }
+        } else {
+            throw new Error("La respuesta no contiene los datos esperados.");
+        }
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+    }
+}

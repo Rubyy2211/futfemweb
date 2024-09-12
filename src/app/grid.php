@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="cont">
 <label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
 <button onclick="obtenerJugadoras()">Verificar</button>
 </div>
