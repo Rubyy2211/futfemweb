@@ -48,7 +48,7 @@
         <ul id="jugadoraList"></ul>
     </div>
     <div class="modal-footer">
-        <button id="modalClose" class="modal-close">Cancelar</button>
+        <button id="modalClose" class="modal-close" onclick="closeModal()">Cancelar</button>
     </div>
 </div>
 

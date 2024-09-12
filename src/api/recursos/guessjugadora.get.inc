@@ -11,9 +11,14 @@ if (!$nombre) {
 
 // Preparar y ejecutar la consulta
 $query = "
-    SELECT id_jugadora, CONCAT(Nombre, ' ', apellidos) AS Completo
-    FROM jugadoras
-    WHERE CONCAT(Nombre, ' ', apellidos) REGEXP CONCAT('(^|[[:space:]])', ?, '([[:space:]]|$)');
+SELECT 
+    id_jugadora, 
+    CONCAT(Nombre, ' ', Apodo, ' ', Apellidos) AS Completo
+FROM 
+    jugadoras
+WHERE 
+    CONCAT(Nombre, ' ', Apodo, ' ', Apellidos) REGEXP CONCAT('(^|[[:space:]])', ?, '([[:space:]]|$)');
+
 ";
 
 $stmt = $conn->prepare($query);

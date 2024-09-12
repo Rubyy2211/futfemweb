@@ -61,6 +61,7 @@ async function colocarImagenEnTabla(equipo, columna, player) {
         img.alt = `Jugador en fila ${equipo}, columna ${columna}`;
         img.style.width = '100%'; // Ajustar tamaño según sea necesario
         img.style.height = '100%';
+        img.style.background = 'white';
         td.appendChild(img);
 
         console.log(`Imagen colocada en la celda con id ${idCelda}`);
