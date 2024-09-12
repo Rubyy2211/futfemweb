@@ -149,7 +149,7 @@ async function obtenerJugadoras() {
         if (Array.isArray(data) && data.length > 0) {
             if (data.length === 1) {
                 // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo, data[0].imagen,'grid');
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'grid');
             } else {
                 // Múltiples resultados, mostrar el modal
                 showModalForSelection(data,'grid');

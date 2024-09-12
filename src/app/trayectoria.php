@@ -13,18 +13,8 @@
 <?php require_once 'header.html'?>
 <h1>Adivina la Jugadora</h1>
 <div id="game">
-    <div class="flip-container" id="flip-container">
-        <div class="flipper">
-            <!-- Imagen Frontal -->
-            <img id="frontal" class="front" src="../img/mystery.jpg" alt="Imagen Frontal">
-
-            <!-- Imagen Trasera (Inicialmente Oculta) -->
-            <img id="trasera" class="back" src="#" alt="Imagen Trasera">
-        </div>
-    </div>
-    <p id="result"></p>
-
-    <div id="trayectoria">
+    <img src="../img/mystery.jpg" class="mystery" alt="mystery player">
+  <div id="trayectoria">
     <!-- Aquí se mostrarán los escudos de los equipos -->
   </div>
     <!-- Modal Structure -->
@@ -41,6 +31,7 @@
     <div id="respuesta">
   <label for="jugadoraInput"><input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora"></label>
   <button onclick="checkAnswer()">Verificar</button>
+  <p id="result"></p>
   </div>
 </div>
 <script src="../js/opciones_jugadora.js"></script>

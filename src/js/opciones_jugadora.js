@@ -1,5 +1,5 @@
 
-function showModalForSelection(jugadoras, imagen, modo) {
+function showModalForSelection(jugadoras,modo) {
     const modal = document.getElementById('selectionModal');
     const jugadoraList = document.getElementById('jugadoraList');
     jugadoraList.innerHTML = ''; // Limpiar la lista anterior
@@ -11,7 +11,7 @@ function showModalForSelection(jugadoras, imagen, modo) {
         li.dataset.id = jugadora.id_jugadora;
 
         li.addEventListener('click', () => {
-            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo, imagen, modo);
+            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo,modo);
             closeModal();
         });
 
@@ -29,7 +29,7 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-function handleSelectedJugadora(idJugadora, nombreCompleto, imagen, modo) {
+function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
     if(modo==='trayectoria') {
         const div = document.getElementById('trayectoria');
         const idClass = `id-${idJugadora}`;

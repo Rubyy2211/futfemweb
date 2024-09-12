@@ -11,7 +11,7 @@ if (!$nombre) {
 
 // Preparar y ejecutar la consulta
 $query = "
-    SELECT id_jugadora, CONCAT(Nombre, ' ', apellidos) AS Completo, imagen
+    SELECT id_jugadora, CONCAT(Nombre, ' ', apellidos) AS Completo
     FROM jugadoras
     WHERE CONCAT(Nombre, ' ', apellidos) REGEXP CONCAT('(^|[[:space:]])', ?, '([[:space:]]|$)');
 ";
@@ -30,8 +30,7 @@ if ($result->num_rows > 0) {
     while ($fila = $result->fetch_assoc()) {
         $jugadoras[] = [
             'id_jugadora' => $fila['id_jugadora'],
-            'Nombre_Completo' => $fila['Completo'],
-            'imagen' => 'data:image/jpeg;base64,'.base64_encode($fila['imagen'])
+            'Nombre_Completo' => $fila['Completo']
         ];
     }
 } else {
@@ -40,8 +39,7 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 $conn->close();
-// Devolver los resultados como JSON
-header('Content-Type: application/json');
+
 // Devolver el resultado como JSON
 $salida=$jugadoras;
 ?>
