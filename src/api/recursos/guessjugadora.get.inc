@@ -13,7 +13,7 @@ if (!$nombre) {
 $query = "
 SELECT 
     id_jugadora, 
-    CONCAT(Nombre, ' ', Apodo, ' ', Apellidos) AS Completo
+    CONCAT(Nombre, ' ', Apellidos) AS Completo
 FROM 
     jugadoras
 WHERE 
