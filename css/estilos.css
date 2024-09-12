@@ -104,3 +104,43 @@ input::placeholder{
     border: none;
     cursor: pointer;
 }
+.flip-container {
+    perspective: 1000px;
+    width: 150px;
+    height: 125px;
+    position: relative;
+}
+
+.flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.2s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.flipping {
+    transform: rotateY(180deg); /* Voltea 180 grados para revelar la parte trasera y se mantiene ahí */
+}
+
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la parte trasera cuando no se está viendo */
+}
+
+.front {
+    z-index: 2; /* Mostrar primero la cara frontal */
+    transform: rotateY(0deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.back {
+    transform: rotateY(180deg); /* La parte trasera está volteada inicialmente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
