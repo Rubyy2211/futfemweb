@@ -1,9 +1,8 @@
-// Ejemplo de uso
-ponerBanderas([7, 16, 1], ["c21", "c32", "c33"]); // Llama a la función con los IDs de los países que quieras
-ponerLigas(1, 4, 5, "c13","c34"); // Llama a la función con los IDs de los países que quieras
-// Llama a la función con los IDs de los equipos que quieras
-ponerClubes([1,2, 44], ["c12", "c14", "c31"]);
-ponerEdades( "c11", "c24", "c22", '../img/edades/menor20.png','../img/edades/mayor30.png', '../img/edades/igual25.png');
+ponerBanderas([7, 16, 1], ["c21", "c32", "c33"]); // Asigna banderas a ciertos países por su ID.
+ponerLigas(1, 4, 5, "c13", "c34"); // Asigna ligas a los países por su ID.
+ponerClubes([1, 2, 44], ["c12", "c14", "c31"]); // Asigna clubes a los países.
+ponerEdades("c11", "c24", "c22", '../img/edades/menor20.png', '../img/edades/mayor30.png', '../img/edades/igual25.png'); // Asigna imágenes basadas en las edades.
+
 
 async function sacarEquipos(nombre) {
     try {
@@ -172,7 +171,9 @@ function skipPlayer() {
             // Actualizar el nombre y la imagen del jugador
             document.getElementById("player-name").textContent = jugador.nombre;
             const img=document.getElementById("player-image");
-            img.src = jugador.imagen;
+            if(jugador.imagen==='data:image/jpeg;base64,'){
+            img.src='../img/predeterm.jpg';
+            }else{img.src = jugador.imagen;}
             img.className=jugador.id;
 
             // Obtener la edad, país y equipos asociados al jugador

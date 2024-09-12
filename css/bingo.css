@@ -16,10 +16,18 @@ body {
     margin-bottom: 20px;
 }
 
+.info-player{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .player img {
     border-radius: 50%;
     width: 150px;
     height: 150px;
+    background: white;
+    border: 1px solid rgba(128,0,128,0.5);
 }
 
 .player-name {
@@ -32,6 +40,7 @@ table {
     width: auto;
     table-layout: fixed;
     border-spacing: 10px;
+    border-collapse: unset;
 }
 
 th, td {
@@ -44,6 +53,8 @@ th, td {
     vertical-align: middle;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 10px;
+    border-radius: 5px;
 }
 
 td {
@@ -109,7 +120,7 @@ img {
 .skip-button {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #1a95f7;
+    background-color: #e200ff;
     color: white;
     border: none;
     border-radius: 5px;

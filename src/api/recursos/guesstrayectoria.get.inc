@@ -11,7 +11,7 @@ if ($idJugadora <= 0) {
 
 // Preparar y ejecutar la consulta para obtener la información de la jugadora y su trayectoria
 $query = "
-    SELECT trayectoria.jugadora, trayectoria.equipo, trayectoria.años, trayectoria.imagen, equipos.escudo 
+    SELECT trayectoria.jugadora, trayectoria.equipo, trayectoria.años, trayectoria.imagen, equipos.escudo, equipos.liga 
     FROM trayectoria 
     JOIN equipos ON trayectoria.equipo = equipos.id_equipo 
     WHERE trayectoria.jugadora = ? 
