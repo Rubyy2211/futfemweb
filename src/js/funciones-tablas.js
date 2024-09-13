@@ -80,6 +80,7 @@ function ponerClubes(ids, posiciones) {
 
                 data.success.forEach((pais, index) => {
                     const th = document.getElementById(posiciones[index]);
+                    const p = document.getElementById('nombre');
 
                     th.innerHTML = ''; // Limpiar el contenido previo
 
@@ -91,6 +92,7 @@ function ponerClubes(ids, posiciones) {
                     img.style.height = "auto";
 
                     th.appendChild(img);
+                    p.textContent=pais.nombre;
                 });
             } else {
                 console.error("Error: Respuesta no contiene un array válido:", data);
@@ -187,11 +189,9 @@ function ponerEdades(id1, id2, id3, rutaImagen1, rutaImagen2, rutaImagen3) {
 //----------------------------------------------------------------------------------
 //---------------Funciones para verificar banderas, clubes, edades------------------
 //----------------------------------------------------------------------------------
-async function sacarJugadora() {
+async function sacarJugadora(id) {
     try {
-        const jugInput = document.getElementById('input');
-        const texto = jugInput.value.trim();
-        const urlj = `../api/guessjugadora?nombre=${encodeURIComponent(texto)}`;
+        const urlj = `../api/jugadoraxid?id=${encodeURIComponent(id)}`;
 
         const response = await fetch(urlj);
         if (!response.ok) {
@@ -201,18 +201,53 @@ async function sacarJugadora() {
         const data = await response.json();
         console.log('Datos recibidos:', data);
 
-        if (Array.isArray(data) && data.length > 0) {
-            if (data.length === 1) {
+            if (data !== null) {
                 // Solo un resultado, no es necesario mostrar el modal
                 return data;
             } else {
                 // Múltiples resultados, mostrar el modal
                 return null;
             }
-        } else {
-            throw new Error("La respuesta no contiene los datos esperados.");
-        }
+
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
 }
+async function obtenerPosicion(id) {
+    try {
+        // Realizar la solicitud fetch
+        const response = await fetch(`../api/posicionxjugadora?id=${encodeURIComponent(id)}`);
+
+        // Verificar que la solicitud fue exitosa
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        // Convertir la respuesta a JSON
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data); // Ver el array completo
+
+        // Asegurarse de que el dato devuelto es un array y contiene el campo 'Posicion'
+        if (Array.isArray(data) && data.length > 0 && data[0].Posicion !== undefined) {
+            const posicion = parseInt(data[0].Posicion); // Acceder al valor 'Posicion' del primer objeto
+            if (isNaN(posicion)) {
+                console.error('Error: la posición obtenida no es un número válido.');
+                return null;
+            }
+
+            return posicion; // Devolver la posición como número
+        } else {
+            console.error('Error: La estructura de los datos recibidos no es la esperada.');
+            return null;
+        }
+
+    } catch (error) {
+        console.error('Error al obtener la posición de la jugadora:', error);
+        return null; // En caso de error, devolver null
+    }
+}
+
+function numeroAleatorio(inicio, fin) {
+    return Math.floor(Math.random() * (fin - inicio + 1)) + inicio;
+}
+

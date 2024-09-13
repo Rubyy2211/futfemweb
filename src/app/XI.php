@@ -76,11 +76,11 @@
 </div>
 <div class="pista">
     <div id="requisito"></div>
-    <p>Esto es un texo</p>
+    <p id="nombre">Esto es un texo</p>
 </div>
 <div class="cont">
     <label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
-    <button onclick="obtenerJugadora()">Verificar</button>
+    <button onclick="obtenerJugadoras('XI')">Verificar</button>
 </div>
 <p id="resultado"></p>
 <script src="../js/opciones_jugadora.js"></script>

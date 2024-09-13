@@ -1,3 +1,5 @@
+cambiarPista('club');
+CrearAlineacion('433(4)');
 function CrearAlineacion(formacion){
     let celdas=[];
     if(formacion==='433'){
@@ -14,7 +16,6 @@ function CrearAlineacion(formacion){
     }
     activarCeldas(celdas);
 }
-
 function activarCeldas(celdas) {
     // Iterar sobre el array de ids proporcionado
     celdas.forEach(id => {
@@ -47,7 +48,7 @@ function activarCeldas(celdas) {
     });
 }
 async function introducirJugadora(id) {
-    let imagen = await sacarJugadora();
+    let jugadora = await sacarJugadora(id);
     console.log(id)
     const res = await comprobarPaisEquipo(id);
     console.log(res)
@@ -58,66 +59,12 @@ async function introducirJugadora(id) {
         console.log(respos)
         if (respos) {
             console.log("Encontrado");
-            colocarImagen(respos,imagen);
+            colocarImagen(respos,jugadora);
         } else {
             console.log("NO Encontrado");
         }
     }
 }
-function verificarPosicion(posicion) {
-    let res=null;
-    console.log(posicion)
-    // Seleccionar todos los td de la página
-    let celdas = document.querySelectorAll('td');
-
-    // Convertir el número en una cadena para compararlo con la clase
-    let clasePosicion = posicion.toString();
-
-    // Iterar sobre todas las celdas
-    celdas.forEach(celda => {
-        // Comprobar si la clase de la celda coincide con el número
-        if (celda.classList.contains(clasePosicion) && celda.classList.contains('activado')) {
-            console.log(`La celda con la clase '${clasePosicion}' fue encontrada.`);
-            res = celda.id;
-            console.log(res)
-        }
-    }); return res;
-}
-
-async function obtenerPosicion(id) {
-    try {
-        // Realizar la solicitud fetch
-        const response = await fetch(`../api/posicionxjugadora?id=${encodeURIComponent(id)}`);
-
-        // Verificar que la solicitud fue exitosa
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        // Convertir la respuesta a JSON
-        const data = await response.json();
-        console.log("Respuesta del servidor:", data); // Ver el array completo
-
-        // Asegurarse de que el dato devuelto es un array y contiene el campo 'Posicion'
-        if (Array.isArray(data) && data.length > 0 && data[0].Posicion !== undefined) {
-            const posicion = parseInt(data[0].Posicion); // Acceder al valor 'Posicion' del primer objeto
-            if (isNaN(posicion)) {
-                console.error('Error: la posición obtenida no es un número válido.');
-                return null;
-            }
-
-            return posicion; // Devolver la posición como número
-        } else {
-            console.error('Error: La estructura de los datos recibidos no es la esperada.');
-            return null;
-        }
-
-    } catch (error) {
-        console.error('Error al obtener la posición de la jugadora:', error);
-        return null; // En caso de error, devolver null
-    }
-}
-
 async function comprobarPaisEquipo(id) {
     let res = false; // Inicializar res como false por defecto
     const pais = await obtenerIdPais(id);
@@ -162,65 +109,79 @@ async function comprobarPaisEquipo(id) {
 
     return res; // Devolver res (true o false)
 }
-async function obtenerJugadora() {
-    try {
-        const jugInput = document.getElementById('input');
-        const texto = jugInput.value.trim();
-        const urlj = `../api/guessjugadora?nombre=${encodeURIComponent(texto)}`;
+function verificarPosicion(posicion) {
+    let res = null;
+    console.log(posicion);
 
-        const response = await fetch(urlj);
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
+    // Seleccionar todos los td de la página
+    let celdas = document.querySelectorAll('td');
 
-        const data = await response.json();
-        console.log('Datos recibidos:', data);
+    // Convertir el número en una cadena para compararlo con la clase
+    let clasePosicion = posicion.toString();
 
-        if (Array.isArray(data) && data.length > 0) {
-            if (data.length === 1) {
-                // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'XI');
-            } else {
-                // Múltiples resultados, mostrar el modal
-                showModalForSelection(data,'XI');
+    // Iterar sobre todas las celdas
+    celdas.forEach(celda => {
+        // Comprobar si la clase de la celda coincide con el número y si tiene la clase 'activado'
+        if (celda.classList.contains(clasePosicion) && celda.classList.contains('activado')) {
+            // Verificar si ya hay una imagen en la celda
+            let img = celda.querySelector('img');
+
+            // Verificar si el 'src' contiene 'data:image/jpeg;base64'
+            if (!img || !img.src.startsWith('data:image/jpeg;base64')) {
+                console.log(`La celda con la clase '${clasePosicion}' sin imagen base64 y activada fue encontrada.`);
+                res = celda.id; // Guardar el id de la celda sin imagen base64
+                console.log(res);
             }
-        } else {
-            throw new Error("La respuesta no contiene los datos esperados.");
         }
-    } catch (error) {
-        console.error("Error al obtener los datos:", error);
-    }
-}
+    });
 
+    return res;
+}
 async function colocarImagen(celda, data) {
     console.log("Lugar a colocar", celda);
 
-    // Construir el ID de la celda basado en la fila y columna
+    // Buscar la celda por su ID
     const td = document.getElementById(celda);
 
     if (td) {
         // Verificar si la celda ya contiene una imagen
-            let img = td.querySelector('img');
-            let p = td.querySelector('p');
-            img = td.querySelector('img')
-            img.src = data[0].imagen; // Usar la URL de la imagen de la jugadora
+        let img = td.querySelector('img');
+        let p = td.querySelector('p');
+
+        // Si no hay imagen o la imagen no es base64, crearla y colocarla
+        if (!img || !img.src.startsWith('data:image/jpeg;base64')) {
+            if (!img) {
+                img = document.createElement('img');
+                td.appendChild(img); // Agregar la imagen a la celda si no existe
+            }
+            img.src = data[0].Imagen; // Usar la URL de la imagen (que puede ser base64)
+            console.log(data);
             img.alt = `Jugador en fila ${celda}`;
             img.style.background = 'white';
-            p.textContent=data[0].Apodo;
+            cambiarPista('club')
+        } else {
+            console.log(`La celda con id ${celda} ya tiene una imagen base64.`);
+        }
 
-
+        // Actualizar el texto del párrafo o crearlo si no existe
+        if (!p) {
+            p = document.createElement('p');
+            td.appendChild(p);
+        }
+        p.textContent = data[0].Apodo;
 
         console.log(`Imagen colocada en la celda con id ${celda}`);
     } else {
         console.log(`No se encontró la celda con id ${celda}.`);
     }
 }
-
-
-
-
-
-
-
-CrearAlineacion('433(4)');
-ponerBanderas([7],['requisito']);
+function cambiarPista(modo){
+    if(modo==='club'){
+        let res = numeroAleatorio(1,82);
+        ponerClubes([res],['requisito']);
+    }
+    if(modo==='paises'){
+        let res = numeroAleatorio(1,49);
+        ponerBanderas([res],['requisito']);
+    }
+}
