@@ -78,6 +78,7 @@
     <div id="requisito"></div>
     <p id="nombre">Esto es un texo</p>
 </div>
+<button onclick="cambiarPista('club')">Skip</button>
 <div class="cont">
     <label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
     <button onclick="obtenerJugadoras('XI')">Verificar</button>

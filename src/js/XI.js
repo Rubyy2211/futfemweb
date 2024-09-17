@@ -143,38 +143,58 @@ async function colocarImagen(celda, data) {
     // Buscar la celda por su ID
     const td = document.getElementById(celda);
 
+    // Obtener el elemento 'logo', que podría ser una imagen de fondo u otro elemento
+    const pista = document.getElementById('logo');
+    let p = td.querySelector('p');  // Seleccionar el párrafo dentro de la celda
+
     if (td) {
         // Verificar si la celda ya contiene una imagen
         let img = td.querySelector('img');
-        let p = td.querySelector('p');
 
-        // Si no hay imagen o la imagen no es base64, crearla y colocarla
-        if (!img || !img.src.startsWith('data:image/jpeg;base64')) {
-            if (!img) {
-                img = document.createElement('img');
-                td.appendChild(img); // Agregar la imagen a la celda si no existe
-            }
-            img.src = data[0].Imagen; // Usar la URL de la imagen (que puede ser base64)
-            console.log(data);
-            img.alt = `Jugador en fila ${celda}`;
-            img.style.background = 'white';
-            cambiarPista('club')
-        } else {
-            console.log(`La celda con id ${celda} ya tiene una imagen base64.`);
+        // Si no hay imagen, crearla y colocarla
+        if (!img) {
+            img = document.createElement('img');
+            td.appendChild(img); // Agregar la imagen a la celda si no existe
         }
 
+        // Colocar la imagen del jugador
+        img.src = data[0].Imagen; // Usar la URL de la imagen (que puede ser base64 o un enlace normal)
+        img.alt = `Jugador en fila ${celda}`;
+        console.log(data);
+
+        // Color semitransparente para teñir la imagen
+        const colorTinte = '#ddd';
+
+        // Si pista es un elemento img, usar su src como background de la imagen
+        if (pista && pista.tagName === 'IMG') {
+            p = p || document.createElement('p');  // Crear el párrafo si no existe
+            p.style.backgroundImage = `url(${pista.src}), linear-gradient(${colorTinte}, ${colorTinte})`;
+        } else {
+            // Si es otro tipo de elemento (p. ej., un div), puedes usar su background
+            p = p || document.createElement('p');  // Crear el párrafo si no existe
+            p.style.background = pista ? pista.style.background : '';
+        }
+
+        // Usar `background-blend-mode` para mezclar la imagen con el color
+        p.style.backgroundBlendMode = 'multiply'; // El modo 'multiply' tiñe la imagen con el color
+
+        // Ajustar cómo se ven los fondos (ej. cubrir todo el área del párrafo)
+        p.style.backgroundSize = 'cover';  // Hacer que la imagen cubra todo el párrafo
+        p.style.backgroundPosition = 'center';  // Centrar la imagen
+        p.style.backgroundRepeat = 'no-repeat';  // Evitar que la imagen se repita
+
         // Actualizar el texto del párrafo o crearlo si no existe
-        if (!p) {
-            p = document.createElement('p');
+        if (!td.contains(p)) {
             td.appendChild(p);
         }
         p.textContent = data[0].Apodo;
-
+        cambiarPista('club');
         console.log(`Imagen colocada en la celda con id ${celda}`);
     } else {
         console.log(`No se encontró la celda con id ${celda}.`);
     }
 }
+
 function cambiarPista(modo){
     if(modo==='club'){
         const valores = [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 18, 21, 23, 26, 55, 78, 79, 80, 81];

@@ -90,6 +90,7 @@ function ponerClubes(ids, posiciones) {
                     img.classList.add('club'+pais.club)
                     img.style.width = "50px";
                     img.style.height = "auto";
+                    img.id='logo';
 
                     th.appendChild(img);
                     p.textContent=pais.nombre;
