@@ -64,7 +64,7 @@ function ponerBanderas(ids, posiciones) {
 //--------------------Poner Clubes--------------------------------------------------
 function ponerClubes(ids, posiciones) {
     const url = `../api/equipos?id[]=${ids.join('&id[]=')}`;
-    //console.log(`URL generada: ${url}`);
+    console.log(`URL generada: ${url}`);
 
     fetch(url)
         .then(response => {
@@ -74,26 +74,44 @@ function ponerClubes(ids, posiciones) {
             return response.json();
         })
         .then(data => {
-            //console.log("Respuesta recibida:", data);
+            console.log("Respuesta recibida:", data);
 
             if (data.success && Array.isArray(data.success)) {
+                // Comprobar que las posiciones proporcionadas son las correctas
+                if (data.success.length !== posiciones.length) {
+                    console.error("Error: La cantidad de posiciones no coincide con la cantidad de países recibidos.");
+                    return;
+                }
 
                 data.success.forEach((pais, index) => {
                     const th = document.getElementById(posiciones[index]);
-                    const p = document.getElementById('nombre');
 
-                    th.innerHTML = ''; // Limpiar el contenido previo
+                    if (th) {
 
-                    const img = document.createElement('img');
-                    img.src = pais.escudo; // Usar la URL directamente
-                    img.alt = "Club";
-                    img.classList.add('club'+pais.club)
-                    img.style.width = "50px";
-                    img.style.height = "auto";
-                    img.id='logo';
+                        th.innerHTML = ''; // Limpiar el contenido previo
 
-                    th.appendChild(img);
-                    p.textContent=pais.nombre;
+                        // Crear y configurar la imagen
+                        const img = document.createElement('img');
+                        img.alt = "Club";
+                        img.src = `${pais.escudo}`;
+                        img.id='logo';
+                        img.style.width = "50px";
+                        img.style.height = "auto";
+                        img.classList.add('club'+pais.club);
+
+                        // Crear y configurar el texto (si se desea incluir)
+                        /*
+                        const text = document.createElement('p');
+                        text.textContent = pais.nombre;
+                        text.style.margin = "0";
+                        */
+
+                        // Añadir imagen y texto al elemento th
+                        th.appendChild(img);
+                        //th.appendChild(text);
+                    } else {
+                        console.error(`Elemento con id ${posiciones[index]} no encontrado.`);
+                    }
                 });
             } else {
                 console.error("Error: Respuesta no contiene un array válido:", data);
