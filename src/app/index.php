@@ -33,7 +33,7 @@
             <div class="game-button">
                 <img src="../img/XI_Clubs.png" alt="Game 3">
                 <h4>Futfem Clubs</h4>
-                <button class="btn btn-primary btn-block" onclick="window.location.href='XI.php'">PLAY</button>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='XI_Clubs.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
