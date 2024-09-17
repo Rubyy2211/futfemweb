@@ -177,7 +177,8 @@ async function colocarImagen(celda, data) {
 }
 function cambiarPista(modo){
     if(modo==='club'){
-        let res = numeroAleatorio(1,82);
+        const valores = [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 18, 21, 23, 26, 55, 78, 79, 80, 81];
+        let res = numeroAleatorioArray(valores);
         ponerClubes([res],['requisito']);
     }
     if(modo==='paises'){
