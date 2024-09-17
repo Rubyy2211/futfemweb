@@ -31,9 +31,9 @@
         </div>
         <div class="col-md-3">
             <div class="game-button">
-                <img src="#" alt="Game 3">
-                <h4>Futbol11 Clubs</h4>
-                <button class="btn btn-primary btn-block">PLAY</button>
+                <img src="../img/XI_Clubs.png" alt="Game 3">
+                <h4>Futfem Clubs</h4>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='XI.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
