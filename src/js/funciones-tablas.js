@@ -251,3 +251,12 @@ function numeroAleatorio(inicio, fin) {
     return Math.floor(Math.random() * (fin - inicio + 1)) + inicio;
 }
 
+function numeroAleatorioArray(valores) {
+    // Generar un índice aleatorio basado en la longitud del array
+    const indiceAleatorio = Math.floor(Math.random() * valores.length);
+
+    // Devolver el valor correspondiente al índice aleatorio
+    return valores[indiceAleatorio];
+}
+
+
