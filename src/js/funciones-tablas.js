@@ -30,11 +30,15 @@ function ponerBanderas(ids, posiciones) {
                     if (th) {
 
                         th.innerHTML = ''; // Limpiar el contenido previo
-
+                        const p = document.getElementById('nombre');
+                        if(p){
+                            p.textContent = pais.nombre;
+                        }
                         // Crear y configurar la imagen
                         const img = document.createElement('img');
                         img.alt = "Pais";
                         img.src = `data:image/svg+xml;base64,${pais.bandera}`;
+                        img.id='logo';
                         img.style.width = "50px";
                         img.style.height = "auto";
                         img.classList.add('pais'+pais.pais);
@@ -87,7 +91,10 @@ function ponerClubes(ids, posiciones) {
                     const th = document.getElementById(posiciones[index]);
 
                     if (th) {
-
+                        const p = document.getElementById('nombre');
+                        if(p){
+                            p.textContent = pais.nombre;
+                        }
                         th.innerHTML = ''; // Limpiar el contenido previo
 
                         // Crear y configurar la imagen

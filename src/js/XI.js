@@ -1,4 +1,3 @@
-cambiarPista('club');
 CrearAlineacion('433(4)');
 function CrearAlineacion(formacion){
     let celdas=[];
@@ -188,7 +187,11 @@ async function colocarImagen(celda, data) {
             td.appendChild(p);
         }
         p.textContent = data[0].Apodo;
+        if(pista.alt==='Club'){
         cambiarPista('club');
+        }else if(pista.alt==='Pais'){
+            cambiarPista('paises');
+        }
         console.log(`Imagen colocada en la celda con id ${celda}`);
     } else {
         console.log(`No se encontró la celda con id ${celda}.`);
@@ -198,11 +201,11 @@ async function colocarImagen(celda, data) {
 function cambiarPista(modo){
     if(modo==='club'){
         const valores = [1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 18, 21, 23, 26, 55, 78, 79, 80, 81];
-        let res = numeroAleatorioArray(valores);
-        ponerClubes([res],['requisito']);
+        let res = numeroAleatorioArray(valores);ponerClubes([res],['requisito']);
     }
     if(modo==='paises'){
-        let res = numeroAleatorio(1,49);
+        const  valores = [ 1, 2, 3, 4, 7, 14, 15, 16, 18, 22, 25, 26, 27, 28, 30, 36, 41];
+        let res = numeroAleatorioArray(valores);
         ponerBanderas([res],['requisito']);
     }
 }

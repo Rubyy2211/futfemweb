@@ -47,9 +47,9 @@
     <div class="row">
         <div class="col-md-3">
             <div class="game-button">
-                <img src="#" alt="Game 5">
-                <h4>Futbol11 Top10</h4>
-                <button class="btn btn-primary btn-block">PLAY</button>
+                <img src="../img/XI_Clubs.png" alt="Game 3">
+                <h4>Futfem Nations</h4>
+                <button class="btn btn-primary btn-block" onclick="window.location.href='XI_Nations.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
