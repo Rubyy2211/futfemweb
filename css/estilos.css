@@ -6,6 +6,18 @@ body {
     background: #480048;
     margin: 0;
 }
+body>div.cont{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+body>div.cont button{
+    margin: 0;
+}
+body>div.cont label{
+    margin: 0 20px;
+}
 header{
     width: 100%;
     background: purple;

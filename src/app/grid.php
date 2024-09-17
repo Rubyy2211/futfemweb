@@ -52,9 +52,9 @@
     </div>
 </div>
 
-<div class="container">
+<div class="cont">
 <label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
-<button onclick="obtenerJugadoras()">Verificar</button>
+<button onclick="obtenerJugadoras('grid')">Verificar</button>
 </div>
 <p id="resultado"></p>
 <script src="../js/opciones_jugadora.js"></script>
