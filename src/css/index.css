@@ -1,0 +1,29 @@
+.game-button {
+    border: 1px solid #333;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: white;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+.game-button img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+.game-button h4 {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.game-button:hover {
+    transform: scale(1.05);
+    background-color: #292929;
+}
+@media (max-width: 992px) {
+    .game-button h4{
+        font-size: 1.5rem;
+    }
+}

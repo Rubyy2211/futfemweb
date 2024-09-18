@@ -2,7 +2,7 @@ table{
    /* width: 450px;*/
     height: 560px;
     /*background-color: rgba(128,0,128,0.5);*/
-    background-image: url("../src/img/imagen_2024-09-17_194038826.png"),linear-gradient(rgba(128,0,128),rgba(128,0,128));
+    background-image: url("../img/imagen_2024-09-17_194038826.png"),linear-gradient(rgba(128,0,128),rgba(128,0,128));
     background-blend-mode: luminosity;
     background-repeat: no-repeat;
     background-size: cover;

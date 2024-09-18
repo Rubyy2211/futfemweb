@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futfem XI</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/estilos.css">
-    <link rel="stylesheet" href="../../css/XI.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/XI.css">
 </head>
 <style>
     body{
@@ -81,6 +81,7 @@
 <div class="cont">
     <label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
     <button onclick="obtenerJugadoras('XI')">Verificar</button>
+    <p id="result"></p>
 </div>
 <p id="resultado"></p>
 <script src="../js/opciones_jugadora.js"></script>

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adivina la Jugadora</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/trayectoria.css">
-  <link rel="stylesheet" href="../../css/estilos.css">
+  <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/trayectoria.css">
 
 </head>
 <body>
@@ -31,8 +31,8 @@
     <div id="respuesta" class="cont">
   <label for="jugadoraInput"><input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora"></label>
   <button onclick="checkAnswer()">Verificar</button>
-  <p id="result"></p>
   </div>
+    <p id="result"></p>
 </div>
 <script src="../js/opciones_jugadora.js"></script>
 <script src="../js/guesstrayectoria.js"></script>

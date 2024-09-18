@@ -1,4 +1,4 @@
-const jugadoraId = 19;
+const jugadoraId = 25;
 
 async function loadJugadoraById(id) {
     try {
@@ -41,8 +41,6 @@ function displayTrayectoria(data) {
             const escudoImg = document.createElement('img');
             escudoImg.src = item.escudo;
             escudoImg.alt = 'Escudo';
-            escudoImg.style.width = '100px';
-            escudoImg.style.height = '100px';
             front.appendChild(escudoImg);
 
             // Crear y añadir el texto de los años
@@ -60,8 +58,6 @@ function displayTrayectoria(data) {
             const jugadoraImg = document.createElement('img');
             jugadoraImg.src = item.imagen;
             jugadoraImg.alt = 'Imagen de la Jugadora';
-            jugadoraImg.style.width = '100px';
-            jugadoraImg.style.height = '100px';
             trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
             back.appendChild(jugadoraImg);
 
