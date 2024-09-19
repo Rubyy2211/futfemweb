@@ -1,8 +1,10 @@
 // Ejemplo de uso
-ponerBanderas([7, 16, 1], ["PaisA", "PaisB", "PaisC"]); // Llama a la función con los IDs de los países que quieras
+ponerBanderas([1, 16, 3], ["PaisA", "PaisB", "PaisC"]); // Llama a la función con los IDs de los países que quieras
 
 // Ejemplo de uso
-ponerClubes([1, 3, 11], ["Equipo1", "Equipo2", "Equipo3"]); // Llama a la función con los IDs de los países que quieras
+ponerClubes([1, 7, 2], ["Equipo1", "Equipo2", "Equipo3"]); // Llama a la función con los IDs de los países que quieras
+
+
 
 async function Verificar(nombreJugadora){
     console.log('Procesando jugadora:', nombreJugadora);
@@ -47,8 +49,12 @@ async function colocarImagenEnTabla(equipo, columna, player) {
     // Construir el ID de la celda basado en la fila y columna
     const idCelda = `c${equipo}${columna}`;
     const td = document.getElementById(idCelda);
+    let res = comprobarFotosEnCeldas();
 
     if (td) {
+        if(res===true){
+            Ganaste('grid');
+        }
         // Verificar si la celda ya contiene una imagen
         if (td.querySelector('img')) {
             console.log(`La celda con id ${idCelda} ya tiene una imagen. No se colocará una nueva imagen.`);
@@ -69,4 +75,92 @@ async function colocarImagenEnTabla(equipo, columna, player) {
         console.log(`No se encontró la celda con id ${idCelda}.`);
     }
 }
+function comprobarFotosEnCeldas() {
+    // Selecciona todas las celdas que tienen id que empiece con 'c' y son números (ejemplo: c11, c12, c13, etc.)
+    const celdas = document.querySelectorAll('td[id^="c"]');
+
+    let todasConFoto = true; // Variable para verificar si todas las celdas tienen una foto
+
+    celdas.forEach(celda => {
+        // Comprueba si la celda tiene una imagen
+        const img = celda.querySelector('img');
+
+        // Si la celda no tiene una imagen, cambiamos todasConFoto a false
+        if (!img) {
+            todasConFoto = false;
+        }
+    });
+
+    // Devuelve si todas las celdas tienen una imagen
+    return todasConFoto;
+}
+document.addEventListener('DOMContentLoaded', () => {
+    function aplicarImagenes() {
+        // Obtener todos los encabezados (th) con ID que comienza con "Pais"
+        const headers = document.querySelectorAll('#grid thead th[id^="Pais"]');
+
+        // Aplicar la imagen de los encabezados a las celdas correspondientes
+        headers.forEach(header => {
+            const columna = header.cellIndex;
+            const img = header.querySelector('img');
+            if (img) {
+                const imagenSrc = img.src; // Base64 string for the image
+
+                // Seleccionar todas las celdas de esa columna
+                const filas = document.querySelectorAll('#grid tbody tr');
+                filas.forEach(fila => {
+                    const celda = fila.cells[columna];
+                    if (celda) {
+                        // Aplicar la imagen de fondo a la celda
+                        celda.style.backgroundImage = `url('${imagenSrc}')`;
+                        celda.style.backgroundSize = 'cover'; // Ajustar la imagen para cubrir el área
+                        celda.style.backgroundPosition = 'center'; // Centrar la imagen en la celda
+                        celda.style.backgroundRepeat = 'no-repeat'; // Evitar que la imagen se repita
+                    }
+                });
+            } else {
+                console.log(`No se encontró una imagen en el encabezado con ID ${header.id}.`);
+            }
+        });
+
+        // Obtener todas las filas (tr) con ID que comienza con "Equipo"
+        const filas = document.querySelectorAll('#grid tbody tr[id^="club"]');
+
+        // Aplicar la imagen de las filas a las celdas correspondientes
+        filas.forEach(fila => {
+            const th = fila.querySelector('th');
+            if (th) {
+                const img = th.querySelector('img');
+                if (img) {
+                    const imagenSrc = img.src; // Base64 string for the image
+
+                    // Aplicar la imagen de fondo a todas las celdas en esta fila
+                    const celdas = fila.querySelectorAll('td');
+                    celdas.forEach(celda => {
+                        if (celda) {
+                            // Añadir la imagen de fondo encima de la ya existente
+                            const existingBackgroundImage = celda.style.backgroundImage;
+                            celda.style.backgroundImage = `${existingBackgroundImage}, url('${imagenSrc}')`;
+                            celda.style.backgroundSize = 'cover'; // Ajustar la imagen para cubrir el área
+                            celda.style.backgroundPosition = 'center'; // Centrar la imagen en la celda
+                            celda.style.backgroundRepeat = 'no-repeat'; // Evitar que la imagen se repita
+                            celda.style.backgroundBlendMode = 'soft-light'; // Ajustar el modo de fusión para la superposición
+                        }
+                    });
+                } else {
+                    console.log(`No se encontró una imagen en la celda de encabezado de la fila con ID ${fila.id}.`);
+                }
+            } else {
+                console.log(`No se encontró un encabezado en la fila con ID ${fila.id}.`);
+            }
+        });
+    }
+
+    // Usar window.onload y setTimeout para esperar 1 segundo antes de aplicar las imágenes
+    window.onload = () => {
+        setTimeout(aplicarImagenes, 500); // Esperar 1 segundo (1000 milisegundos)
+    };
+});
+
+
 

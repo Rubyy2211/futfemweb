@@ -1,5 +1,9 @@
-
-
+body{
+    text-align: center;
+    overflow-y: auto; /* Permite el scroll horizontal si es necesario */
+    margin: 0;
+    overflow-x: hidden;
+}
 #game {
     display: flex;
     flex-direction: column;
@@ -14,10 +18,12 @@
     background-color: #c547f6;
     border-radius: 20px;
     padding: 1rem 0rem;
+    margin-top: 2.5%;
 }
 .mystery{
     width: 200px;
     border-radius: 20px;
+    margin-bottom: 2.5%;
 }
 button{
     width: 30%;
@@ -54,12 +60,11 @@ button{
     margin: 0 5px; /* Espaciado entre los escudos */
     max-width: 100px;
     max-height: 100px;
-    border: 1px solid #ccc; /* Color del borde */
+    /*border: 1px solid #ccc; /* Color del borde */
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra alrededor de la imagen */
     width: 100px;
     height: 100px;
 }
-
 label{
     margin: 0;
 }
@@ -73,7 +78,9 @@ p {
     font-weight: bold;
     display: contents;
 }
-
+#result{
+    margin: 10px;
+}
 .front{
     text-align: end;
     height: inherit;
@@ -86,7 +93,7 @@ p {
 /* Responsive: Ajustes para pantallas pequeñas */
 @media (max-width: 1350px) {
     #game{
-        max-width: 100%;
+        max-width: 100vw;
     }
     #trayectoria {
         width: 90%;
@@ -138,9 +145,10 @@ p {
     }
 
     #trayectoria img {
-        width: 65px;
+        max-width: 65px;
         height: 65px;
         flex: 1 1 0;
+        display: block;
     }
     .mystery{
         width: 150px;
@@ -165,22 +173,28 @@ p {
 }
 @media (max-width: 680px) {
     #game{
-        max-width: 100%;
+        width: 97%;
     }
     #trayectoria {
-        width: 97%;
+        max-width: 97%;
         padding: 1rem 0.2rem;
         flex: 1 1 0;
         height: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 33%); /* Esto crea 3 columnas de igual tamaño */
+        gap: 2.2rem 0; /* Espacio entre los elementos, ajusta según tu preferencia */
+        justify-items: center;
     }
+
 
     #equipos div {
         margin: 15px 10px;
+        max-width: 100%;
     }
 
     #trayectoria img {
-        width: 40px;
-        height: 40px;
+        max-width: 80px;
+        max-height: 80px;
         flex: 1 1 0;
     }
     .mystery{
@@ -196,14 +210,9 @@ p {
         padding: 8px;
     }
     p {
-        font-size: 8px;
+        font-size: 11px;
+        font-size: 11px;
         display: contents;
-    }
-    .flip-container{
-        height: 50px;
-    }
-    .front{
-        height: auto;
     }
 }
 

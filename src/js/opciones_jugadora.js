@@ -38,7 +38,8 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
         const resultDiv = document.getElementById('result');
         if (found) {
             resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
-            cambiarImagenConFlip();
+            //cambiarImagenConFlip();
+            Ganaste(modo);
         } else {
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }

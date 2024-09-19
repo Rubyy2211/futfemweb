@@ -1,29 +1,75 @@
+/* Estilos principales para .game-button */
 .game-button {
-    border: 1px solid #333;
-    border-radius: 8px;
-    text-align: center;
-    padding: 10px;
-    background-color: #1a1a1a;
-    color: white;
-    margin-bottom: 20px;
-    transition: transform 0.2s;
+    border-radius: 20px; /* Bordes redondeados */
+    text-align: center; /* Centrar el contenido dentro del botón */
+    padding: 10px; /* Espaciado interior */
+    background-color: var(--color-primario); /* Color de fondo primario */
+    color: white; /* Color del texto */
+    margin-bottom: 20px; /* Espaciado inferior entre botones */
+    transition: transform 0.2s; /* Suavizar el efecto de transformación */
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Añadir sombra a la caja */
 }
+@keyframes brilloAnimado {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .game-button img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    max-width: 100%; /* La imagen ocupa el ancho total disponible */
+    height: auto; /* Mantener la proporción de la imagen */
+    border-radius: 10px; /* Bordes redondeados en las imágenes */
+}
+
+.game-button button {
+    background: var(--color-primario); /* Color de fondo del botón */
+    border-radius: 20px; /* Bordes redondeados del botón */
+    display: none; /* El botón se muestra como un bloque */
+    border: none;
 }
 .game-button h4 {
-    margin-top: 10px;
-    font-size: 20px;
-    font-weight: bold;
+    margin-top: 10px; /* Espaciado superior para el título */
+    font-size: 20px; /* Tamaño de fuente predeterminado */
+    font-weight: bold; /* Título en negrita */
 }
+
 .game-button:hover {
-    transform: scale(1.05);
-    background-color: #292929;
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el ratón */
+    color: var(--color-texto); /* Cambiar el color del texto en hover */
+    background: var(--color-detalles);
 }
+
+/* Media queries para pantallas de menos de 992px */
 @media (max-width: 992px) {
-    .game-button h4{
-        font-size: 1.5rem;
+    .game-button h4 {
+        font-size: 1.5rem; /* Ajustar el tamaño de la fuente en pantallas medianas */
+    }
+    .game-button {
+        max-width: 100%; /* Botones ocupan todo el ancho en pantallas medianas */
+    }
+    .col-md-3 {
+        max-width: 33.33%; /* Tres columnas por fila en pantallas medianas */
+    }
+}
+
+/* Media queries para pantallas de menos de 768px */
+@media (max-width: 768px) {
+    .game-button button {
+        display: none; /* Ocultar los botones en pantallas pequeñas */
+    }
+    .game-button {
+        max-width: 100%; /* Botones ocupan todo el ancho en pantallas pequeñas */
+    }
+    .col-md-3 {
+        max-width: 50%; /* Dos columnas por fila en pantallas pequeñas */
+    }
+    .game-button h4 {
+        font-size: 18px; /* Reducir el tamaño de la fuente en pantallas pequeñas */
     }
 }

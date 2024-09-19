@@ -1,5 +1,27 @@
 const jugadoraId = 25;
 
+// Función principal que controla el flujo de carga
+async function init() {
+    // Obtener el valor de localStorage
+    const answer2 = localStorage.getItem('hasWon');
+    const nombre = localStorage.getItem('nombre');
+    // Convertir el valor a booleano, ya que localStorage almacena todo como cadenas
+    const isAnswerTrue = (answer2 === 'true');
+    console.log('Has won:', isAnswerTrue);
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent=nombre;
+    if (isAnswerTrue) {
+        // Luego, cargar la trayectoria
+        await loadJugadoraById(jugadoraId);
+        Ganaste('trayectoria')
+    }else{
+        // Luego, cargar la trayectoria
+        await loadJugadoraById(jugadoraId);
+    }
+
+
+}
+
 async function loadJugadoraById(id) {
     try {
         const response = await fetch(`../api/guesstrayectoria?id=${id}`);
@@ -75,9 +97,9 @@ function displayTrayectoria(data) {
     });
 }
 
-loadJugadoraById(jugadoraId);
+//loadJugadoraById(jugadoraId);
 
-
+init()
 async function checkAnswer() {
     try {
         const textoInput = document.getElementById('jugadoraInput');
@@ -116,7 +138,6 @@ function cambiarImagenConFlip() {
     flipContainers.forEach(container => {
         const imagenTrasera = container.querySelector('.back img');
         const imagenFrontal = container.querySelector('.front img');
-
 
 
         // Añadir la clase para empezar el volteo

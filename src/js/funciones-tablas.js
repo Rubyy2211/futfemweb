@@ -284,5 +284,25 @@ function numeroAleatorioArray(valores) {
     // Devolver el valor correspondiente al índice aleatorio
     return valores[indiceAleatorio];
 }
+function Ganaste(modo) {
+    // Bloquear el botón y el input
+    const boton = document.getElementById('botonVerificar');
+    const input = document.getElementById('jugadoraInput');
+
+    boton.disabled = true;
+    input.disabled = true;
+
+    // Guardar en localStorage que el usuario ha ganado
+    localStorage.setItem('hasWon', 'true');
+    const resultDiv = document.getElementById('result');
+    localStorage.setItem('nombre',resultDiv.textContent)
+    // Llamar a la función que cambia la imagen con flip
+    if(modo==='grid'){
+
+    }else if(modo==='trayectoria'){
+        cambiarImagenConFlip();
+    }
+}
+
 
 
