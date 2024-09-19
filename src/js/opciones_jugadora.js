@@ -37,7 +37,7 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
 
         const resultDiv = document.getElementById('result');
         if (found) {
-            resultDiv.textContent = `Nombre completo de la jugadora: ${nombreCompleto}`;
+            resultDiv.textContent = `${nombreCompleto}`;
             //cambiarImagenConFlip();
             Ganaste(modo);
         } else {

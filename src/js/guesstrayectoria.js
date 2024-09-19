@@ -46,11 +46,19 @@ async function loadJugadoraById(id) {
 function displayTrayectoria(data) {
     const trayectoriaDiv = document.getElementById('trayectoria');
     trayectoriaDiv.innerHTML = ''; // Limpiar contenido previo
-
-    data.forEach(item => {
+    const myst = document.getElementById('jugadora');
+    myst.src=data[0].ImagenJugadora;
+    data.forEach((item, index) => {
         // Crear el contenedor del flip
         const flipContainer = document.createElement('div');
         flipContainer.classList.add('flip-container');
+
+        // Alternar colores de fondo según si el índice es par o impar
+        /*if (index % 2 === 0) {
+            flipContainer.style.backgroundColor = 'var(--color-primario)'; // Color para índices pares
+        } else {
+            flipContainer.style.backgroundColor = 'var(--color-secundario)'; // Color para índices impares
+        }*/
 
         const flipper = document.createElement('div');
         flipper.classList.add('flipper');

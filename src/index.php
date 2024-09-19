@@ -10,8 +10,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/efectos/fade.css">
+    <link rel="stylesheet" href="css/efectos/wave.css">
+    <link rel="stylesheet" href="css/efectos/glow-border.css">
 </head>
 <body>
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
 <header>
     <div class="container flex-row">
 
@@ -26,63 +32,63 @@
 
     </div>
 </header>
-<div class="container mt-5">
-    <div class="row">
+<div class="container mt-5 sibling-fade">
+    <div class="row sibling-fade">
         <div class="col-md-3">
-            <div class="game-button" onclick="redireccionarA('trayectoria.php')">
+            <div class="game-button glow" onclick="redireccionarA('trayectoria.php')">
                 <img src="img/trayectoria.jpg" alt="Game 1">
                 <h4>Futfem Trajectory</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/trayectoria.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button" onclick="redireccionarA('grid.php')">
+            <div class="game-button glow" onclick="redireccionarA('grid.php')">
                 <img src="img/Captura de pantalla 2024-09-01 192457.png" alt="Game 2">
                 <h4>Futfem Grid</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/grid.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button" onclick="redireccionarA('XI_Clubs.php')">
+            <div class="game-button glow" onclick="redireccionarA('XI_Clubs.php')">
                 <img src="img/XI_Clubs.png" alt="Game 3">
                 <h4>Futfem Clubs</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/XI_Clubs.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button" onclick="redireccionarA('bingo.php')">
+            <div class="game-button glow" onclick="redireccionarA('bingo.php')">
                 <img src="img/Bingo.png" alt="Game 4">
                 <h4>Futfem Bingo</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/bingo.php'">PLAY</button>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row sibling-fade">
         <div class="col-md-3">
-            <div class="game-button outline-out" onclick="redireccionarA('XI_Nations.php')">
+            <div class="game-button glow" onclick="redireccionarA('XI_Nations.php')">
                 <img src="img/XI_Clubs.png" alt="Game 3">
                 <h4>Futfem Nations</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/XI_Nations.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button" onclick="redireccionarA('wordle.php')">
+            <div class="game-button glow" onclick="redireccionarA('wordle.php')">
                 <img src="img/Captura de pantalla 2024-09-01 201329.png" alt="Game 6">
                 <h4>Futfem Wordle</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/wordle.php'">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button">
-                <img src="#" alt="Game 5">
-                <h4>Futbol11 Top10</h4>
+            <div class="game-button glow disabled">
+                <img src="img/ComingSoon.png" alt="Game 5">
+                <h4>Futfem ?</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button">
-                <img src="#" alt="Game 6">
-                <h4>Futbol11 Wordle</h4>
+            <div class="game-button glow disabled">
+                <img src="img/ComingSoon.png" alt="Game 6">
+                <h4>Futfem ?</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>
             </div>
         </div>
