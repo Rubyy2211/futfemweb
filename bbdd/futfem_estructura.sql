@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-09-2024 a las 10:01:04
+-- Tiempo de generación: 20-09-2024 a las 00:04:25
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -47,6 +47,7 @@ CREATE TABLE `jugadoras` (
   `Apodo` text NOT NULL,
   `Nacimiento` date NOT NULL,
   `Nacionalidad` int(11) NOT NULL,
+  `Posicion` int(2) NOT NULL DEFAULT 13,
   `imagen` longblob NOT NULL,
   `retiro` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -79,6 +80,30 @@ CREATE TABLE `paises` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `posiciones`
+--
+
+CREATE TABLE `posiciones` (
+  `idPosicion` int(11) NOT NULL,
+  `nombre` text NOT NULL,
+  `abreviatura` text NOT NULL,
+  `idPosicionPadre` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `Nombre` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `trayectoria`
 --
 
@@ -89,6 +114,23 @@ CREATE TABLE `trayectoria` (
   `años` text NOT NULL,
   `imagen` longblob NOT NULL,
   `equipo_actual` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `Nombre` varchar(20) NOT NULL,
+  `Apellidos` varchar(50) DEFAULT NULL,
+  `Usuario` varchar(20) NOT NULL,
+  `rol` int(11) NOT NULL,
+  `Correo` varchar(100) NOT NULL,
+  `Contrasena` varchar(255) NOT NULL,
+  `token` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -107,7 +149,8 @@ ALTER TABLE `equipos`
 --
 ALTER TABLE `jugadoras`
   ADD PRIMARY KEY (`id_jugadora`),
-  ADD KEY `Nacionalidad` (`Nacionalidad`);
+  ADD KEY `Nacionalidad` (`Nacionalidad`),
+  ADD KEY `Posicion` (`Posicion`);
 
 --
 -- Indices de la tabla `ligas`
@@ -124,12 +167,32 @@ ALTER TABLE `paises`
   ADD PRIMARY KEY (`id_pais`);
 
 --
+-- Indices de la tabla `posiciones`
+--
+ALTER TABLE `posiciones`
+  ADD PRIMARY KEY (`idPosicion`),
+  ADD KEY `idPosicionPadre` (`idPosicionPadre`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `trayectoria`
 --
 ALTER TABLE `trayectoria`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jugadora` (`jugadora`),
   ADD KEY `equipo` (`equipo`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rol` (`rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -160,9 +223,21 @@ ALTER TABLE `paises`
   MODIFY `id_pais` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `posiciones`
+--
+ALTER TABLE `posiciones`
+  MODIFY `idPosicion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `trayectoria`
 --
 ALTER TABLE `trayectoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -179,7 +254,8 @@ ALTER TABLE `equipos`
 -- Filtros para la tabla `jugadoras`
 --
 ALTER TABLE `jugadoras`
-  ADD CONSTRAINT `jugadoras_ibfk_1` FOREIGN KEY (`Nacionalidad`) REFERENCES `paises` (`id_pais`);
+  ADD CONSTRAINT `jugadoras_ibfk_1` FOREIGN KEY (`Nacionalidad`) REFERENCES `paises` (`id_pais`),
+  ADD CONSTRAINT `jugadoras_ibfk_2` FOREIGN KEY (`Posicion`) REFERENCES `posiciones` (`idPosicion`);
 
 --
 -- Filtros para la tabla `ligas`
@@ -188,11 +264,23 @@ ALTER TABLE `ligas`
   ADD CONSTRAINT `ligas_ibfk_1` FOREIGN KEY (`pais`) REFERENCES `paises` (`id_pais`);
 
 --
+-- Filtros para la tabla `posiciones`
+--
+ALTER TABLE `posiciones`
+  ADD CONSTRAINT `posiciones_ibfk_1` FOREIGN KEY (`idPosicionPadre`) REFERENCES `posiciones` (`idPosicion`);
+
+--
 -- Filtros para la tabla `trayectoria`
 --
 ALTER TABLE `trayectoria`
   ADD CONSTRAINT `trayectoria_ibfk_1` FOREIGN KEY (`jugadora`) REFERENCES `jugadoras` (`id_jugadora`),
   ADD CONSTRAINT `trayectoria_ibfk_2` FOREIGN KEY (`equipo`) REFERENCES `equipos` (`id_equipo`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
