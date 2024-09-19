@@ -5,12 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Quiz de Fútbol</title>
+    <title>Futfem Bingo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bingo.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/efectos/wave.css">
+    <link rel="stylesheet" href="../css/efectos/fade.css">
 </head>
 <body>
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
 <?php require_once 'header.html'?>
 <div class="contenedor">
     <!-- Imagen y nombre del jugador -->
@@ -22,20 +27,20 @@
     <button class="skip-button" onclick="skipPlayer()">SKIP</button>
 
 <table id="grid">
-    <tbody>
-        <tr>
+    <tbody class="sibling-fade">
+        <tr class="sibling-fade">
             <td id="c11"></td>
             <td id="c12"></td>
             <td id="c13"></td>
             <td id="c14"></td>
         </tr>
-        <tr>
+        <tr class="sibling-fade">
             <td id="c21"></td>
             <td data-answer="jugadora1" id="c22"></td>
             <td data-answer="jugadora2" id="c23"></td>
             <td data-answer="jugadora3" id="c24"></td>
         </tr>
-        <tr>
+        <tr class="sibling-fade">
             <td id="c31"></td>
             <td data-answer="jugadora4" id="c32"></td>
             <td data-answer="jugadora5" id="c33"></td>

@@ -140,11 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (celda) {
                             // Añadir la imagen de fondo encima de la ya existente
                             const existingBackgroundImage = celda.style.backgroundImage;
-                            celda.style.backgroundImage = `${existingBackgroundImage}, url('${imagenSrc}')`;
+                            celda.style.backgroundImage = `linear-gradient(var(--color-secundario), var(--color-secundario)), ${existingBackgroundImage}, url('${imagenSrc}')`;
                             celda.style.backgroundSize = 'cover'; // Ajustar la imagen para cubrir el área
                             celda.style.backgroundPosition = 'center'; // Centrar la imagen en la celda
                             celda.style.backgroundRepeat = 'no-repeat'; // Evitar que la imagen se repita
-                            celda.style.backgroundBlendMode = 'soft-light'; // Ajustar el modo de fusión para la superposición
+                            celda.style.backgroundBlendMode = 'color'; // Ajustar el modo de fusión para la superposición
                         }
                     });
                 } else {

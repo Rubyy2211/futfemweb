@@ -1,0 +1,368 @@
+/* Establece el fondo y la alineación vertical del contenido de la sección de inicio de sesión */
+.Registro {
+    margin-top:0.5rem;
+    width: 100%;
+}
+span{
+    color: #8C0368;
+    font-weight: bold;
+}
+/* Establece el estilo del contenedor principal dentro de la sección de inicio de sesión */
+.Registro .container {
+    max-width: 100%; /* Ancho máximo del contenedor */
+    margin: auto; /* Centra horizontalmente el contenedor */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    height: 80vh;
+    align-items: center;
+}
+.Registro .container form .form-inputs{
+    display: grid;
+    grid-template-columns: repeat(2, 50%); /* Esto crea 3 columnas de igual tamaño */
+}
+/* Establece el estilo del formulario dentro de la sección de inicio de sesión */
+.Registro .container form {
+    background: rgba(255, 255, 255, 0.8); /* Color de fondo del formulario con opacidad */
+    width: 50%; /* Ancho máximo del formulario */
+    padding: 0px 6%; /* Relleno del formulario */
+    border-radius: 20px; /* Radio de borde del formulario */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombras exteriores (horizontal offset, vertical offset, blur radius, color) */
+    margin: 0 auto;
+    max-height: 80%;
+}
+.form-group{
+    margin-bottom: 0;
+}
+/* Establece el estilo del título del formulario */
+.Registro .container form h2 {
+    text-align: center; /* Centra horizontalmente el texto */
+    font-size: 45px; /* Tamaño de fuente del título */
+    font-family: "League Spartan"; /* Fuente del título */
+    font-weight: 800;
+    margin-bottom: 0; /* Elimina el margen inferior del título */
+    color: var(--color-texto);
+}
+
+input::placeholder { /* Establece el estilo del texto de marcador de posición */
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+/* Establece el estilo de las divisiones dentro del formulario */
+.Registro .container form div {
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    flex-direction: column; /* Dirección de apilamiento de los elementos */
+    width: 100%;
+    padding: 0;
+}
+/* Estilo para los grupos de campos de entrada */
+.Registro .container form div.form-item1 {
+    width: 70%; /* Ancho de cada grupo de campos */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    align-content: center;
+}
+.Registro .container form div.form-item2 {
+    width: 70%; /* Ancho de cada grupo de campos */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    align-content: center;
+}
+.Registro .container form div.form-item3 {
+    width: 80%; /* Ancho de cada grupo de campos */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    align-content: center;
+}
+.Registro .container form div.form-item4 {
+    width: 100%; /* Ancho de cada grupo de campos */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    align-content: center;
+}
+.Registro .container form div.form-item5 {
+    width: 70%; /* Ancho de cada grupo de campos */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    align-content: center;
+}
+.Registro .container form div.form-item6 {
+    width: 40%; /* Ancho de cada grupo de campos */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    align-content: center;
+}
+
+
+/* Estilo para los campos de entrada */
+.Registro .container form div.form-item1 input {
+    width: 100%; /* Ancho completo */
+}
+
+.Registro .container form div.form-item1 label{
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 5px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Estilo para los campos de entrada */
+.Registro .container form div.form-item2 input {
+    width: 100%; /* Ancho completo */
+}
+
+.Registro .container form div.form-item2 label{
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 5px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Estilo para los campos de entrada */
+.Registro .container form div.form-item3 input {
+    width: 100%; /* Ancho completo */
+}
+
+.Registro .container form div.form-item3 label{
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 5px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Estilo para los campos de entrada */
+.Registro .container form div.form-item4 input {
+    width: 100%; /* Ancho completo */
+}
+
+.Registro .container form div.form-item4 label{
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 5px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Estilo para los campos de entrada */
+.Registro .container form div.form-item5 input {
+    width: 100%; /* Ancho completo */
+}
+
+.Registro .container form div.form-item5 label{
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 5px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Estilo para los campos de entrada */
+.Registro .container form div.form-item6 input {
+    width: 100%; /* Ancho completo */
+    color: var(--color-texto);
+}
+
+.Registro .container form div.form-item6 label{
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 5px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Establece el estilo de los campos de entrada dentro del formulario */
+.Registro .container form div input {
+    height: 4.5vh; /* Altura de los campos de entrada */
+    width: 100%; /* Ancho de los campos de entrada */
+    align-self: start; /* Centra horizontalmente los campos de entrada */
+    border: none; /* Sin borde */
+    border-bottom: solid 3px #8C0368; /* Borde inferior */
+    font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+    font-family: "League Spartan"; /* Fuente de los campos de entrada */
+    background: none;
+}
+
+/* Establece el estilo de los campos de entrada cuando están enfocados */
+.Registro .container form div input:focus {
+    border: none; /* Sin borde */
+    border-bottom: solid 3px #8C0368; /* Borde inferior */
+}
+
+/* Establece el estilo del botón dentro del formulario */
+.Registro .container form button {
+    width: 250px; /* Ancho del botón */
+    align-self: center; /* Centra horizontalmente el botón */
+    margin-top: 15px; /* Margen superior del botón */
+    margin-bottom: 15px; /* Margen inferior del botón */
+    height: 40px; /* Altura del botón */
+    border-radius: 20px; /* Radio de borde del botón */
+    font-size: 25px; /* Tamaño de fuente del botón */
+    font-family: "League Spartan"; /* Fuente del botón */
+    font-weight: 400;
+    background: #8C0368; /* Color de fondo del botón */
+    border: none; /* Sin borde */
+    color: white; /* Color del texto del botón */
+}
+.output {
+    opacity: 0;
+    display: none;
+    margin: 0 auto;
+    padding: 8px 8px 8px 0;
+    background-color: transparent;
+    color: red;
+    text-align: center;
+    transition: opacity .5s;
+    font-family: "League Spartan";
+    width: 100%;
+}
+.output#correo-error {
+    text-align: left;
+}
+.output#apellidos-error {
+    text-align: left;
+}
+.output#username-error {
+    text-align: left;
+}
+.output#mac-error {
+    text-align: left;
+}
+.output#password-error {
+    text-align: left;
+}
+.output#name-error {
+    text-align: left;
+}
+.output.error {
+    opacity: 1;
+    display: block;
+}
+.output.success {
+    opacity: 1;
+    display: block;
+}
+
+@media only screen and (max-width: 1200px) {
+    body{
+        background-size: cover; /* Cubre todo el contenedor con la imagen */
+        background-repeat: no-repeat; /* Evita la repetición de la imagen */
+        background-position: center; /* Centra la imagen en el contenedor */
+        height: 98vh;
+        /*max-height: 120vh;*/
+    }
+    /* Establece el estilo del formulario dentro de la sección de inicio de sesión */
+    .Registro .container form {
+        background: rgba(255, 255, 255, 0.8); /* Color de fondo del formulario con opacidad */
+        width: 60%; /* Ancho del formulario */
+        max-width: 60%;
+        margin: 0 auto;
+    }
+
+}
+
+/* Establece el estilo del botón dentro del formulario en dispositivos móviles */
+@media only screen and (max-width: 700px) {
+    body{
+        background-size: cover; /* Cubre todo el contenedor con la imagen */
+        background-repeat: no-repeat; /* Evita la repetición de la imagen */
+        background-position: center; /* Centra la imagen en el contenedor */
+        height: 98vh;
+        /*max-height: 120vh;*/
+    }
+    /* Establece el fondo y la alineación vertical del contenido de la sección de inicio de sesión */
+    .Registro {
+        background-size: cover;
+        /*height: 135vh; /* Establece la altura del contenedor al 100% de la altura de la ventana */
+        /*align-content: center; /* Alinea el contenido verticalmente al centro */
+    }
+    /* Establece el estilo del formulario dentro de la sección de inicio de sesión */
+    /* Establece el estilo del formulario dentro de la sección de inicio de sesión */
+    .Registro .container form {
+        background: rgba(255, 255, 255, 0.8); /* Color de fondo del formulario con opacidad */
+        width: 85%; /* Ancho del formulario */
+        max-width: 85%;
+        margin: 0 auto;
+        max-height: 95%;
+    }
+
+    .Registro .container form .form-inputs{
+        display: block;
+    }
+
+    .Registro .container form div.form-item1 label{
+        font-size: 16px; /* Tamaño de fuente de las etiquetas */
+        font-family: "League Spartan"; /* Fuente de las etiquetas */
+        margin-top: 10px; /* Margen superior de las etiquetas */
+    }
+    .Registro .container form div.form-item2 label{
+        font-size: 16px; /* Tamaño de fuente de las etiquetas */
+        font-family: "League Spartan"; /* Fuente de las etiquetas */
+        margin-top: 10px; /* Margen superior de las etiquetas */
+    }
+    .Registro .container form div.form-item3 label{
+        font-size: 16px; /* Tamaño de fuente de las etiquetas */
+        font-family: "League Spartan"; /* Fuente de las etiquetas */
+        margin-top: 10px; /* Margen superior de las etiquetas */
+    }
+    .Registro .container form div.form-item4 label{
+        font-size: 16px; /* Tamaño de fuente de las etiquetas */
+        font-family: "League Spartan"; /* Fuente de las etiquetas */
+        margin-top: 10px; /* Margen superior de las etiquetas */
+    }
+    .Registro .container form div.form-item5 label{
+        font-size: 16px; /* Tamaño de fuente de las etiquetas */
+        font-family: "League Spartan"; /* Fuente de las etiquetas */
+        margin-top: 10px; /* Margen superior de las etiquetas */
+    }
+    .Registro .container form div.form-item6 label{
+        font-size: 16px; /* Tamaño de fuente de las etiquetas */
+        font-family: "League Spartan"; /* Fuente de las etiquetas */
+        margin-top: 10px; /* Margen superior de las etiquetas */
+    }
+
+    .Registro .container form button {
+        width: 70%; /* Ancho del botón */
+        font-size: 20px; /* Tamaño de fuente del botón */
+    }
+
+    .Registro .container form h2 {
+        font-size: 38px; /* Tamaño de fuente del título */
+    }
+    .Registro .container form div.form-item1 input{
+        align-self: center; /* Centra horizontalmente los campos de entrada */
+        border: none; /* Sin borde */
+        border-bottom: solid 3px #8C0368; /* Borde inferior */
+        font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+        font-family: "League Spartan"; /* Fuente de los campos de entrada */
+        background: none;
+    }
+    .Registro .container form div.form-item2 input{
+        align-self: center; /* Centra horizontalmente los campos de entrada */
+        border: none; /* Sin borde */
+        border-bottom: solid 3px #8C0368; /* Borde inferior */
+        font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+        font-family: "League Spartan"; /* Fuente de los campos de entrada */
+        background: none;
+    }
+    .Registro .container form div.form-item3 input{
+        align-self: center; /* Centra horizontalmente los campos de entrada */
+        border: none; /* Sin borde */
+        border-bottom: solid 3px #8C0368; /* Borde inferior */
+        font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+        font-family: "League Spartan"; /* Fuente de los campos de entrada */
+        background: none;
+    }
+    .Registro .container form div.form-item4 input{
+        align-self: center; /* Centra horizontalmente los campos de entrada */
+        border: none; /* Sin borde */
+        border-bottom: solid 3px #8C0368; /* Borde inferior */
+        font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+        font-family: "League Spartan"; /* Fuente de los campos de entrada */
+        background: none;
+    }
+    .Registro .container form div.form-item5 input{
+        align-self: center; /* Centra horizontalmente los campos de entrada */
+        border: none; /* Sin borde */
+        border-bottom: solid 3px #8C0368; /* Borde inferior */
+        font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+        font-family: "League Spartan"; /* Fuente de los campos de entrada */
+        background: none;
+    }
+    .Registro .container form div.form-item6 input{
+        align-self: center; /* Centra horizontalmente los campos de entrada */
+        border: none; /* Sin borde */
+        border-bottom: solid 3px #8C0368; /* Borde inferior */
+        font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+        font-family: "League Spartan"; /* Fuente de los campos de entrada */
+        background: none;
+    }
+}
