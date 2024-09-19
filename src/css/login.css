@@ -1,0 +1,152 @@
+/* Establece el fondo y la alineación vertical del contenido de la sección de inicio de sesión */
+.Inicio-Sesion {
+    /*background-image: url("../img/LandingPC.jpg"); /* Establece la imagen de fondo */
+    background-size: cover; /* Cubre todo el contenedor con la imagen */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    background-position: center center; /* Centra la imagen en el contenedor */
+    align-content: center; /* Alinea el contenido verticalmente al centro */
+    width: 100%;
+}
+
+/* Establece el estilo del contenedor principal dentro de la sección de inicio de sesión */
+.Inicio-Sesion .container {
+
+    max-width: 50%; /* Ancho máximo del contenedor */
+    margin: 0px auto; /* Centra horizontalmente el contenedor */
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en múltiples líneas si es necesario */
+    flex-direction: column; /* Dirección de apilamiento de los elementos */
+    align-items: center; /* Centra horizontalmente los elementos */
+    height: 90vh; /* Altura del contenedor al 100% de la altura de la ventana */
+    justify-content: center; /* Centra verticalmente los elementos */
+}
+
+/* Establece el estilo del formulario dentro de la sección de inicio de sesión */
+.Inicio-Sesion .container form {
+    background: rgba(255, 255, 255, 0.8); /* Color de fondo del formulario con opacidad */
+    width: 100%; /* Ancho del formulario */
+    max-width: 100%; /* Ancho máximo del formulario */
+    max-height: 75%;
+    /*padding: 0px 6%; /* Relleno del formulario */
+    border-radius: 20px; /* Radio de borde del formulario */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Sombras exteriores (horizontal offset, vertical offset, blur radius, color) */
+}
+
+/* Establece el estilo del título del formulario */
+.Inicio-Sesion .container form h2 {
+    text-align: center; /* Centra horizontalmente el texto */
+    font-size: 45px; /* Tamaño de fuente del título */
+    font-family: "League Spartan"; /* Fuente del título */
+    font-weight: 800;
+    margin-bottom: 0; /* Elimina el margen inferior del título */
+    margin-top: 20px;
+    color: var(--color-texto);
+}
+
+input::placeholder { /* Establece el estilo del texto de marcador de posición */
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+/* Establece el estilo de las divisiones dentro del formulario */
+.Inicio-Sesion .container form div {
+    display: flex; /* Utiliza flexbox para los elementos internos */
+    flex-direction: column; /* Dirección de apilamiento de los elementos */
+}
+
+/* Establece el estilo del enlace de restablecimiento de contraseña */
+.Inicio-Sesion .container form .resetear {
+    align-self: flex-end; /* Alinea el enlace a la derecha */
+    margin-right: 5rem;
+    margin-top: .5rem;
+    font-family: "League Spartan"; /* Cambia la tipografía del enlace */
+    color: var(--color-primario); /* Cambia el color del enlace */
+}
+
+/* Establece el estilo de las etiquetas dentro del formulario */
+.Inicio-Sesion .container form div label {
+    margin-left: 11.5%; /* Margen izquierdo de las etiquetas */
+    font-size: 20px; /* Tamaño de fuente de las etiquetas */
+    font-family: "League Spartan"; /* Fuente de las etiquetas */
+    margin-top: 40px; /* Margen superior de las etiquetas */
+    color: var(--color-texto);
+}
+
+/* Establece el estilo de los campos de entrada dentro del formulario */
+.Inicio-Sesion .container form div input {
+    height: 4.5vh; /* Altura de los campos de entrada */
+    width: 77%; /* Ancho de los campos de entrada */
+    align-self: center; /* Centra horizontalmente los campos de entrada */
+    border: none; /* Sin borde */
+    border-bottom: solid 3px var(--color-primario); /* Borde inferior */
+    font-size: 18px; /* Tamaño de fuente de los campos de entrada */
+    font-family: "League Spartan"; /* Fuente de los campos de entrada */
+    background: none;
+}
+
+/* Establece el estilo de los campos de entrada cuando están enfocados */
+.Inicio-Sesion .container form div input:focus {
+    border: none; /* Sin borde */
+    border-bottom: solid 3px var(--color-primario); /* Borde inferior */
+}
+
+/* Establece el estilo del botón dentro del formulario */
+.Inicio-Sesion .container form button {
+    width: 60%; /* Ancho del botón */
+    align-self: center; /* Centra horizontalmente el botón */
+    margin-top: 60px; /* Margen superior del botón */
+    margin-bottom: 35px; /* Margen inferior del botón */
+    height: 40px; /* Altura del botón */
+    border-radius: 20px; /* Radio de borde del botón */
+    font-size: 25px; /* Tamaño de fuente del botón */
+    font-family: "League Spartan"; /* Fuente del botón */
+    font-weight: 400;
+    background: var(--color-primario); /* Color de fondo del botón */
+    border: none; /* Sin borde */
+    color: white; /* Color del texto del botón */
+}
+#output {
+    opacity: 0;
+    margin: 0px 32px 12px;
+    padding: 8px;
+    background-color: transparent;
+    color: red;
+    text-align: center;
+    transition: opacity .5s;
+    font-family: "League Spartan";
+}
+
+#output.error {
+    opacity: 1;
+}
+
+/* Establece el estilo del botón dentro del formulario en dispositivos móviles */
+@media only screen and (max-width: 771px) {
+    /* Establece el fondo y la alineación vertical del contenido de la sección de inicio de sesión */
+    .Inicio-Sesion {
+        background-image: url("../img/LandingMovil.jpg"); /* Establece la imagen de fondo */
+        background-size: cover;
+        /*height: 100vh; /* Establece la altura del contenedor al 100% de la altura de la ventana */
+        align-content: center; /* Alinea el contenido verticalmente al centro */
+    }
+    .Inicio-Sesion .container{
+        max-width: 92%;
+    }
+    /* Establece el estilo del formulario dentro de la sección de inicio de sesión */
+    .Inicio-Sesion .container form {
+        max-width: 90%; /* Ancho máximo del formulario */
+        padding: 0px 6%; /* Relleno del formulario */
+    }
+    .Inicio-Sesion .container form button {
+        width: 70%; /* Ancho del botón */
+        font-size: 20px; /* Tamaño de fuente del botón */
+    }
+
+    .Inicio-Sesion .container form h2 {
+        font-size: 38px; /* Tamaño de fuente del título */
+    }
+    /* Establece el estilo del enlace de restablecimiento de contraseña */
+
+    .Inicio-Sesion .container form .resetear {
+        margin-right: 3.5rem;
+    }
+}

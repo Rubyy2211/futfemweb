@@ -26,8 +26,8 @@ body {
     border-radius: 50%;
     width: 150px;
     height: 150px;
-    background: white;
-    border: 1px solid rgba(128,0,128,0.5);
+    background: var(--color-primario);
+    border: 1px solid var(--color-detalles);
 }
 
 .player-name {
@@ -119,11 +119,10 @@ img {
 
 .skip-button {
     margin-top: 20px;
-    padding: 10px 20px;
     background-color: #e200ff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
 }
 

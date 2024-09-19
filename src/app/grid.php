@@ -5,14 +5,18 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fútbol Grid</title>
+    <title>Futfem Grid</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/grid.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/efectos/wave.css">
 </head>
 <body>
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
 <?php require_once 'header.html'?>
-<h1>Fútbol Grid</h1>
+<h1>Futfem Grid</h1>
 <table id="grid">
     <thead>
     <tr>
