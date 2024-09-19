@@ -11,7 +11,11 @@ if(!session_start()) {
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>GTI | Registro</title>
+  <title>Futfem | Registro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/registro.css">
+    <link rel="stylesheet" href="css/efectos/wave.css">
 </head>
 <body>
 <?php
@@ -27,11 +31,15 @@ if($rol == null || $rol == "") { // Comprueba si 'rol' es nulo o vacío
     require_once 'header-admin.html';
 }
 ?>
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
 <section class="Registro">
   <div class="container">
     <form id="registro-form" novalidate>
       <h2>Registro</h2>
       <!-- Inicio del formulario -->
+        <div class="form-inputs">
         <div class="form-item1">
         <label for="nombre">Nombre:*</label> <!-- Campo de usuario -->
         <input type="text" id="nombre" name="nombre" placeholder="Introduzca su nombre" required>
@@ -68,6 +76,7 @@ if($rol == null || $rol == "") { // Comprueba si 'rol' es nulo o vacío
             <div class="output" id="password-error">
                 Area de mensajes
             </div>
+        </div>
         </div>
       <!-- Fin del formulario -->
       <div class="form-group">
@@ -220,5 +229,7 @@ if($rol == null || $rol == "") { // Comprueba si 'rol' es nulo o vacío
         document.getElementById('pop-up').style.display = 'none';
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
