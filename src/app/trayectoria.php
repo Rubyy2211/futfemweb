@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div id="respuesta">
+    <div id="respuesta" class="cont">
   <label for="jugadoraInput"><input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora"></label>
   <button onclick="checkAnswer()">Verificar</button>
   <p id="result"></p>
