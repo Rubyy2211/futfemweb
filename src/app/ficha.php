@@ -4,23 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha de Jugadora</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/estilos.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+
         h1, h2 {
-            color: #2c3e50;
+            color: var(--color-detalles);
         }
         .profile {
             display: flex;
@@ -60,7 +49,7 @@
             color: white;
         }
         .trajectory table tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: var(--color-texto);
         }
         .footer {
             text-align: center;
@@ -71,14 +60,14 @@
     </style>
 </head>
 <body>
-
+<?php require_once 'header.html'?>
 <div class="container">
     <!-- Título principal -->
     <h1>Ficha de Jugadora</h1>
 
     <!-- Información básica de la jugadora -->
     <div class="profile">
-        <img src="https://via.placeholder.com/150" alt="Foto de la jugadora">
+        <img src="https://via.placeholder.com/150" alt="Foto de la jugadora" id="player-image">
         <div class="details">
             <h2>María Gómez</h2>
             <p><span>Edad:</span> 25 años</p>
@@ -95,7 +84,7 @@
             <tr>
                 <th>Temporada</th>
                 <th>Equipo</th>
-                <th>País</th>
+                <th>Liga</th>
                 <th>Partidos Jugados</th>
                 <th>Goles</th>
             </tr>
@@ -113,6 +102,77 @@
 </div>
 
 <script>
+    const idJugadora=1;
+    async function getEquipoXId(ids) {
+        const url = `../api/equipos?id[]=${ids.join('&id[]=')}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Verificar si la respuesta contiene un array en data.success
+            if (!Array.isArray(data.success)) {
+                console.error('Error: La respuesta de la API no contiene un array en "success":', data);
+                return [];
+            }
+
+            // Retornar el array dentro de "success"
+            return data.success;
+        } catch (error) {
+            console.error('Error al obtener los equipos:', error);
+            return [];
+        }
+    }
+    async function getJugadoraXId(id) {
+        const url = `../api/jugadoraxid?id=${id}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Datos recibidos:", data); // Ver los datos recibidos
+
+            // Retornar el array dentro de "success"
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los equipos:', error);
+            return [];
+        }
+    }
+
+    async function getLigaXId(ids) {
+        const url = `../api/ligas?id[]=${ids.join('&id[]=')}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Verificar si la respuesta contiene un array en data.success
+            if (!Array.isArray(data.success)) {
+                console.error('Error: La respuesta de la API no contiene un array en "success":', data);
+                return [];
+            }
+
+            // Retornar el array dentro de "success"
+            return data.success;
+        } catch (error) {
+            console.error('Error al obtener los equipos:', error);
+            return [];
+        }
+    }
+
+
     // Función para obtener equipos y trayectorias de la jugadora
     async function sacarEquipos(nombre) {
         try {
@@ -147,31 +207,77 @@
     // Función para agregar los equipos a la tabla
     function agregarEquiposTabla(equipos) {
         const tablaEquipos = document.getElementById("tabla-equipos");
-
+        const jugadoraImg = document.getElementById("player-image");
+        jugadoraImg.src=equipos[0].ImagenJugadora;
         equipos.forEach(equipo => {
-            const fila = document.createElement("tr");
 
-            fila.innerHTML = `
+                const fila = document.createElement("tr");
+
+                fila.innerHTML = `
                 <td>${equipo.años}</td>
-                <td>${equipo.nombre}</td>
-                <td>${equipo.pais}</td>
+                <td id='${equipo.equipo}'>${equipo.equipo}</td>
+                <td>${equipo.liga}</td>
                 <td>${equipo.partidosJugados}</td>
                 <td>${equipo.goles}</td>
             `;
 
-            tablaEquipos.appendChild(fila);
-        });
+                tablaEquipos.appendChild(fila);
+            });
+    }
+
+    // Función para agregar infoJugadora
+    function agregarJugadoraInfo(jugadora) {
+        const nombre = document.querySelector('h2');
+        if (nombre) {
+            nombre.textContent = jugadora[0].Nombre_Completo; // Asigna el nombre completo
+        } else {
+            console.error('Elemento h2 no encontrado.');
+        }
     }
 
     // Llamada a la función para cargar equipos y añadir a la tabla
     (async function () {
-        const equipos = await sacarEquipos(1); // Aquí pones el nombre de la jugadora
+        const equipos = await sacarEquipos(idJugadora); // Aquí pones el nombre de la jugadora
         if (equipos) {
+            // Obtener IDs únicos de las ligas y equipos
+            const ligaIdsUnicos = [...new Set(equipos.map(equipo => equipo.liga))];
+            const equipoIdsUnicos = [...new Set(equipos.map(equipo => equipo.equipo))];
+
+            // Obtener información de los equipos y ligas
+            const equiposInfo = await getEquipoXId(equipoIdsUnicos);
+            const ligasInfo = await getLigaXId(ligaIdsUnicos); // Aquí debería ser getLigaXId, no getEquipoXId
+
+            // Asignar el nombre del equipo y la liga desde equiposInfo y ligasInfo a cada equipo en equipos
+            equipos.forEach(equipo => {
+                const equipoInfo = equiposInfo.find(info => info.club === equipo.equipo); // Asegúrate de que "club" es el campo correcto
+                const ligaInfo = ligasInfo.find(info => info.liga === equipo.liga); // Asegúrate de que "liga" es el campo correcto
+
+                console.log("Liga encontrada:", ligaInfo); // Para verificar la liga encontrada
+                if (equipoInfo) {
+                    equipo.equipo = equipoInfo.nombre; // Asigna el nombre del equipo
+                } else {
+                    equipo.equipo = 'Información no disponible'; // Por si no se encuentra el equipo
+                }
+
+                if (ligaInfo) {
+                    equipo.liga = ligaInfo.nombre; // Asigna el nombre de la liga, si es necesario
+                } else {
+                    equipo.liga = 'Información de liga no disponible'; // Por si no se encuentra la liga
+                }
+            });
+            const jugadora = await getJugadoraXId(idJugadora);
+            console.log(jugadora)
+            // Agregar los equipos a la tabla
             agregarEquiposTabla(equipos);
+            agregarJugadoraInfo(jugadora);
         }
     })();
 
-</script>
 
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

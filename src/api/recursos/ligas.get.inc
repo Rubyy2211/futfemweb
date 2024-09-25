@@ -1,19 +1,21 @@
 <?php
 require_once "includes/conexion-bbdd.php";
 
-// Obtener los IDs pasados por GET
-$id1 = isset($_GET['id1']) ? intval($_GET['id1']) : null;
-$id2 = isset($_GET['id2']) ? intval($_GET['id2']) : null;
-$id3 = isset($_GET['id3']) ? intval($_GET['id3']) : null;
+// Obtener los IDs pasados por GET como un array
+$ids = isset($_GET['id']) ? $_GET['id'] : [];
 
-if ($id1 !== null && $id2 !== null && $id3 !== null) {
-    $query = "SELECT id_liga AS liga, nombre, logo FROM ligas WHERE id_liga IN (?, ?, ?)";
+if (!empty($ids)) {
+    // Sanitizar y validar los IDs
+    $ids = array_map('intval', $ids);
+
+    // Crear la cláusula IN para la consulta SQL
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $query = "SELECT id_liga AS liga, nombre, logo FROM ligas WHERE id_liga IN ($placeholders)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("iii", $id1, $id2, $id3);
+    $stmt->bind_param(str_repeat('i', count($ids)), ...$ids);
 
     $stmt->execute();
     $resultado = $stmt->get_result();
-
     $paises = [];
 
     if ($resultado->num_rows > 0) {
@@ -34,7 +36,7 @@ if ($id1 !== null && $id2 !== null && $id3 !== null) {
     $salida["success"] = $paises;
 
 } else {
-    // Si no se encontraron huertos disponibles, agregar un mensaje de error
-    $salida["error"] = "No hay huertos pais";
+    // Si no se proporcionaron todos los IDs necesarios
+    $salida["error"] = "Faltan parámetros o no se encontraron resultados.";
 }
 

@@ -129,8 +129,8 @@ function ponerClubes(ids, posiciones) {
         });
 }//f()
 //--------------------Poner Ligas---------------------------------------------------
-function ponerLigas(id1, id2, id3, posicion1, posicion2) {
-    const url = `../api/ligas?id1=${id1}&id2=${id2}&id3=${id3}`;
+function ponerLigas(ids, posiciones) {
+    const url = `../api/ligas?id[]=${ids.join('&id[]=')}`;
     //console.log(`URL generada: ${url}`);
 
     fetch(url)
@@ -141,30 +141,47 @@ function ponerLigas(id1, id2, id3, posicion1, posicion2) {
             return response.json();
         })
         .then(data => {
-            //console.log("Respuesta recibida:", data);
+            console.log("Respuesta recibida:", data);
 
             if (data.success && Array.isArray(data.success)) {
-                const thIds = [posicion1, posicion2];
+                // Comprobar que las posiciones proporcionadas son las correctas
+                if (data.success.length !== posiciones.length) {
+                    console.error("Error: La cantidad de posiciones no coincide con la cantidad de países recibidos.");
+                    return;
+                }
 
                 data.success.forEach((pais, index) => {
-                    const th = document.getElementById(thIds[index]);
+                    const th = document.getElementById(posiciones[index]);
 
-                    th.innerHTML = ''; // Limpiar el contenido previo
+                    if (th) {
+                        const p = document.getElementById('nombre');
+                        if(p){
+                            p.textContent = pais.nombre;
+                        }
+                        th.innerHTML = ''; // Limpiar el contenido previo
 
-                    const img = document.createElement('img');
-                    img.src = `data:image/svg+xml;base64,${pais.bandera}`;
-                    img.alt = "Liga";
-                    img.style.width = "50px";
-                    img.style.height = "auto";
-                    // Verificar y asignar la clase de la imagen
-                    //console.log(data)
-                    if (pais.liga) {
+                        // Crear y configurar la imagen
+                        const img = document.createElement('img');
+                        img.alt = "Liga";
+                        img.src = `data:image/svg+xml;base64,${pais.bandera}`;
+                        img.id='logo';
+                        img.style.width = "50px";
+                        img.style.height = "auto";
                         img.classList.add('liga'+pais.liga);
-                    } else {
-                        console.error(`Error: 'liga' no está definido para el país: ${pais.nombre}`);
-                    }
 
-                    th.appendChild(img);
+                        // Crear y configurar el texto (si se desea incluir)
+                        /*
+                        const text = document.createElement('p');
+                        text.textContent = pais.nombre;
+                        text.style.margin = "0";
+                        */
+
+                        // Añadir imagen y texto al elemento th
+                        th.appendChild(img);
+                        //th.appendChild(text);
+                    } else {
+                        console.error(`Elemento con id ${posiciones[index]} no encontrado.`);
+                    }
                 });
             } else {
                 console.error("Error: Respuesta no contiene un array válido:", data);

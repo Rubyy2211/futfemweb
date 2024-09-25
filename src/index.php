@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button glow disabled">
+            <div class="game-button glow" onclick="redireccionarA('adivina.php')">
                 <img src="img/ComingSoon.png" alt="Game 5">
                 <h4>Futfem ?</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>
