@@ -85,8 +85,8 @@
                 <th>Temporada</th>
                 <th>Equipo</th>
                 <th>Liga</th>
-                <th>Partidos Jugados</th>
-                <th>Goles</th>
+                <!--<th>Partidos Jugados</th>
+                <th>Goles</th>-->
             </tr>
             </thead>
             <tbody id="tabla-equipos">
@@ -217,8 +217,8 @@
                 <td>${equipo.años}</td>
                 <td id='${equipo.equipo}'>${equipo.equipo}</td>
                 <td>${equipo.liga}</td>
-                <td>${equipo.partidosJugados}</td>
-                <td>${equipo.goles}</td>
+                <!--<td>${equipo.partidosJugados}</td>
+                <td>${equipo.goles}</td>-->
             `;
 
                 tablaEquipos.appendChild(fila);

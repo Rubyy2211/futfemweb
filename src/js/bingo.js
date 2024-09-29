@@ -257,5 +257,23 @@ function bloquearCeldaEstilo(celda, jugadoraImagen) {
     // Insertar la nueva imagen del jugador en la celda
     celda.style.position = 'relative'; // Asegurar que la celda sea un contenedor posicionado
     celda.appendChild(playerImg);      // Añadir la imagen del jugador como un hijo de la celda
+    verificarCeldasBloqueadas();
 }
+// Función para verificar si todas las celdas están bloqueadas
+function verificarCeldasBloqueadas() {
+    // Seleccionar todas las celdas
+    const celdas = document.querySelectorAll('td'); // Cambia '.celda' por el selector adecuado si es necesario
 
+    // Verificar si todas las celdas tienen la clase 'blocked'
+    const todasBloqueadas = Array.from(celdas).every(celda => celda.classList.contains('blocked'));
+
+    // Seleccionar el botón
+    const botonSkip = document.querySelector('.skip-button');
+
+    // Si todas están bloqueadas, deshabilitar el botón
+    if (todasBloqueadas) {
+        botonSkip.disabled = true;  // Deshabilitar el botón
+    } else {
+        botonSkip.disabled = false; // Habilitar el botón si no todas están bloqueadas
+    }
+}

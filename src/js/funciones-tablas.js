@@ -163,7 +163,7 @@ function ponerLigas(ids, posiciones) {
                         // Crear y configurar la imagen
                         const img = document.createElement('img');
                         img.alt = "Liga";
-                        img.src = `data:image/svg+xml;base64,${pais.bandera}`;
+                        img.src = `data:image/png;base64,${pais.bandera}`;
                         img.id='logo';
                         img.style.width = "50px";
                         img.style.height = "auto";
