@@ -1,20 +1,24 @@
-const jugadora = 1;
+let jugadora;
 let preguntas = 10;
 let vidas = 3;
 let player;
-
+async function inici() {
+    let jugadoraid = await fetchData(3);
+    console.log(jugadoraid.idJugadora)
+    jugadora = jugadoraid.idJugadora;
 // Llamada a la API para obtener la jugadora
-const url = `../api/jugadora_datos?id=${jugadora}`;
-fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        player = data.success; // Asigna los datos de la jugadora obtenida a la variable 'player'        
-    })
-    .catch(error => {
-        console.error('Error fetching word:', error);
-        // displayMessage('Error loading word.');
-    });
-
+    const url = `../api/jugadora_datos?id=${jugadora}`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            player = data.success; // Asigna los datos de la jugadora obtenida a la variable 'player'
+        })
+        .catch(error => {
+            console.error('Error fetching word:', error);
+            // displayMessage('Error loading word.');
+        });
+}
+inici();
 let namePlayer = document.getElementById('player-name');
 namePlayer.style.display = "none";
 // let lifeLeft = document.getElementById('lifeLeft');
