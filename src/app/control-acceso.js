@@ -15,7 +15,7 @@
         document.body.classList.remove("loading");
 
         // Comprobar si existe una función init y si es así, ejecutarla
-        if (window.init) window.init();
+        if (window.init) await window.init();
     } else {
         location.href = '../';
     }

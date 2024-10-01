@@ -54,7 +54,7 @@
     <div class="row sibling-fade">
         <div class="col-md-3">
             <div class="game-button glow" onclick="redireccionarA('XI_Nations.php')">
-                <img src="img/XI_Clubs.png" alt="Game 3">
+                <img src="img/XI_Nations.png" alt="Game 3">
                 <h4>Futfem Nations</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='app/XI_Nations.php'">PLAY</button>
             </div>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button glow disabled">
+            <div class="game-button glow" onclick="redireccionarA('adivina.php')">
                 <img src="img/ComingSoon.png" alt="Game 5">
                 <h4>Futfem ?</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>

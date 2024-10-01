@@ -29,4 +29,4 @@ if ($conn->query($sql_insertar_usuario) === TRUE) {
     $salida['success'] = false;
     $salida['message'] = 'Error al registrar el usuario';
 }
-?>
+

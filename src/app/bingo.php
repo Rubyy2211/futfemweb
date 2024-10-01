@@ -24,7 +24,7 @@
         <div id="player-name" class="player-name">Jugadora</div>
         <!-- Botón de Skip -->
     </div>
-    <button class="skip-button" onclick="skipPlayer()">SKIP</button>
+    <button class="skip-button" onclick="skipPlayer(paises,clubes,ligas)">SKIP</button>
 
 <table id="grid">
     <tbody class="sibling-fade">

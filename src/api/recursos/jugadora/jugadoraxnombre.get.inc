@@ -1,5 +1,6 @@
 <?php
 require_once "includes/conexion-bbdd.php"; // Asegúrate de que esta ruta sea correcta
+if(!isset($conn)) die();
 
 // Obtener el nombre de la jugadora desde la petición GET
 $nombre = isset($_GET['nombre']) ? trim($_GET['nombre']) : '';
@@ -52,4 +53,4 @@ $conn->close();
 
 // Devolver el resultado como JSON
 $salida=$jugadoras;
-?>
+

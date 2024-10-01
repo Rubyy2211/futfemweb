@@ -31,7 +31,7 @@ async function Verificar(nombreJugadora){
                     const fila = verificarEquipo(equipos,columna);
                     if (fila !== null) {
                             // Colocar la imagen en la celda correcta usando la fila y columna
-                            colocarImagenEnTabla(fila.columna, columna, fila.foto);
+                            await colocarImagenEnTabla(fila.columna, columna, fila.foto);
                     }
                 }
             }

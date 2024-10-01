@@ -24,7 +24,7 @@ async function init() {
 
 async function loadJugadoraById(id) {
     try {
-        const response = await fetch(`../api/guesstrayectoria?id=${id}`);
+        const response = await fetch(`../api/jugadora_trayectoria?id=${id}`);
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.statusText}`);
         }

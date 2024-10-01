@@ -19,7 +19,7 @@ th{
 }
 th, td {
     border: 1px solid #ddd;
-    padding: 0px;
+    padding: 0;
     text-align: center;
     width: 100px;
     height: 100px;
