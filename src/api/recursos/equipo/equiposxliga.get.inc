@@ -3,6 +3,7 @@ require_once "includes/conexion-bbdd.php";
 
 // Obtener el ID del país pasado por GET y convertirlo a entero
 $id = isset($_GET['liga']) ? intval($_GET['liga']) : 0;
+if(!isset($conn)) die();
 
 if ($id > 0) {
     // Preparar la consulta SQL

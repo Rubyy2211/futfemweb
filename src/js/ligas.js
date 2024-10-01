@@ -8,7 +8,7 @@ let paises = [];
 // Función para mostrar una liga específica basada en el índice
 function mostrarLiga(index) {
     const liga = ligas[index];
-    const leagueInfo = document.getElementById('league-info');
+    //const leagueInfo = document.getElementById('league-info');
     const logo = document.getElementById('logo');
     logo.src = liga.logo;
     logo.className = liga.liga;  // Usar el ID de la liga en el className para luego buscar equipos
@@ -148,7 +148,7 @@ function PaisSiguiente() {
 
 // Obtener el ID de la liga actual para buscar equipos
 const logo = document.getElementById('logo');
-const ligaId = 2;  // Obtenemos el ID de la liga actual desde el className
+//const ligaId = 2;  // Obtenemos el ID de la liga actual desde el className
 
 // Llamar a la función con el ID del país (ejemplo: 1 para Inglaterra)
 

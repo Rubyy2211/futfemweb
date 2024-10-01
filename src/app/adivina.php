@@ -35,7 +35,7 @@
         </div>
 
         <!-- Preguntas -->
-        <select name="pregunta" id="pregunta">
+        <label for="pregunta"></label><select name="pregunta" id="pregunta">
             <option value="">Selecciona una pregunta</option>
             <option value="1">¿ Juega actualmente en ___ ?</option>
             <option value="2">¿ Ha jugado alguna vez en ___ ?</option>
@@ -49,13 +49,13 @@
         </select>
 
         <!--Pais, Liga y Equipo -->
-        <select class="oculto" name="opciones" id="opciones">
+        <label for="opciones"></label><select class="oculto" name="opciones" id="opciones">
             <option value=""> Selecciona ... </option>
         </select>
 
         <div class="oculto">
             <span id="showAgeText"></span>
-            <input type="range" name="edad" id="edad" min="16" max="40">
+            <label for="edad"></label><input type="range" name="edad" id="edad" min="16" max="40">
         </div>
 
         <button id="askQuestion" class="skip-button" onclick="askQuestion()">Preguntar</button>

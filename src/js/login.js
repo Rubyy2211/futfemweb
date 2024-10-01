@@ -23,9 +23,9 @@ async function login(event) {
         if(sessionData.idRol==='1'){
             // redirigimos a la página correspondiente
             location.href = 'app/admin.php';
-        }else if(sessionData.idRol==='2'){
+        }/*else if(sessionData.idRol==='2'){
             location.href = 'app/tecnico.php';
-        }else{
+        }*/else{
             location.href = 'app/usuario.php';
         }
 

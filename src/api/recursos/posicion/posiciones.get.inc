@@ -1,6 +1,7 @@
 <?php
 require_once "includes/conexion-bbdd.php";
 
+if(!isset($conn)) die();
 
 $query = "SELECT idPosicion AS id, nombre FROM posiciones WHERE idPosicionPadre is null";
 $stmt = $conn->prepare($query);

@@ -4,6 +4,16 @@ body {
     color: white;
     text-align: center;
 }
+
+img {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    pointer-events: none; /* Evita que las imágenes capturen el clic */
+}
+
 .contenedor {
     display: flex;
     flex-direction: column;
@@ -16,18 +26,18 @@ body {
     margin-bottom: 20px;
 }
 
-.info-player{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
 .player img {
     border-radius: 50%;
     width: 150px;
     height: 150px;
     background: var(--color-primario);
     border: 1px solid var(--color-detalles);
+}
+
+.info-player{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .player-name {
@@ -83,7 +93,7 @@ td.selected {
 /* Imagen del jugador - parte inferior derecha, por delante */
 .blocked .player-imagen {
     position: absolute;
-    right: 0px; /* Ajusta la distancia desde el borde derecho */
+    right: 0; /* Ajusta la distancia desde el borde derecho */
     transform: scale(1.2); /* Agrandar la imagen del jugador en la celda bloqueada */
     z-index: 3; /* Asegurar que la imagen del jugador esté por delante */
     opacity: 1; /* Imagen del jugador completamente visible */
@@ -98,15 +108,6 @@ td.selected {
     left: 10px; /* Ajusta la distancia desde el borde izquierdo */
     z-index: 1; /* Asegura que la imagen de fondo esté detrás */
     width: 60%; /* Ajusta el tamaño de la imagen de fondo según sea necesario */
-}
-
-img {
-    max-width: 150px;
-    max-height: 150px;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
-    pointer-events: none; /* Evita que las imágenes capturen el clic */
 }
 
 .grid-item img {

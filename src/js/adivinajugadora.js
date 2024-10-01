@@ -4,7 +4,7 @@ let vidas = 3;
 let player;
 
 // Llamada a la API para obtener la jugadora
-const url = `../api/player?id=${jugadora}`;
+const url = `../api/jugadora_datos?id=${jugadora}`;
 fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -37,7 +37,7 @@ inputEdad.addEventListener("input", (event) => {
 tipoAsk.addEventListener("change", (event) => {
     let tipo = parseInt(event.target.value);
 
-    if (tipo == 5 || tipo == 6 || tipo == 7) {
+    if (tipo === 5 || tipo === 6 || tipo === 7) {
         opciones.classList.add('oculto');
         inputEdad.parentElement.classList.remove('oculto');
     } else {
@@ -74,7 +74,7 @@ function cargarCombo(tipo) {
 }
 
 async function equipos() {
-    fetch('../api/allequipos')
+    fetch('../api/equiposall')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -105,7 +105,7 @@ async function equipos() {
 }
 
 async function ligas() {
-    fetch('../api/allligas')
+    fetch('../api/ligasall')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -136,7 +136,7 @@ async function ligas() {
 }
 
 async function paises() {
-    fetch('../api/allpaises')
+    fetch('../api/paisesall')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -205,7 +205,7 @@ function askQuestion() {
         //Comprobar que haya una pregunta
         if (tipo > 0) {
             let valor = "";
-            if (tipo == 5 || tipo == 6 || tipo == 7) {
+            if (tipo === 5 || tipo === 6 || tipo === 7) {
                 valor = parseInt(inputEdad.value);
                 id = valor;
             } else {
@@ -231,7 +231,7 @@ function askQuestion() {
                 let questionsLeft = document.getElementById('questionsLeft');
                 questionsLeft.innerHTML = `Te quedan ${preguntas} preguntas`;
 
-                if (preguntas == 0) {
+                if (preguntas === 0) {
                     let askQuestion = document.getElementById('askQuestion');
 
                     tipoAsk.classList.add('oculto');
@@ -254,7 +254,7 @@ function obtenerRespuesta(tipo, valor) {
 
     switch (tipo) {
         case 1:
-            if (player.equipo == valor) {
+            if (player.equipo === valor) {
                 respuesta = correct;
             } else {
                 respuesta = error;
@@ -270,7 +270,7 @@ function obtenerRespuesta(tipo, valor) {
             break;
 
         case 3:
-            if (player.pais == valor) {
+            if (player.pais === valor) {
                 respuesta = correct;
             } else {
                 respuesta = error;
@@ -278,7 +278,7 @@ function obtenerRespuesta(tipo, valor) {
             break;
 
         case 4:
-            if (player.posicion == valor) {
+            if (player.posicion === valor) {
                 respuesta = correct;
             } else {
                 respuesta = error;
@@ -286,7 +286,7 @@ function obtenerRespuesta(tipo, valor) {
             break;
 
         case 5:
-            if (player.edad == valor) {
+            if (player.edad === valor) {
                 respuesta = correct;
             } else {
                 respuesta = error;
@@ -310,7 +310,7 @@ function obtenerRespuesta(tipo, valor) {
             break;
 
         case 8:
-            if (player.liga == valor) {
+            if (player.liga === valor) {
                 respuesta = correct;
             } else {
                 respuesta = error;
@@ -337,7 +337,7 @@ function validarJugadora() {
         let inombre = document.getElementById('nombre');
         let nombre = inombre.value;
         if (nombre.length > 0) {
-            if (player.nombre == nombre || player.apodo == nombre) {
+            if (player.nombre === nombre || player.apodo === nombre) {
                 let imgPlayer = document.getElementById('player-image');
                 imgPlayer.src = player.imagen;
 

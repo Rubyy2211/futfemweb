@@ -6,38 +6,6 @@ ponerLigas(ligas, ["c13", "c34",'c23']); // Asigna ligas a los países por su ID
 ponerClubes(clubes, ["c12", "c14", "c31"]); // Asigna clubes a los países.
 ponerEdades("c11", "c24", "c22", '../img/edades/menor20.png', '../img/edades/mayor30.png', '../img/edades/igual25.png'); // Asigna imágenes basadas en las edades.
 
-
-async function sacarEquipos(nombre) {
-    try {
-        // Realizar la solicitud fetch
-        const response = await fetch(`../api/guesstrayectoria?id=${encodeURIComponent(nombre)}`);
-
-        // Verificar que la solicitud fue exitosa
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        // Convertir la respuesta a JSON
-        const data = await response.json();
-        console.log("Respuesta del servidor:", data);
-
-        // Verificar si hubo un error en el JSON recibido
-        if (data.error) {
-            throw new Error(data.error);
-        }
-
-        // Comprobar si data es una lista de objetos
-        if (Array.isArray(data)) {
-            return data; // Devuelve la lista de objetos
-        } else {
-            console.warn('La respuesta no es una lista válida de objetos:', data);
-            return null;
-        }
-    } catch (error) {
-        console.error('Error al obtener los equipos:', error);
-        return null;
-    }
-}
 function calcularEdad(fechaNacimiento) {
     const hoy = new Date(); // Fecha actual
     const nacimiento = new Date(fechaNacimiento); // Convertir la fecha de nacimiento a un objeto Date
@@ -162,7 +130,7 @@ function handleCellClick(event, jugador) {
 // Función para realizar el fetch y obtener los datos del jugador
 function skipPlayer(paises, clubes, ligas) {
     // Construir la URL con los parámetros
-    const url = new URL('futfemweb/src/api/cambiarjugador', window.location.origin);
+    const url = new URL('futfemweb/src/api/jugadora_aleatoria', window.location.origin);
 
     // Agregar los parámetros paises, clubes, ligas a la URL
     if (paises.length > 0) paises.forEach(pais => url.searchParams.append('nacionalidades[]', pais));
@@ -193,7 +161,7 @@ function skipPlayer(paises, clubes, ligas) {
             // Calcular la edad, obtener el país y equipos asociados
             const edad = calcularEdad(jugador.Nacimiento);
             const pais = await obtenerIdPais(jugador.id);
-            const equipos = await sacarEquipos(jugador.id);
+            const equipos = await obtenerEquipos(jugador.id);
 
             if (equipos && equipos.length > 0) {
                 const nombresEquipos = equipos.map(e => e.equipo); // Nombres de equipos
@@ -271,9 +239,5 @@ function verificarCeldasBloqueadas() {
     const botonSkip = document.querySelector('.skip-button');
 
     // Si todas están bloqueadas, deshabilitar el botón
-    if (todasBloqueadas) {
-        botonSkip.disabled = true;  // Deshabilitar el botón
-    } else {
-        botonSkip.disabled = false; // Habilitar el botón si no todas están bloqueadas
-    }
+    botonSkip.disabled = todasBloqueadas;
 }

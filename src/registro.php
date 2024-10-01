@@ -23,13 +23,13 @@ $rol = $_SESSION['user']['idRol'] ?? null;
 
 if($rol == null || $rol == "") { // Comprueba si 'rol' es nulo o vacío
     require_once 'header.html';
-} elseif($rol == 2) {
+} /*elseif($rol == 2) {
     require_once 'header-tecnico.html';
 } elseif($rol == 3) {
     require_once 'header-usuario.html';
 } else {
     require_once 'header-admin.html';
-}
+}*/
 ?>
 <div class="wave"></div>
 <div class="wave"></div>
@@ -205,7 +205,6 @@ if($rol == null || $rol == "") { // Comprueba si 'rol' es nulo o vacío
 
 
 </script>
-<script src="./js/menu-hamburguesa.js?v2.0"></script>
 
 <script>
     async function logout() {

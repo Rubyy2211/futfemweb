@@ -1,5 +1,6 @@
 <?php
 require_once "includes/conexion-bbdd.php";
+if(!isset($conn)) die();
 
 // Obtener el ID de la jugadora desde la petición GET
 $idJugadora = isset($_GET['id']) ? intval($_GET['id']) : 0;

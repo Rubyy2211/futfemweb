@@ -1,5 +1,6 @@
 <?php
 require_once "includes/conexion-bbdd.php"; // Asegúrate de que esta ruta sea correcta
+if(!isset($conn)) die();
 
 // Obtener el ID de la jugadora desde la petición GET
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -48,4 +49,4 @@ $conn->close();
 // Devolver el resultado como JSON
 header('Content-Type: application/json');
 $salida=$jugadora;
-?>
+

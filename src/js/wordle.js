@@ -3,7 +3,7 @@ let currentRow = 0;
 const maxRows = 6;
 
 // Llamada a la API para obtener la palabra
-fetch('../api/nombres')
+fetch('../api/jugadora_apodo')
     .then(response => response.json())
     .then(data => {
         answer = data.toLowerCase(); // Asigna la palabra obtenida a la variable 'answer'

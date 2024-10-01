@@ -1,7 +1,7 @@
 async function obtenerIdPais(nombre) {
     try {
         // Realizar la solicitud fetch
-        const response = await fetch(`../api/verificarpais?nombre=${encodeURIComponent(nombre)}`);
+        const response = await fetch(`../api/jugadora_pais?nombre=${encodeURIComponent(nombre)}`);
 
         // Verificar que la solicitud fue exitosa
         if (!response.ok) {
@@ -62,7 +62,7 @@ function verificarNacionalidad(idPais) {
 async function obtenerEquipos(nombre) {
     try {
         // Realizar la solicitud fetch
-        const response = await fetch(`../api/guesstrayectoria?id=${encodeURIComponent(nombre)}`);
+        const response = await fetch(`../api/jugadora_trayectoria?id=${encodeURIComponent(nombre)}`);
 
         // Verificar que la solicitud fue exitosa
         if (!response.ok) {
@@ -138,7 +138,7 @@ async function obtenerJugadoras(modo) {
     try {
         const jugInput = document.getElementById('input');
         const texto = jugInput.value.trim();
-        const urlj = `../api/guessjugadora?nombre=${encodeURIComponent(texto)}`;
+        const urlj = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
 
         const response = await fetch(urlj);
         if (!response.ok) {

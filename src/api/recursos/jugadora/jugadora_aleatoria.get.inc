@@ -2,14 +2,15 @@
 require_once "includes/conexion-bbdd.php";
 
 // Obtener los parámetros como arrays
-$nacionalidades = isset($_GET['nacionalidades']) ? $_GET['nacionalidades'] : [];
-$equipos = isset($_GET['equipos']) ? $_GET['equipos'] : [];
-$ligas = isset($_GET['ligas']) ? $_GET['ligas'] : [];
+$nacionalidades = $_GET['nacionalidades'] ?? [];
+$equipos = $_GET['equipos'] ?? [];
+$ligas = $_GET['ligas'] ?? [];
 // Asegúrate de que estás recibiendo los arrays correctamente
 // En vez de var_dump, usa error_log para registrar
 error_log(print_r($nacionalidades, true));
 error_log(print_r($equipos, true));
 error_log(print_r($ligas, true));
+if(!isset($conn)) die();
 
 $conditions = [];
 $params = [];
@@ -95,4 +96,3 @@ $conn->close();
 // Devolver el jugador como JSON
 header('Content-Type: application/json');
 $salida=$jugadora;
-?>

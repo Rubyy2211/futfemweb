@@ -24,13 +24,13 @@ $rol = $_SESSION['user']['idRol'] ?? null;
 // Incluir el header correspondiente según el rol del usuario
 if($rol === null || $rol === "") {
     require_once 'header.html';
-} elseif($rol == 2) {
+} /*elseif($rol == 2) {
     require_once 'header-tecnico.html';
 } elseif($rol == 3) {
     require_once 'header-usuario.html';
 } elseif($rol == 1) {
     require_once 'header-admin.html';
-}
+}*/
 ?>
 <div class="wave"></div>
 <div class="wave"></div>
@@ -60,7 +60,6 @@ if($rol === null || $rol === "") {
   </div>
 </section>
 <script src="js/login.js"></script>
-<script src="./js/menu-hamburguesa.js?v2.0"></script>
 
 <script>
     async function logout() {

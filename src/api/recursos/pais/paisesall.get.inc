@@ -1,6 +1,7 @@
 <?php
 require_once "includes/conexion-bbdd.php";
 
+if(!isset($conn)) die();
 
 $query = "SELECT id_pais AS id, nombre FROM paises ORDER BY nombre";
 $stmt = $conn->prepare($query);

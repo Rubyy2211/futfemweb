@@ -4,7 +4,7 @@
 //------------------Poner Banderas--------------------------------------------------
 function ponerBanderas(ids, posiciones) {
     // Generar la URL para obtener las banderas con IDs como parámetros de consulta
-    const url = `../api/banderas?id[]=${ids.join('&id[]=')}`;
+    const url = `../api/paisesxid?id[]=${ids.join('&id[]=')}`;
     console.log(`URL generada: ${url}`);
 
     fetch(url)
@@ -67,7 +67,7 @@ function ponerBanderas(ids, posiciones) {
 }//f()
 //--------------------Poner Clubes--------------------------------------------------
 function ponerClubes(ids, posiciones) {
-    const url = `../api/equipos?id[]=${ids.join('&id[]=')}`;
+    const url = `../api/equiposxid?id[]=${ids.join('&id[]=')}`;
     console.log(`URL generada: ${url}`);
 
     fetch(url)
@@ -130,7 +130,7 @@ function ponerClubes(ids, posiciones) {
 }//f()
 //--------------------Poner Ligas---------------------------------------------------
 function ponerLigas(ids, posiciones) {
-    const url = `../api/ligas?id[]=${ids.join('&id[]=')}`;
+    const url = `../api/ligasxid?id[]=${ids.join('&id[]=')}`;
     //console.log(`URL generada: ${url}`);
 
     fetch(url)

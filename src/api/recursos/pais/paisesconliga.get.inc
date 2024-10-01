@@ -1,5 +1,6 @@
 <?php
 require_once "includes/conexion-bbdd.php";
+if(!isset($conn)) die();
 
 // Preparar la consulta SQL
 $query = "SELECT DISTINCT ligas.pais, paises.nombre, paises.bandera
