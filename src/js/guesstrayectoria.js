@@ -1,7 +1,10 @@
-const jugadoraId = 25;
+let jugadoraId;
 
 // Función principal que controla el flujo de carga
 async function init() {
+    let jugadora = await fetchData(1);
+    jugadoraId = jugadora.idJugadora;
+    console.log(jugadora.idJugadora)
     // Obtener el valor de localStorage
     const answer2 = localStorage.getItem('hasWon');
     const nombre = localStorage.getItem('nombre');
@@ -107,12 +110,12 @@ function displayTrayectoria(data) {
 
 //loadJugadoraById(jugadoraId);
 
-init()
+init();
 async function checkAnswer() {
     try {
         const textoInput = document.getElementById('jugadoraInput');
         const texto = textoInput.value.trim();
-        const url = `../api/guessjugadora?nombre=${encodeURIComponent(texto)}`;
+        const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
 
         const response = await fetch(url);
         if (!response.ok) {

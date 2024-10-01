@@ -31,6 +31,10 @@ if(str_starts_with($recurso,'liga')){
 
     $file = "recursos/posicion/$recurso.$metodo.inc";
 
+}else if(str_starts_with($recurso,'juego')){
+
+    $file = "recursos/juegos/$recurso.$metodo.inc";
+
 }else{
 // archivo a importar según el recurso solicitado
 $file = "recursos/$recurso.$metodo.inc";

@@ -315,7 +315,10 @@ function Ganaste(modo) {
     localStorage.setItem('nombre',resultDiv.textContent)
     // Llamar a la función que cambia la imagen con flip
     if(modo==='grid'){
-
+    const input = document.querySelector('input');
+    const button = document.querySelector('button');
+    button.disabled=true;
+    input.disabled=true;
     }else if(modo==='trayectoria'){
         cambiarImagenConFlip();
     }

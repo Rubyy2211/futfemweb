@@ -1,20 +1,23 @@
 let answer = "";
 let currentRow = 0;
 const maxRows = 6;
-
+async function ini() {
+    let jugadora = await fetchData(2);
+    console.log(jugadora)
 // Llamada a la API para obtener la palabra
-fetch('../api/jugadora_apodo')
-    .then(response => response.json())
-    .then(data => {
-        answer = data.toLowerCase(); // Asigna la palabra obtenida a la variable 'answer'
-        createBoard();
-        updateActiveRow(); // Inicialmente habilitar solo la fila 0
-    })
-    .catch(error => {
-        console.error('Error fetching word:', error);
-        displayMessage('Error loading word.');
-    });
-
+    fetch(`../api/jugadora_apodo?id_jugadora=${jugadora.idJugadora}`)
+        .then(response => response.json())
+        .then(data => {
+            answer = data.toLowerCase(); // Asigna la palabra obtenida a la variable 'answer'
+            createBoard();
+            updateActiveRow(); // Inicialmente habilitar solo la fila 0
+        })
+        .catch(error => {
+            console.error('Error fetching word:', error);
+            displayMessage('Error loading word.');
+        });
+}
+ini();
 function createBoard() {
     const board = document.getElementById("board");
     for (let i = 0; i < maxRows; i++) {
