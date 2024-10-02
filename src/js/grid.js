@@ -1,11 +1,11 @@
-// Ejemplo de uso
-ponerBanderas([1, 16, 3], ["PaisA", "PaisB", "PaisC"]); // Llama a la función con los IDs de los países que quieras
-
-// Ejemplo de uso
-ponerClubes([1, 7, 2], ["Equipo1", "Equipo2", "Equipo3"]); // Llama a la función con los IDs de los países que quieras
-
-
-
+async function init() {
+    let valor = await fetchData(4);
+    let paises = [valor.pais1, valor.pais2, valor.pais3];
+    let clubes = [valor.club1, valor.club2, valor.club3];
+    ponerBanderas(paises, ["PaisA", "PaisB", "PaisC"]);
+    ponerClubes(clubes, ["Equipo1", "Equipo2", "Equipo3"]);
+}
+init()
 async function Verificar(nombreJugadora){
     console.log('Procesando jugadora:', nombreJugadora);
     if (!nombreJugadora) {
