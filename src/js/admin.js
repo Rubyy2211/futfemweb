@@ -54,7 +54,31 @@ function Adivina() {
         }
     });
 }
+function Grid() {
+    const input1 = document.getElementById('id1');
+    const input2 = document.getElementById('id2');
+    const input3 = document.getElementById('id3');
+    const input4 = document.getElementById('idc1');
+    const input5 = document.getElementById('idc2');
+    const input6 = document.getElementById('idc3');
 
+    // Llamar a fetchData y manejar la promesa
+    fetchData(4).then(datos => {
+        console.log(datos)
+        if (datos.error) {
+            // Manejar el error
+            input.textContent = datos.error; // Mostrar mensaje de error en el input
+        } else {
+            // Suponiendo que "idJugadora" es una propiedad de la respuesta JSON
+            input1.value = datos.pais1 // Usar .value para actualizar un input
+            input2.value = datos.pais2 // Usar .value para actualizar un input
+            input3.value = datos.pais3 // Usar .value para actualizar un input
+            input4.value = datos.club1 // Usar .value para actualizar un input
+            input5.value = datos.club2 // Usar .value para actualizar un input
+            input6.value = datos.club3 // Usar .value para actualizar un input
+        }
+    });
+}
 function GTrayectoria() {
     const input = document.getElementById('id-jugadora2');
 
@@ -107,6 +131,35 @@ function actualizarAdivina() {
     // Aquí puedes hacer lo que quieras con el JSON, como enviarlo a un servidor
     // Por ejemplo, llamar a la función para enviar a una API
     sendToAPI(jsonString, 3);
+}
+function actualizarGrid() {
+    // Obtener el valor del input
+    const input1 = document.getElementById('id1').value;
+    const input2 = document.getElementById('id2').value;
+    const input3 = document.getElementById('id3').value;
+    const input4 = document.getElementById('idc1').value;
+    const input5 = document.getElementById('idc2').value;
+    const input6 = document.getElementById('idc3').value;
+
+    // Crear un objeto con el valor
+    const jsonData = {
+        pais1: input1, // Clave: valor del input
+        pais2: input2, // Clave: valor del input
+        pais3: input3, // Clave: valor del input
+        club1: input4, // Clave: valor del input
+        club2: input5, // Clave: valor del input
+        club3: input6, // Clave: valor del input
+    };
+
+    // Convertir a JSON
+    const jsonString = JSON.stringify(jsonData);
+
+    // Mostrar el JSON en la consola
+    console.log(jsonString);
+
+    // Aquí puedes hacer lo que quieras con el JSON, como enviarlo a un servidor
+    // Por ejemplo, llamar a la función para enviar a una API
+    sendToAPI(jsonString, 4);
 }
 function actualizarWordle() {
     // Obtener el valor del input
