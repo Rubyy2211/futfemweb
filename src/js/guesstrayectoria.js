@@ -50,18 +50,25 @@ function displayTrayectoria(data) {
     const trayectoriaDiv = document.getElementById('trayectoria');
     trayectoriaDiv.innerHTML = ''; // Limpiar contenido previo
     const myst = document.getElementById('jugadora');
-    myst.src=data[0].ImagenJugadora;
+    myst.src = data[0].ImagenJugadora;
+
+    // Definir el número máximo de elementos por fila
+    const maxPerRow = 5;
+
+    // Crear un contenedor para cada fila
+    let currentRow;
+
     data.forEach((item, index) => {
+        // Si el índice es múltiplo de maxPerRow, crea una nueva fila
+        if (index % maxPerRow === 0) {
+            currentRow = document.createElement('div');
+            currentRow.classList.add('trayectoria-row'); // Añadir clase para la fila
+            trayectoriaDiv.appendChild(currentRow);
+        }
+
         // Crear el contenedor del flip
         const flipContainer = document.createElement('div');
         flipContainer.classList.add('flip-container');
-
-        // Alternar colores de fondo según si el índice es par o impar
-        /*if (index % 2 === 0) {
-            flipContainer.style.backgroundColor = 'var(--color-primario)'; // Color para índices pares
-        } else {
-            flipContainer.style.backgroundColor = 'var(--color-secundario)'; // Color para índices impares
-        }*/
 
         const flipper = document.createElement('div');
         flipper.classList.add('flipper');
@@ -73,7 +80,7 @@ function displayTrayectoria(data) {
         if (item.escudo) {
             const escudoImg = document.createElement('img');
             escudoImg.src = item.escudo;
-            escudoImg.alt = 'Escudo';
+            escudoImg.alt = item.nombre;
             front.appendChild(escudoImg);
 
             // Crear y añadir el texto de los años
@@ -91,8 +98,8 @@ function displayTrayectoria(data) {
             const jugadoraImg = document.createElement('img');
             jugadoraImg.src = item.imagen;
             jugadoraImg.alt = 'Imagen de la Jugadora';
-            trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
             back.appendChild(jugadoraImg);
+            trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
 
             // Crear y añadir el texto de los años
             const anyos = document.createElement('p');
@@ -104,7 +111,9 @@ function displayTrayectoria(data) {
         flipper.appendChild(front);
         flipper.appendChild(back);
         flipContainer.appendChild(flipper);
-        trayectoriaDiv.appendChild(flipContainer);
+
+        // Añadir el flipContainer a la fila actual
+        currentRow.appendChild(flipContainer);
     });
 }
 

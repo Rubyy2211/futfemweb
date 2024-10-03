@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Futfem XI</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/XI.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+
 </head>
 <style>
     body{

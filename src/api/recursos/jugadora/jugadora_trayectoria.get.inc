@@ -19,6 +19,7 @@ $query = "
     trayectoria.imagen, 
     equipos.escudo, 
     equipos.liga, 
+    equipos.nombre,
     jugadoras.imagen AS ImagenJugadora 
 FROM 
     trayectoria 

@@ -193,3 +193,10 @@ input::placeholder{
     opacity: 0.8; /* Aplica un efecto visual para parecer deshabilitado */
     cursor: not-allowed; /* Cambia el cursor al de "no permitido" */
 }
+@media (max-width: 650px) {
+    body>div.cont{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

@@ -3,16 +3,20 @@
     flex-direction: column;
     align-items: center;
     margin: 20px;
+    text-align: center;
 }
 #trayectoria {
     margin-bottom: 20px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     background-color: var(--color-texto);
     border-radius: 20px;
     padding: 1rem 0;
     border: 1px solid var(--color-detalles);
+}
+h1{
+    text-align: center;
 }
 .mystery{
     width: 150px;
@@ -88,7 +92,10 @@ p {
     flex-direction: row;
     align-items: center;
 }
-
+.trayectoria-row{
+    display: flex;
+    flex-direction: row;
+}
 #trayectoria .flip-container{
     padding-top: 5px;
 }
@@ -109,9 +116,7 @@ p {
     }
 
     #trayectoria img {
-        width: 80px;
         flex: 1 1 0;
-        height: 80px;
     }
 
     input {
@@ -141,15 +146,17 @@ p {
         flex: 1 1 0;
         height: auto;
     }
-
+    #trayectoria .flip-container{
+        width: 125px;
+    }
     #equipos div {
         margin: 15px 10px;
     }
 
     #trayectoria img {
-        max-width: 65px;
+        /*max-width: 75px;
         height: 65px;
-        flex: 1 1 0;
+        flex: 1 1 0;*/
         display: block;
     }
     .mystery{
@@ -182,14 +189,17 @@ p {
         padding: 1rem 0.2rem;
         flex: 1 1 0;
         height: auto;
-        display: grid;
-        grid-template-columns: repeat(4, 25%); /* Esto crea 3 columnas de igual tamaño */
+        /*display: grid;
+        grid-template-columns: repeat(4, 25%);*/ /* Esto crea 3 columnas de igual tamaño */
         gap: 1.5rem 0; /* Espacio entre los elementos, ajusta según tu preferencia */
         justify-items: center;
     }
-
+    .trayectoria-row{
+        width: 100%;
+        justify-content: center;
+    }
     .flip-container{
-        max-width: 90px;
+        max-width: 70px;
         min-height: 90px;
     }
     #equipos div {
@@ -198,9 +208,10 @@ p {
     }
 
     #trayectoria img {
-        max-width: 80px;
-        max-height: 80px;
+        max-width: 60px;
+        max-height: 60px;
         flex: 1 1 0;
+        margin: 0;
     }
     .mystery{
         width: 150px;

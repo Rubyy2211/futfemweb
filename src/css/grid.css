@@ -58,3 +58,9 @@ img {
 #c33 img {
     display: block;
 }
+@media (max-width: 450px) {
+    td, th{
+        width: 80px;
+        height: 80px;
+    }
+}

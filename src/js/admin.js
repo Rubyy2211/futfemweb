@@ -25,7 +25,7 @@ function fetchData(idJuego) {
         });
 }
 function Wordle() {
-    const input = document.getElementById('id-jugadora1');
+    const input = document.getElementById('id-jugadora2');
 
     // Llamar a fetchData y manejar la promesa
     fetchData(2).then(datos => {
@@ -80,7 +80,7 @@ function Grid() {
     });
 }
 function GTrayectoria() {
-    const input = document.getElementById('id-jugadora2');
+    const input = document.getElementById('id-jugadora1');
 
     // Llamar a fetchData y manejar la promesa
     fetchData(1).then(datos => {

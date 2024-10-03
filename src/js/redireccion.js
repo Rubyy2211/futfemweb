@@ -15,6 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = finalUrl;
         }, 2000); // Retraso de 2 segundos
     } else {
-        console.error('No se especificó la URL final.');
+        //console.error('No se especificó la URL final.');
     }
 });
