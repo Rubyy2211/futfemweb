@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/efectos/wave.css">
     <style>
         .team-card {
            /* background-color: #222;*/
@@ -19,6 +20,15 @@
             text-align: center;
             /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);*/
             align-content: center;
+        }
+        .team-card>div{
+
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 20px;
+            background-color: rgba(128, 0, 128, 0.45);
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+            backdrop-filter: blur(10px);
         }
         .team-card #team {
             width: 100px;
@@ -82,6 +92,9 @@
 </head>
 <body>
 <?php require_once 'header.html'?>
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
 <div class="team-card">
     <div class="team-country">
         <i class="bi bi-chevron-compact-left" onclick="PaisAnterior()"></i> <!-- Para cambiar país -->
@@ -92,7 +105,7 @@
         <i class="bi bi-chevron-compact-right" onclick="PaisSiguiente()"></i> <!-- Para cambiar país -->
     </div>
 
-    <div class="team">
+    <div class="team" onclick="redireccionarEquipo()">
         <i class="bi bi-chevron-compact-left" onclick="equipoAnterior()"></i> <!-- Para cambiar equipo -->
         <div>
         <p class="team-name" id="team-name">Liverpool</p>
@@ -113,5 +126,14 @@
 <script rel="script" src="../js/ligas.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+function redireccionarEquipo() {
+// Obtén la clase del logo del equipo
+const equipoLogo = document.getElementById("team").classList[0];
+
+// Redirigir a equipo.php con la clase del equipo como parámetro en la URL
+window.location.href = `equipo.php?equipo=${equipoLogo}`;
+}
+</script>
 </body>
 </html>

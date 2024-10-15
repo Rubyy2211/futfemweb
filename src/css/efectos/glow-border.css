@@ -1,6 +1,6 @@
 .glow{
     /*padding:clamp(1.5rem,3vw,5rem);*/
-    border:0 solid white;
+    /*border:0 solid white;*/
     border-radius:1rem;
     position:relative;
 }
