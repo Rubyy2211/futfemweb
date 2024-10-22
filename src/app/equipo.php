@@ -8,44 +8,62 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/equipos.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/efectos/wave.css">
     <style>
+        body{
+            text-align: center;
+        }
         .container{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100vw;
+            overflow-x: hidden;
+            min-width: 98vw;
         }
         #jugadoras-container{
-            text-align: end;
+            text-align: center;
             width: 100vw;
             display: flex;
             justify-content: center;
         }
+        .col-md-4{
+            /*background-color: rgba(128,0,128,0.45); /* Color de fondo primario */
+            /*color: white; /* Color del texto */
+            margin-bottom: 20px; /* Espaciado inferior entre botones */
+            transition: transform 0.2s; /* Suavizar el efecto de transformación */
+           /* border: 0.5px solid rgb(255, 255, 255);*/
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+            backdrop-filter: blur(10px);
+        }
         @media (min-width: 768px) {
             #jugadoras-container #nombre {
                 position: absolute;
-                top: 25%;
-                left: 10px;
-                margin: 0px;
-                font-size: 14px;
+                font-size: 2vw;
                 padding: 2px 5px;
+                left: 5%;
+                right: 5%;
+                bottom: 7%;
+                z-index: 2;
             }
-
             #jugadoras-container #apellido {
                 position: absolute;
-                top: 35%;
-                left: 10px;
-                margin: 0px;
-                font-size: 18px;
+                right: 5%;
+                left: 5%;
+                bottom: 0;
+                font-size: 1.7vw;
                 padding: 2px 5px;
                 font-weight: 700;
+                z-index: 2;
+                margin-bottom: 0;
             }
 
             .col-md-4 {
-                max-width: 30%;
+                max-width: fit-content;
                 margin: 5px;
                 display: flex;
                 justify-content: end;
@@ -117,17 +135,17 @@
             // Crear imágenes para cada jugadora
             jugadoras.forEach(jugadora => {
                 const col = document.createElement('div');
-                col.className = 'col-md-4'; // Cambia el tamaño según lo necesites
+                col.classList.add('col-md-4'); // Cambia el tamaño según lo necesites
                 col.style.height = 'auto'; // Deja que la altura se ajuste automáticamente o usa un valor específico
                 col.style.position = 'relative'; // Necesario para la imagen con posición absoluta
-
-                col.style.backgroundColor = 'var(--color-primario)'; // Color sólido detrás del escudo (puedes cambiar el color según lo necesites)
+                col.style.borderRadius = '20px';
+                col.classList.add('equipo'+equipoId);
 
                 // Establecer imagen de fondo para el escudo, en la esquina superior izquierda
-                col.style.backgroundImage = `url(${jugadora.escudo})`; // Usar el campo correcto para el escudo
-                col.style.backgroundSize = '25%'; // Ajustar el tamaño del escudo (cambiar según lo necesites)
-                col.style.backgroundPosition = 'top left'; // Colocar el fondo en la esquina superior izquierda
-                col.style.backgroundRepeat = 'no-repeat'; // No repetir la imagen de fondo
+                col.style.backgroundImage = `linear-gradient(rgba(128,0,128,0.45),rgba(128,0,128,0.45)), url(${jugadora.escudo})`;
+                col.style.backgroundSize = 'auto'; // Ajustar el tamaño del escudo (cambiar según lo necesites)
+                col.style.backgroundPosition = 'center center'; // Colocar el fondo en la esquina superior izquierda
+                col.style.backgroundRepeat = 'no-repeat'; // No repetir la imagen de fondo*/
                 col.style.position = 'relative'; // Para posicionar el texto debajo del escudo
                 col.style.padding = '0';
 
@@ -136,8 +154,10 @@
                 img.src = jugadora.imagen; // Usar el campo correcto
                 img.className = `jugadora-${jugadora.id_jugadora}`;
                 img.alt = `Imagen de ${jugadora.id_jugadora}`;
-                img.style.width = '90%';
+                img.style.width = '100%';
                 img.style.zIndex = '+1';
+                img.style.borderRadius = '20px';
+
 
                 // Crear un nuevo elemento para el nombre de la jugadora
                 const nombre = document.createElement('p');

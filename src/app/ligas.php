@@ -105,9 +105,9 @@
         <i class="bi bi-chevron-compact-right" onclick="PaisSiguiente()"></i> <!-- Para cambiar país -->
     </div>
 
-    <div class="team" onclick="redireccionarEquipo()">
+    <div class="team">
         <i class="bi bi-chevron-compact-left" onclick="equipoAnterior()"></i> <!-- Para cambiar equipo -->
-        <div>
+        <div  onclick="redireccionarEquipo()">
         <p class="team-name" id="team-name">Liverpool</p>
         <img src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" alt="Liverpool Logo" id="team">
         </div>
