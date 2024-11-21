@@ -1,7 +1,7 @@
 /* General reset for body */
 body {
-    background: #480048FF;
-    font-family: 'Open Sans', sans-serif;
+    /*background: #480048FF;
+    font-family: 'Open Sans', sans-serif;*/
     -webkit-font-smoothing: antialiased;
     margin: 0;
     height: 100vh; /* Full height for the body */
@@ -9,6 +9,11 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden; /* Ensure no scrollbars */
+    background-image: url("../../img/fondo cesped.jpg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(128, 0, 128, 0.5); /* Color negro con transparencia */
+    background-blend-mode: color-dodge; /* Modo de mezcla */
 }
 
 #container {

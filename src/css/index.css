@@ -1,3 +1,12 @@
+body{
+    background-image: url("../img/fondo cesped.jpg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(128, 0, 128, 0.5); /* Color negro con transparencia */
+    background-blend-mode: color-dodge; /* Modo de mezcla */
+}
+
+
 /* Estilos principales para .game-button */
 .game-button {
     border-radius: 20px; /* Bordes redondeados */
@@ -11,24 +20,6 @@
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
 
     backdrop-filter: blur(10px);
-}
-
-@keyframes movimientoOlas {
-    0% {
-        background-position: 0 0;
-    }
-    25% {
-        background-position: 50% 50%;
-    }
-    50% {
-        background-position: 100% 0;
-    }
-    75% {
-        background-position: 50% 50%;
-    }
-    100% {
-        background-position: 0 0;
-    }
 }
 .game-button img {
     max-width: 100%; /* La imagen ocupa el ancho total disponible */
@@ -79,6 +70,6 @@
         max-width: 50%; /* Dos columnas por fila en pantallas pequeñas */
     }
     .game-button h4 {
-        font-size: 18px; /* Reducir el tamaño de la fuente en pantallas pequeñas */
+        font-size: 16px; /* Reducir el tamaño de la fuente en pantallas pequeñas */
     }
 }

@@ -8,16 +8,20 @@ async function init() {
     // Obtener el valor de localStorage
     const answer2 = localStorage.getItem('hasWon');
     const nombre = localStorage.getItem('nombre');
+    const answer = localStorage.getItem('Attr1');
     // Convertir el valor a booleano, ya que localStorage almacena todo como cadenas
-    const isAnswerTrue = (answer2 === 'true');
+    const isAnswerTrue = (answer === jugadoraId);
     console.log('Has won:', isAnswerTrue);
-    const resultDiv = document.getElementById('result');
-    resultDiv.textContent=nombre;
     if (isAnswerTrue) {
         // Luego, cargar la trayectoria
         await loadJugadoraById(jugadoraId);
         Ganaste('trayectoria')
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent=nombre;
     }else{
+        localStorage.removeItem('Attr1');
+        localStorage.removeItem('nombre');
+
         // Luego, cargar la trayectoria
         await loadJugadoraById(jugadoraId);
     }
@@ -100,6 +104,7 @@ function displayTrayectoria(data) {
             jugadoraImg.alt = 'Imagen de la Jugadora';
             back.appendChild(jugadoraImg);
             trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
+            trayectoriaDiv.setAttribute('Attr1', item.jugadora);
 
             // Crear y añadir el texto de los años
             const anyos = document.createElement('p');

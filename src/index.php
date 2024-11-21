@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FUTFEM</title>
+    <link rel="icon" href="img/prueba%20logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilos.css?v1.0">
     <link rel="stylesheet" href="css/efectos/fade.css">
-    <link rel="stylesheet" href="css/efectos/wave.css">
     <link rel="stylesheet" href="css/efectos/glow-border.css">
 </head>
 <body>
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
 <?php require_once 'header.html'?>
 <section class="juegos">
 <div class="container mt-5 sibling-fade">
@@ -69,7 +66,7 @@
         <div class="col-md-3">
             <div class="game-button glow" onclick="redireccionarA('adivina.php')">
                 <img src="img/ComingSoon.png" alt="Game 5">
-                <h4>Futfem ?</h4>
+                <h4>Futfem Guess</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>
             </div>
         </div>

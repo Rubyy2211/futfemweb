@@ -320,6 +320,9 @@ function Ganaste(modo) {
     button.disabled=true;
     input.disabled=true;
     }else if(modo==='trayectoria'){
+        const div = document.getElementById('trayectoria');
+        const jugadora_id = div.getAttribute('Attr1');
+        localStorage.setItem('Attr1', jugadora_id);
         cambiarImagenConFlip();
     }
 }

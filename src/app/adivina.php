@@ -10,13 +10,9 @@
 
     <link rel="stylesheet" href="../css/adivina.css">
     <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/efectos/wave.css">
 </head>
 
 <body>
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
     <?php require_once 'header.html' ?>
 
 

@@ -4,6 +4,8 @@
     align-items: center;
     margin: 20px;
     text-align: center;
+    width: 100%;
+    height: 100%;
 }
 #trayectoria {
     margin-bottom: 20px;
@@ -14,9 +16,12 @@
     border-radius: 20px;
     padding: 1rem 0;
     border: 1px solid var(--color-detalles);
+    max-width: 90%;
 }
 h1{
     text-align: center;
+    margin-top: unset;
+    font-family: "Bauhaus 93", sans-serif;
 }
 .mystery{
     width: 150px;
@@ -95,6 +100,8 @@ p {
 .trayectoria-row{
     display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
 }
 #trayectoria .flip-container{
     padding-top: 5px;
@@ -196,7 +203,7 @@ p {
     }
     .trayectoria-row{
         width: 100%;
-        justify-content: center;
+        justify-content: space-around;
     }
     .flip-container{
         max-width: 70px;

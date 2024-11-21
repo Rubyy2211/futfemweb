@@ -1,5 +1,5 @@
 table{
-    width: 80%;
+    /*width: 80%;*/
     /*height: 560px;*/
     /*background-color: rgba(128,0,128,0.5);*/
     background-image: url("../img/imagen_2024-09-17_194038826.png"),linear-gradient(rgba(128,0,128),rgba(128,0,128));
@@ -13,9 +13,6 @@ table{
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-}
-h1{
-    margin-top: 15px;
 }
 tbody{
     width: -webkit-fill-available;

@@ -2,7 +2,7 @@
   <div class="container">
 
     <!-- Logo de GTI -->
-    <a href="http://192.168.1.20/diseños/src/index.html" class="navbar-brand"><img src="img/prueba%20logo.png" alt="logo futfem"></a>
+    <a href="index.php" class="navbar-brand"><img src="img/prueba%20logo.png" alt="logo futfem"></a>
     <!-- Barra de navegación -->
     <a href="index.php" class="navbar-brand"><img src="img/logo 1.png" alt="logo futfem"></a>
     <!-- Botones de inicio de sesión y registro -->
@@ -10,6 +10,29 @@
       <a href="login.php">Iniciar Sesión</a> <!-- Enlace a la página de inicio de sesión -->
       <a href="registro.php">Registrarse</a> <!-- Enlace a la página de registro -->
     </div>
+    <!-- Botón de menú hamburguesa -->
+    <div class="hamburger-menu" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <!-- Menú desplegable -->
+    <div class="dropdown-menu">
+      <div>
+        <a href="login.php">Iniciar Sesión</a>
+      </div>
+      <div>
+        <a href="registro.php">Registrarse</a>
+      </div>
+    </div>
   </div>
 </header>
+<script>
+  function toggleMenu() {
+    const menu = document.querySelector('.dropdown-menu');
+    const hamburger = document.querySelector('.hamburger-menu');
+    hamburger.classList.toggle('open');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  }
+</script>
 
