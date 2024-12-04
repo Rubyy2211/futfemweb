@@ -8,7 +8,7 @@ body {
 #preguntas {
     min-height: 300px;
     max-height: 300px;
-    width: 700px;
+    max-width: 700px;
     margin: 0 auto;
     border: 2px solid white;
     overflow-y: auto;
@@ -16,7 +16,23 @@ body {
     margin-bottom: 10px;
     padding: 10px;
 }
-
+select{
+    padding: 10px;
+    font-size: 16px;
+    max-width: 250px;
+    background: rgba(128, 0, 128, 0.3);
+    border: 2px solid purple;
+    border-radius: 20px;
+    color: white;
+}
+#pregunta option{
+    padding: 10px;
+    font-size: 16px;
+    background: rgba(128, 0, 128, 0.3);
+    border: 2px solid purple;
+    border-radius: 20px;
+    color: white;
+}
 .oculto{
     display: none;
 }

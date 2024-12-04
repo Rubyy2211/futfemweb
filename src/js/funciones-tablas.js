@@ -301,6 +301,9 @@ function numeroAleatorioArray(valores) {
     // Devolver el valor correspondiente al índice aleatorio
     return valores[indiceAleatorio];
 }
+
+const resultDiv = document.getElementById('result');
+
 function Ganaste(modo) {
     // Bloquear el botón y el input
     const boton = document.getElementById('botonVerificar');
@@ -311,7 +314,6 @@ function Ganaste(modo) {
 
     // Guardar en localStorage que el usuario ha ganado
     localStorage.setItem('hasWon', 'true');
-    const resultDiv = document.getElementById('result');
     localStorage.setItem('nombre',resultDiv.textContent)
     // Llamar a la función que cambia la imagen con flip
     if(modo==='grid'){
@@ -320,9 +322,37 @@ function Ganaste(modo) {
     button.disabled=true;
     input.disabled=true;
     }else if(modo==='trayectoria'){
+        const div = document.getElementById('trayectoria');
+        const jugadora_id = div.getAttribute('Attr1');
+        localStorage.setItem('Attr1', jugadora_id);
+        cambiarImagenConFlip();
+    }else if(modo==='compañeras'){
+        const div = document.getElementById('compañeras');
+        const jugadora_id = div.getAttribute('Attr8');
+        localStorage.setItem('Attr8', jugadora_id);
         cambiarImagenConFlip();
     }
 }
 
+
+function cambiarImagenConFlip() {
+    // Seleccionar todos los contenedores de flip
+    const flipContainers = document.querySelectorAll('.flip-container');
+
+    flipContainers.forEach(container => {
+        const imagenTrasera = container.querySelector('.back img');
+        const imagenFrontal = container.querySelector('.front img');
+
+
+        // Añadir la clase para empezar el volteo
+        container.querySelector('.flipper').classList.add('flipping');
+
+        // Opcional: Si deseas cambiar la imagen frontal a la misma que la trasera después del volteo
+        setTimeout(() => {
+
+
+        }, 600); // Ajusta el tiempo según la duración de tu animación
+    });
+}
 
 

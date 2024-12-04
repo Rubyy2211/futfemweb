@@ -25,7 +25,7 @@ function fetchData(idJuego) {
         });
 }
 function Wordle() {
-    const input = document.getElementById('id-jugadora1');
+    const input = document.getElementById('id-jugadora2');
 
     // Llamar a fetchData y manejar la promesa
     fetchData(2).then(datos => {
@@ -80,10 +80,25 @@ function Grid() {
     });
 }
 function GTrayectoria() {
-    const input = document.getElementById('id-jugadora2');
+    const input = document.getElementById('id-jugadora1');
 
     // Llamar a fetchData y manejar la promesa
     fetchData(1).then(datos => {
+        console.log(datos)
+        if (datos.error) {
+            // Manejar el error
+            input.textContent = datos.error; // Mostrar mensaje de error en el input
+        } else {
+            // Suponiendo que "idJugadora" es una propiedad de la respuesta JSON
+            input.value = datos.idJugadora // Usar .value para actualizar un input
+        }
+    });
+}
+function Companyeras() {
+    const input = document.getElementById('id-jugadora4');
+
+    // Llamar a fetchData y manejar la promesa
+    fetchData(5).then(datos => {
         console.log(datos)
         if (datos.error) {
             // Manejar el error
@@ -112,6 +127,25 @@ function actualizarGuessTrayectoria() {
     // Aquí puedes hacer lo que quieras con el JSON, como enviarlo a un servidor
     // Por ejemplo, llamar a la función para enviar a una API
     sendToAPI(jsonString, 1);
+}
+function actualizarGuessCompanyeras() {
+    // Obtener el valor del input
+    const inputValue = document.getElementById('id-jugadora4').value;
+
+    // Crear un objeto con el valor
+    const jsonData = {
+        idJugadora: inputValue // Clave: valor del input
+    };
+
+    // Convertir a JSON
+    const jsonString = JSON.stringify(jsonData);
+
+    // Mostrar el JSON en la consola
+    console.log(jsonString);
+
+    // Aquí puedes hacer lo que quieras con el JSON, como enviarlo a un servidor
+    // Por ejemplo, llamar a la función para enviar a una API
+    sendToAPI(jsonString, 5);
 }
 function actualizarAdivina() {
     // Obtener el valor del input
@@ -212,4 +246,142 @@ function sendToAPI(jsonString, id) {
             console.error('Error al enviar el JSON:', error);
         });
 }
+
+//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+async function paisesAll() {
+    const opciones = document.getElementById('nacionalidad'); // Seleccionar el <select> por ID
+
+    try {
+        const response = await fetch('../api/paisesall');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success && Array.isArray(data.success)) {
+            // Limpiar las opciones existentes
+            opciones.innerHTML = '<option value="" disabled selected>Seleccione una nacionalidad</option>';
+
+            // Agregar nuevas opciones desde los datos
+            data.success.forEach(pais => {
+                const option = document.createElement('option');
+                option.value = pais.id; // El valor será el ID del país
+                option.textContent = pais.nombre; // El texto será el nombre del país
+                opciones.appendChild(option);
+            });
+        } else {
+            console.error("Error: Respuesta no contiene un array válido:", data);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+//---------------------------------------------------------------------------------------------------------------
+async function posicionesAll() {
+    const opciones = document.getElementById('posicion'); // Seleccionar el <select> por ID
+
+    try {
+        const response = await fetch('../api/posiciones-all');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success && Array.isArray(data.success)) {
+            // Limpiar las opciones existentes
+            opciones.innerHTML = '<option value="" disabled selected>Seleccione una posición</option>';
+
+            // Agregar nuevas opciones desde los datos
+            data.success.forEach(posicion => {
+                const option = document.createElement('option');
+                option.value = posicion.id; // El valor será el ID del país
+                option.textContent = posicion.abreviatura; // El texto será el nombre del país
+                opciones.appendChild(option);
+            });
+        } else {
+            console.error("Error: Respuesta no contiene un array válido:", data);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+async function insertarJugadora() {
+    // Obtener los datos del formulario
+    const nombre = document.getElementById("nombre").value;
+    const apellidos = document.getElementById("apellidos").value;
+    const apodo = document.getElementById("apodo").value;
+    const nacimiento = document.getElementById("nacimiento").value;
+    const nacionalidad = document.getElementById("nacionalidad").value;
+    const posicion = document.getElementById("posicion").value;
+    const retiro = document.getElementById("retiro").value;
+    const imagenInput = document.getElementById("imagen");
+    let imagen = null;
+
+    // Leer la imagen como base64 si se seleccionó un archivo
+    if (imagenInput.files.length > 0) {
+        const file = imagenInput.files[0];
+        imagen = await fileToBase64(file);
+    }
+
+    // Crear el objeto con los datos
+    const data = {
+        nombre,
+        apellidos,
+        apodo,
+        nacimiento,
+        nacionalidad,
+        posicion,
+        retiro: retiro || null, // Puede ser opcional
+        imagen, // Esto será null si no se seleccionó ninguna imagen
+    };
+
+    try {
+        // Enviar los datos al servidor usando fetch
+        const response = await fetch('../api/jugadora', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        // Manejar la respuesta del servidor
+        if (result.success) {
+            alert("Jugadora insertada con éxito");
+        } else {
+            alert("Error al insertar jugadora: " + (result.message || "Error desconocido"));
+        }
+    } catch (error) {
+        console.error("Error durante el fetch:", error);
+        alert("Hubo un problema al comunicarse con el servidor");
+    }
+}
+
+// Función para convertir un archivo en base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]); // Solo el contenido base64
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+    });
+}
+
+// Agregar un evento al formulario para manejar el envío
+    insertarJugadora();
+
+
 

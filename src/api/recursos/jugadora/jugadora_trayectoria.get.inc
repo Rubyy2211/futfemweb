@@ -19,6 +19,7 @@ $query = "
     trayectoria.imagen, 
     equipos.escudo, 
     equipos.liga, 
+    equipos.nombre,
     jugadoras.imagen AS ImagenJugadora 
 FROM 
     trayectoria 
@@ -28,6 +29,7 @@ JOIN
     jugadoras ON trayectoria.jugadora = jugadoras.id_jugadora 
 WHERE 
     trayectoria.jugadora = ?
+AND equipos.liga != 17
 ORDER BY 
     trayectoria.años;
 ";

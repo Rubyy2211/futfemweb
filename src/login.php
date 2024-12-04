@@ -10,7 +10,6 @@
   <title>Futfem | Inicio Sesión</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/estilos.css">
-  <link rel="stylesheet" href="css/efectos/wave.css">
   <link rel="stylesheet" href="css/login.css">
 
     <!-- Fin de la sección de encabezado -->
@@ -32,9 +31,6 @@ if($rol === null || $rol === "") {
     require_once 'header-admin.html';
 }*/
 ?>
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
 <section class="Inicio-Sesion">
   <div class="container">
     <form id="login-form">

@@ -9,13 +9,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/trayectoria.css">
-    <link rel="stylesheet" href="../css/efectos/wave.css">
     <link rel="stylesheet" href="../css/efectos/fade.css">
 </head>
 <body>
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
 <?php require_once 'header.html'?>
 <h1>Adivina la Jugadora</h1>
 <div id="game">

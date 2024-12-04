@@ -22,6 +22,7 @@ function mostrarEquipo(index) {
 
     equipoName.textContent = equipo.nombre;
     equipoLogo.src = equipo.escudo;
+    equipoLogo.className = equipo.equipo;
 }
 function mostrarPais(index) {
     const paisName = document.getElementById('paisNombre');
