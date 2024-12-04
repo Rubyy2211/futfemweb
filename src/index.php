@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="game-button glow disabled">
+            <div class="game-button glow" onclick="redireccionarA('compañeras.php')">
                 <img src="img/ComingSoon.png" alt="Game 6">
                 <h4>Futfem ?</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>

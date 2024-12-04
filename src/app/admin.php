@@ -1,204 +1,243 @@
 <?php
 session_start();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Panel Admin</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/efectos/wave.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Panel Admin</title>
+  <link rel="stylesheet" href="../css/estilos.css">
+  <link rel="stylesheet" href="../css/admin.css">
     <style>
-        .Juegos {
-            display: grid;
-            color: black;
-            width: 100vw;
-            margin: 0;
-            justify-content: center;
-        }
-        .tabla {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columnas de igual tamaño */
-            grid-template-rows: repeat(3, auto); /* 3 filas de altura automática */
-            gap: 20px; /* Espacio entre los elementos */
-            margin: 20px 20px 0 20px; /* Margen alrededor de la tabla */
-        }
-        .collapse{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .Juegos>div {
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 5px 5px;
-            width: 75vw;
-            height: 100%;
-            background: var(--color-detalles);
-            border: 1px solid var(--color-primario);
-        }
-        #paises, #clubes {
-            display: flex;
-            flex-direction: column; /* Alinear etiquetas y entradas en columna */
-            align-items: center;
-        }
-        label {
-            margin-bottom: 5px; /* Espacio entre etiqueta y campo de entrada */
-        }
-        input{
-            margin-bottom: 20px;
-        }
-        .card-header{
-            border-bottom: none;
-            width: 100%;
-            background: none;
-        }
-        .card-header a {
-            display: flex;                 /* Usa flexbox para alinear elementos */
-            justify-content: space-between; /* Espacio entre el texto y el ícono */
-            text-decoration: none;        /* Elimina el subrayado del enlace */
-            color: inherit;               /* Mantiene el color del texto */
-            padding: 10px;                /* Espacio interno para el enlace */
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-        .card-header a i {
-            margin-left: 10px;           /* Espacio entre el texto y el ícono */
-        }
+    /* Contenedor principal */
+    .contenedor-admin {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      padding-inline: unset;
+      min-width: 100%;
+        padding: unset;
+    }
 
-        i{
-            align-self: end;
-        }
-    </style>
+    /* Menú lateral */
+    .sidebar {
+      width: 250px;
+      background-color: var(--color-primario);
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100%;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(0); /* Visible por defecto */
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-250px); /* Oculto fuera de la vista */
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 20px;
+      color: #ECF0F1;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px 0;
+    }
+
+    .sidebar ul li a {
+      color: #ECF0F1;
+      text-decoration: none;
+      display: block;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: var(--color-secundario);
+    }
+
+    /* Botón para plegar/mostrar */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #34495E;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 1000;
+      transition: background-color 0.3s;
+    }
+
+    /* Ocultar el botón por defecto */
+    .toggle-btn.hidden {
+        display: none;
+    }
+
+    .toggle-btn:hover {
+      background-color: #2C3E50;
+    }
+
+    /* Contenido principal */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      width: calc(100% - 250px);
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    .main-content.full-width {
+      margin-left: 0;
+      width: 100%; /* Ocupa todo el ancho cuando el menú está oculto */
+    }
+    .submenu{
+        background: var(--color-secundario);
+    }
+  </style>
 </head>
-<body class="loading">
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
-<?php require_once 'header-admin.html'; ?>
+<body>
+<div class="contenedor-admin">
+  <!-- Botón para mostrar/ocultar el menú -->
+  <button class="toggle-btn hidden" id="toggle-btn">☰ Menú</button>
 
-<h2>Bienvenido, <?php echo $_SESSION['user']['nombre']?></h2>
-<div class="Juegos" id="accordion" role="tablist">
-    <div id="juego-trayectoria" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Juego Trayectoria<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-            <label for="id-jugadora1">Id de Jugadora:</label>
-            <input id="id-jugadora1">
-            <button onclick="actualizarGuessTrayectoria()">Actualizar</button>
-        </div>
-    </div>
+  <!-- Menú lateral -->
+  <nav class="sidebar" id="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">Usuarios</a></li>
+      <li><a href="#" onclick="loadPage('juegos-admin.php')">Administrar Juegos</a></li>
+        <li>
+            <a href="#" class="index-submenu" onclick="toggleSubmenu('jugadoras-submenu')">Jugadoras</a>
+            <ul class="submenu" id="jugadoras-submenu" style="display: none;">
+                <li><a href="#">Ver Todas</a></li>
+                <li><a onclick="loadPage('insertar-jugadora.php')">Agregar Nueva</a></li>
+                <li><a href="#">Estadísticas</a></li>
+            </ul>
+        </li>
+      <li><a href="#">Medios</a></li>
+      <li><a href="#">Configuración</a></li>
+      <li><a href="#">Extensiones</a></li>
+      <li><a href="#">Salir</a></li>
+    </ul>
+  </nav>
 
-    <div id="juego-grid" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseGrid" aria-expanded="false" aria-controls="collapseGrid">Juego Grid<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseGrid" class="collapse" role="tabpanel" aria-labelledby="headingGrid">
-            <div class="tabla">
-                <div id="paises">
-                    <label for="id1">País 1:</label>
-                    <input id="id1">
-                    <label for="id2">País 2:</label>
-                    <input id="id2">
-                    <label for="id3">País 3:</label>
-                    <input id="id3">
-                </div>
-                <div id="clubes">
-                    <label for="idc1">Club 1:</label>
-                    <input id="idc1">
-                    <label for="idc2">Club 2:</label>
-                    <input id="idc2">
-                    <label for="idc3">Club 3:</label>
-                    <input id="idc3">
-                </div>
-            </div>
-            <button onclick="actualizarGrid()">Actualizar</button>
-        </div>
-    </div>
-
-    <div id="juego-clubs" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseClubs" aria-expanded="false" aria-controls="collapseClubs">Juego Clubs<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseClubs" class="collapse" role="tabpanel" aria-labelledby="headingClubs">
-            <label for="id-club">Club:</label>
-            <input id="id-club">
-            <button onclick="">Actualizar</button>
-        </div>
-    </div>
-
-    <div id="juego-bingo" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseBingo" aria-expanded="false" aria-controls="collapseBingo">Juego Bingo<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseBingo" class="collapse" role="tabpanel" aria-labelledby="headingBingo">
-            <label for="id-bingo">Bingo:</label>
-            <input id="id-bingo">
-            <button onclick="">Actualizar</button>
-        </div>
-    </div>
-
-    <div id="juego-nations" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseNations" aria-expanded="false" aria-controls="collapseNations">Juego Nations<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseNations" class="collapse" role="tabpanel" aria-labelledby="headingNations">
-            <label for="id-nation">Nación:</label>
-            <input id="id-nation">
-            <button onclick="">Actualizar</button>
-        </div>
-    </div>
-
-    <div id="juego-wordle" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseWordle" aria-expanded="false" aria-controls="collapseWordle">Juego Wordle<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseWordle" class="collapse" role="tabpanel" aria-labelledby="headingWordle">
-            <label for="id-jugadora2"></label>
-            <input id="id-jugadora2">
-            <button onclick="actualizarWordle()">Actualizar</button>
-        </div>
-    </div>
-
-    <div id="juego-adivina" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseAdivina" aria-expanded="false" aria-controls="collapseAdivina">Juego Adivina<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseAdivina" class="collapse" role="tabpanel" aria-labelledby="headingAdivina">
-            <label for="id-jugadora3"></label>
-            <input id="id-jugadora3">
-            <button onclick="actualizarAdivina()">Actualizar</button>
-        </div>
-    </div>
-
-    <div id="juego-?" class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#collapseUnknown" aria-expanded="false" aria-controls="collapseUnknown">Juego ?<i class="bi bi-chevron-down"></i></a>
-        </div>
-        <div id="collapseUnknown" class="collapse" role="tabpanel" aria-labelledby="headingUnknown">
-            <label for="id-unknown">Desconocido:</label>
-            <input id="id-unknown">
-            <button onclick="">Actualizar</button>
-        </div>
-    </div>
+  <!-- Contenido principal -->
+  <main class="main-content" id="main-content">
+      <h2>Bienvenido, <?php echo $_SESSION['user']['nombre']?></h2>
+      <h1>Bienvenido al Panel de Administración</h1>
+    <p>Aquí puedes gestionar el contenido, usuarios y configuración de tu sitio web.</p>
+  </main>
 </div>
 
-<script src="control-acceso.js" data-roles-restringidos="2"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="../js/admin.js"></script>
 <script>
-    GTrayectoria();
-    Wordle();
-    Adivina();
-    Grid();
+    // Referencias a los elementos HTML
+    const toggleBtn = document.getElementById('toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+
+    // Evento para mostrar/ocultar el menú lateral
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden'); // Oculta o muestra el menú
+        mainContent.classList.toggle('full-width'); // Ajusta el ancho del contenido
+
+        // Mostrar/ocultar el botón basado en el estado del menú
+        toggleBtn.classList.add('hidden'); // Oculta el botón
+    });
+
+    // Detectar cambios en el estado del menú lateral y ajustar visibilidad del botón
+    sidebar.addEventListener('transitionend', () => {
+        if (sidebar.classList.contains('hidden')) {
+            toggleBtn.classList.remove('hidden'); // Muestra el botón si el menú está oculto
+        } else {
+            toggleBtn.classList.add('hidden'); // Oculta el botón si el menú está visible
+        }
+    });
+
+    // Ocultar el menú al hacer clic en el contenido principal
+    mainContent.addEventListener('click', () => {
+        if (!sidebar.classList.contains('hidden')) { // Si el menú está visible
+            sidebar.classList.add('hidden'); // Oculta el menú
+            mainContent.classList.add('full-width'); // Ajusta el ancho del contenido
+            toggleBtn.classList.remove('hidden'); // Muestra el botón
+        }
+    });
+
+
+
+  function loadPage(pageUrl) {
+      const mainContent = document.getElementById('main-content');
+      mainContent.classList.add('loading'); // Muestra el indicador de carga
+
+      fetch(pageUrl)
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`Error al cargar la página: ${response.statusText}`);
+              }
+              return response.text(); // Convierte la respuesta a texto
+          })
+          .then(html => {
+              mainContent.classList.remove('loading'); // Oculta el indicador de carga
+              mainContent.innerHTML = html; // Inserta el contenido en el contenedor principal
+              executeScripts(mainContent); // Ejecuta los scripts de la página cargada
+          })
+          .catch(error => {
+              mainContent.classList.remove('loading');
+              console.error(error);
+              mainContent.innerHTML = `<p>Error al cargar la página.</p>`;
+          });
+  }
+
+  // Función para extraer y ejecutar scripts dentro de un contenedor
+  function executeScripts(container) {
+      // Encuentra todos los elementos <script> en el contenido cargado
+      const scripts = container.querySelectorAll('script');
+
+      scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          // Copia el contenido del script
+          if (script.src) {
+              // Si el script tiene un atributo "src", lo carga de forma externa
+              newScript.src = script.src;
+          } else {
+              // Si el script tiene contenido inline, lo copia
+              newScript.textContent = script.textContent;
+          }
+          // Asegúrate de que los nuevos scripts estén en el DOM
+          document.body.appendChild(newScript);
+          // Opcional: Elimina el script después de ejecutarlo (para evitar duplicados)
+          newScript.onload = () => newScript.remove();
+      });
+  }
+
+        // Función para mostrar/ocultar el submenú
+        function toggleSubmenu(id) {
+        const submenu = document.getElementById(id);
+        if (submenu.style.display === "none" || submenu.style.display === "") {
+        submenu.style.display = "block";
+        } else {
+        submenu.style.display = "none";
+        }
+    }
 </script>
+<script src="../js/funciones-tablas.js"></script>
+<script src="../js/admin.js"></script>
 </body>
 </html>

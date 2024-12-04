@@ -156,26 +156,6 @@ async function checkAnswer() {
     }
 }
 
-function cambiarImagenConFlip() {
-    // Seleccionar todos los contenedores de flip
-    const flipContainers = document.querySelectorAll('.flip-container');
-
-    flipContainers.forEach(container => {
-        const imagenTrasera = container.querySelector('.back img');
-        const imagenFrontal = container.querySelector('.front img');
-
-
-        // Añadir la clase para empezar el volteo
-        container.querySelector('.flipper').classList.add('flipping');
-
-        // Opcional: Si deseas cambiar la imagen frontal a la misma que la trasera después del volteo
-        setTimeout(() => {
-
-
-        }, 600); // Ajusta el tiempo según la duración de tu animación
-    });
-}
-
 
 
 

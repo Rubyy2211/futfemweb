@@ -49,6 +49,19 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
     }else  if(modo==='XI'){
         console.log(`Jugadora seleccionada: ${nombreCompleto} (ID: ${idJugadora})`);
             introducirJugadora(idJugadora);
+    }else if(modo === 'compañeras'){
+        const div = document.getElementById('compañeras');
+        const idClass = `id-${idJugadora}`;
+        const found = div.classList.contains(idClass);
+        const resultDiv = document.getElementById('result');
+        if (found) {
+            resultDiv.textContent = `${nombreCompleto}`;
+            //cambiarImagenConFlip();
+            Ganaste(modo);
+        } else {
+            cambiarImagenFlipRonda(div);
+            resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
+        }
     }
 }
 

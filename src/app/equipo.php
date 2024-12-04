@@ -10,12 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/equipos.css">
     <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/efectos/wave.css">
     <style>
         body{
             text-align: center;
         }
-        .container{
+        .contenedor{
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -106,17 +105,11 @@
 </head>
 <body>
 <?php require_once 'header.html'?>
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
-<script rel="script" src="../js/funciones-tablas.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<div class="container">
+
+<div class="contenedor">
     <h1>Jugadoras del Equipo</h1>
     <div id="jugadoras-container" class="row"></div>
 </div>
-
 <script>
     async function cargarJugadoras(equipoId) {
         try {
@@ -192,5 +185,8 @@
     }
 
 </script>
+<script rel="script" src="../js/funciones-tablas.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
