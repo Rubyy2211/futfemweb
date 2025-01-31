@@ -1,5 +1,5 @@
 
-function showModalForSelection(jugadoras,modo) {
+function showModalForSelection(jugadoras, modo) {
     const modal = document.getElementById('selectionModal');
     const jugadoraList = document.getElementById('jugadoraList');
     jugadoraList.innerHTML = ''; // Limpiar la lista anterior
@@ -11,7 +11,7 @@ function showModalForSelection(jugadoras,modo) {
         li.dataset.id = jugadora.id_jugadora;
 
         li.addEventListener('click', () => {
-            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo,modo);
+            handleSelectedJugadora(jugadora.id_jugadora, jugadora.Nombre_Completo, modo);
             closeModal();
         });
 
@@ -30,7 +30,7 @@ function closeModal() {
 }
 
 function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
-    if(modo==='trayectoria') {
+    if (modo === 'trayectoria') {
         const div = document.getElementById('trayectoria');
         const idClass = `id-${idJugadora}`;
         const found = div.classList.contains(idClass);
@@ -43,13 +43,13 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
         } else {
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }
-    }else if(modo==='grid'){
+    } else if (modo === 'grid') {
         console.log(`Jugadora seleccionada: ${nombreCompleto} (ID: ${idJugadora})`);
         Verificar(idJugadora);
-    }else  if(modo==='XI'){
+    } else if (modo === 'XI') {
         console.log(`Jugadora seleccionada: ${nombreCompleto} (ID: ${idJugadora})`);
-            introducirJugadora(idJugadora);
-    }else if(modo === 'compañeras'){
+        introducirJugadora(idJugadora);
+    } else if (modo === 'compañeras') {
         const div = document.getElementById('compañeras');
         const idClass = `id-${idJugadora}`;
         const found = div.classList.contains(idClass);
@@ -62,6 +62,8 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
             cambiarImagenFlipRonda(div);
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }
+    } else if (modo === 'adivina') {
+        AdivanaJugadora(idJugadora);
     }
 }
 

@@ -72,10 +72,21 @@
         </div>
     </div>
 
+    <!-- Modal Structure -->
+    <div id="selectionModal" class="modal">
+        <div class="modal-content">
+            <h4>Selecciona una jugadora</h4>
+            <ul id="jugadoraList"></ul>
+        </div>
+        <div class="modal-footer">
+            <button id="modalClose" class="modal-close" onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="../js/admin.js"></script>
-
+    <script src="../js/admin.js"></script>
+    <script src="../js/opciones_jugadora.js"></script>
     <script src="../js/adivinajugadora.js"></script>
 </body>
 

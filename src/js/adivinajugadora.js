@@ -6,7 +6,7 @@ async function inici() {
     let jugadoraid = await fetchData(3);
     console.log(jugadoraid.idJugadora)
     jugadora = jugadoraid.idJugadora;
-// Llamada a la API para obtener la jugadora
+    // Llamada a la API para obtener la jugadora
     const url = `../api/jugadora_datos?id=${jugadora}`;
     fetch(url)
         .then(response => response.json())
@@ -336,31 +336,31 @@ function obtenerRespuesta(tipo, valor) {
     return respuesta;
 }
 
-function validarJugadora() {
+async function validarJugadora() {
     if (vidas > 1) {
-        let inombre = document.getElementById('nombre');
-        let nombre = inombre.value;
-        if (nombre.length > 0) {
-            if (player.nombre === nombre || player.apodo === nombre) {
-                let imgPlayer = document.getElementById('player-image');
-                imgPlayer.src = player.imagen;
+        const textoInput = document.getElementById('nombre');
+        const texto = textoInput.value.trim();
+        const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
 
-                namePlayer.innerHTML = player.nombre;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
 
-                lifeLeft.innerHTML = "Ehorabuena";
-                lifeLeft.style.display = "block";
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+            if (data.length === 1) {
+                // Solo un resultado, no es necesario mostrar el modal
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo, 'adivina');
             } else {
-                let idVida = "#vida" + vidas;
-                let img = document.querySelector(idVida);
-                img.classList.add('oculto');
-
-                vidas -= 1;
-
-                lifeLeft.innerHTML = `¡Respuesta equivocada! Te quedan ${vidas} intentos`;
-                lifeLeft.style.display = "block";
+                // Múltiples resultados, mostrar el modal
+                showModalForSelection(data, 'adivina');
             }
 
-            empty(inombre);
+            empty(textoInput);
+        } else {
+            throw new Error("La respuesta no contiene los datos esperados.");
         }
     } else {
         let idVida = "#vida" + vidas;
@@ -381,4 +381,26 @@ function validarJugadora() {
 
 function empty(element) {
     element.innerHTML = "";
+}
+
+function AdivanaJugadora(idJugadora) {
+    if (player.id === idJugadora) {
+        let imgPlayer = document.getElementById('player-image');
+        imgPlayer.src = player.imagen;
+
+        namePlayer.innerHTML = player.nombre;
+
+        lifeLeft.innerHTML = "Ehorabuena";
+        lifeLeft.style.display = "block";
+    } else {
+        let idVida = "#vida" + vidas;
+        let img = document.querySelector(idVida);
+        img.classList.add('oculto');
+
+        vidas -= 1;
+
+        lifeLeft.innerHTML = `¡Respuesta equivocada! Te quedan ${vidas} intentos`;
+        lifeLeft.style.display = "block";
+    }
+
 }
