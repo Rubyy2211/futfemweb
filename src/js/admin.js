@@ -388,8 +388,7 @@ function fileToBase64(file) {
     });
 }
 
-document.getElementById("buscarForm").addEventListener("submit", async function (event) {
-    event.preventDefault(); // Evita recargar la página
+async function validarNombre() {
 
     const textoInput = document.getElementById("nombre");
     const texto = textoInput.value.trim();
@@ -412,10 +411,10 @@ document.getElementById("buscarForm").addEventListener("submit", async function 
         if (Array.isArray(data) && data.length > 0) {
             if (data.length === 1) {
                 // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'admin');
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo, 'admin');
             } else {
                 // Múltiples resultados, mostrar el modal
-                showModalForSelection(data,'admin');
+                showModalForSelection(data, 'admin');
             }
         } else {
             throw new Error("La respuesta no contiene los datos esperados.");
@@ -425,7 +424,7 @@ document.getElementById("buscarForm").addEventListener("submit", async function 
     } catch (error) {
         console.error("Error al obtener la jugadora:", error);
     }
-});
+}
 
 async function loadJugadoraById(id) {
     try {

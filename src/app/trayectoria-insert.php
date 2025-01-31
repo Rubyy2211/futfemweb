@@ -13,7 +13,7 @@
 <form id="buscarForm">
     <label for="nombre">Nombre de la Jugadora:</label>
     <input type="text" id="nombre" name="nombre" required>
-    <button type="submit">Buscar</button>
+    <button type="submit" onclick="validarNombre()">Buscar</button>
 </form>
 
 <h3>Trayectoria</h3>
@@ -23,7 +23,7 @@
         <th>Jugadora</th>
         <th>Equipo</th>
         <th>Años</th>
-        <th>Imágenes</th>
+        <th>Imagen</th>
         <th>Equipo Actual</th>
         <th>Acción</th>
     </tr>
@@ -41,6 +41,9 @@
 
     <label for="años">Años:</label>
     <input type="text" id="años" name="años" required>
+
+    <label for="Imagen">Imagen:</label>
+    <input type="file" id="Imagen" name="Imagen" required>
 
     <label for="equipo_actual">Equipo Actual:</label>
     <input type="checkbox" id="equipo_actual">
