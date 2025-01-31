@@ -17,6 +17,7 @@ $query = "
     trayectoria.equipo, 
     trayectoria.años, 
     trayectoria.imagen, 
+    trayectoria.equipo_actual,
     equipos.escudo, 
     equipos.liga, 
     equipos.nombre,

@@ -62,6 +62,10 @@ function handleSelectedJugadora(idJugadora, nombreCompleto, modo) {
             cambiarImagenFlipRonda(div);
             resultDiv.textContent = `No se encontró ninguna jugadora con los criterios proporcionados.`;
         }
+    }else if(modo === 'admin'){
+        // Si quieres mostrar la información en un campo
+        document.getElementById("jugadora_id").value = idJugadora; // Suponiendo que la API devuelve un ID
+        loadJugadoraById(idJugadora);
     }
 }
 
