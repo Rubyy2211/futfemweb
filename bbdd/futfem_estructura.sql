@@ -48,7 +48,7 @@ CREATE TABLE `jugadoras` (
   `Nacimiento` date NOT NULL,
   `Nacionalidad` int(11) NOT NULL,
   `Posicion` int(2) NOT NULL DEFAULT 13,
-  `imagen` longblob NOT NULL,
+  `imagen` longblob NULL,
   `retiro` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -87,7 +87,7 @@ CREATE TABLE `posiciones` (
   `idPosicion` int(11) NOT NULL,
   `nombre` text NOT NULL,
   `abreviatura` text NOT NULL,
-  `idPosicionPadre` int(2) NOT NULL
+  `idPosicionPadre` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -112,7 +112,7 @@ CREATE TABLE `trayectoria` (
   `jugadora` int(11) NOT NULL,
   `equipo` int(11) NOT NULL,
   `años` text NOT NULL,
-  `imagen` longblob NOT NULL,
+  `imagen` longblob NULL,
   `equipo_actual` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -132,6 +132,28 @@ CREATE TABLE `usuarios` (
   `Contrasena` varchar(255) NOT NULL,
   `token` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Estructura de tabla para la tabla `pistas`
+--
+
+CREATE TABLE `pistas` (
+  `id_juego` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `valor` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+) ;
+
+--
+-- Volcado de datos para la tabla `pistas`
+--
+
+INSERT INTO `pistas` (`id_juego`, `descripcion`, `valor`) VALUES
+(1, 'Guess Trayectoria', '{\"idJugadora\":\"67\"}'),
+(2, 'Wordle', '{\"idJugadora\":\"4\"}'),
+(3, 'Adivina Jugadora', '{\"idJugadora\":\"25\"}'),
+(4, 'Grid', '{\"pais1\":\"5\",\"pais2\":\"7\",\"pais3\":\"3\",\"club1\":\"8\",\"club2\":\"1\",\"club3\":\"3\"}');
+
 
 --
 -- Índices para tablas volcadas
@@ -240,6 +262,12 @@ ALTER TABLE `trayectoria`
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT de la tabla `pistas`
+--
+ALTER TABLE `pistas`
+  MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT;
+  
 --
 -- Restricciones para tablas volcadas
 --
