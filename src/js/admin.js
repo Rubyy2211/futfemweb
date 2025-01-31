@@ -323,7 +323,7 @@ async function insertarJugadora() {
     const apodo = document.getElementById("apodo").value;
     const nacimiento = document.getElementById("nacimiento").value;
     const nacionalidad = document.getElementById("nacionalidad").value;
-    const posicion = document.getElementById("posicion").value;
+    const posicion = parseInt(document.getElementById("posicion").value, 10); // Convertir a número entero
     const retiro = document.getElementById("retiro").value;
     const imagenInput = document.getElementById("imagen");
     let imagen = null;
@@ -346,6 +346,8 @@ async function insertarJugadora() {
         imagen, // Esto será null si no se seleccionó ninguna imagen
     };
 
+    console.log("Enviando datos al servidor:", data);
+
     try {
         // Enviar los datos al servidor usando fetch
         const response = await fetch('../api/jugadora', {
@@ -356,32 +358,129 @@ async function insertarJugadora() {
             body: JSON.stringify(data),
         });
 
-        const result = await response.json();
+        const text = await response.text();
+        console.log("Respuesta en texto bruto:", text);
 
-        // Manejar la respuesta del servidor
-        if (result.success) {
-            alert("Jugadora insertada con éxito");
-        } else {
-            alert("Error al insertar jugadora: " + (result.message || "Error desconocido"));
+        try {
+            const result = JSON.parse(text);
+            console.log("Respuesta JSON del servidor:", result);
+
+            if (result.success) {
+                console.log("Jugadora insertada con éxito.");
+            } else {
+                console.log("Error al insertar jugadora:", result.message || "Error desconocido");
+            }
+        } catch (jsonError) {
+            console.error("Error al parsear JSON:", jsonError);
         }
     } catch (error) {
         console.error("Error durante el fetch:", error);
-        alert("Hubo un problema al comunicarse con el servidor");
     }
 }
 
-// Función para convertir un archivo en base64
+// Función para convertir imagen a base64
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]); // Solo el contenido base64
-        reader.onerror = error => reject(error);
         reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
     });
 }
 
-// Agregar un evento al formulario para manejar el envío
-    insertarJugadora();
+document.getElementById("buscarForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Evita recargar la página
+
+    const textoInput = document.getElementById("nombre");
+    const texto = textoInput.value.trim();
+
+    if (!texto) {
+        console.error("El campo de búsqueda está vacío");
+        return;
+    }
+
+    const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.error) {
+            console.error("Error:", data.error);
+            return;
+        }
+        if (Array.isArray(data) && data.length > 0) {
+            if (data.length === 1) {
+                // Solo un resultado, no es necesario mostrar el modal
+                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'admin');
+            } else {
+                // Múltiples resultados, mostrar el modal
+                showModalForSelection(data,'admin');
+            }
+        } else {
+            throw new Error("La respuesta no contiene los datos esperados.");
+        }
+
+        console.log("Datos de la jugadora:", data);
+    } catch (error) {
+        console.error("Error al obtener la jugadora:", error);
+    }
+});
+
+async function loadJugadoraById(id) {
+    try {
+        // Hacer la solicitud a la API con el ID de la jugadora
+        const response = await fetch(`../api/jugadora_trayectoria?id=${id}`);
+
+        // Verificar si la respuesta es exitosa
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        // Parsear la respuesta JSON
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+
+        // Verificar si los datos contienen información de la trayectoria
+        if (Array.isArray(data) && data.length > 0) {
+            displayTrayectoria(data);
+        } else {
+            console.warn('No hay datos de la jugadora disponibles.');
+            document.getElementById('result').textContent = 'No se encontraron trayectorias para esta jugadora.';
+        }
+    } catch (error) {
+        // Manejo de errores
+        console.error('Error al cargar la jugadora:', error);
+        document.getElementById('result').textContent = 'Error al cargar los datos.';
+    }
+}
+
+// Función para mostrar la trayectoria de la jugadora
+
+// Mostrar la trayectoria en la tabla
+function displayTrayectoria(trayectoria) {
+    const tableBody = document.querySelector('#trayectoriaTable tbody');
+    tableBody.innerHTML = ''; // Limpiar contenido previo de la tabla
+
+    trayectoria.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.jugadora}</td>
+            <td><img src="${item.escudo}" alt="Escudo del equipo" id="${item.equipo}" width="50"></td>
+            <td>${item.años}</td>
+            <td><img src="${item.imagen}" alt="Imagen de la jugadora" width="50"></td>
+            <td>${item.equipo_actual ? 'Sí' : 'No'}</td>
+            <td>
+                <button onclick="editTrayectoria(${item.id})">Editar</button>
+                <button onclick="deleteTrayectoria(${item.id})">Eliminar</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+
+
 
 
 

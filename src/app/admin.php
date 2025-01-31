@@ -127,9 +127,9 @@ session_start();
         <li>
             <a href="#" class="index-submenu" onclick="toggleSubmenu('jugadoras-submenu')">Jugadoras</a>
             <ul class="submenu" id="jugadoras-submenu" style="display: none;">
-                <li><a href="#">Ver Todas</a></li>
+                <li><a href="#" onclick="loadPage('ver-jugadoras.php')">Ver Todas</a></li>
                 <li><a onclick="loadPage('insertar-jugadora.php')">Agregar Nueva</a></li>
-                <li><a href="#">Estadísticas</a></li>
+                <li><a href="#">Editar Trayectoria</a></li>
             </ul>
         </li>
       <li><a href="#">Medios</a></li>
