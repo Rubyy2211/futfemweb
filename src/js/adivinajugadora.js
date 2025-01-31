@@ -338,29 +338,35 @@ function obtenerRespuesta(tipo, valor) {
 
 async function validarJugadora() {
     if (vidas > 1) {
-        const textoInput = document.getElementById('nombre');
-        const texto = textoInput.value.trim();
-        const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
+        try {
+            const textoInput = document.getElementById('nombre');
+            const texto = textoInput.value.trim();
+            const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
 
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        if (Array.isArray(data) && data.length > 0) {
-            if (data.length === 1) {
-                // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo, 'adivina');
-            } else {
-                // Múltiples resultados, mostrar el modal
-                showModalForSelection(data, 'adivina');
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
             }
 
-            empty(textoInput);
-        } else {
-            throw new Error("La respuesta no contiene los datos esperados.");
+            const data = await response.json();
+
+            if (Array.isArray(data) && data.length > 0) {
+                if (data.length === 1) {
+                    // Solo un resultado, no es necesario mostrar el modal
+                    handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo, 'adivina');
+                } else {
+                    // Múltiples resultados, mostrar el modal
+                    showModalForSelection(data, 'adivina');
+                }
+
+                empty(textoInput);
+            } else {
+                throw new Error("La respuesta no contiene los datos esperados.");
+            }
+        } catch (error) {
+            console.error("Error al obtener los datos:", error);
+            lifeLeft.innerHTML = "Ocurrió un error al realizar la solicitud.";
+            lifeLeft.style.display = "block";
         }
     } else {
         let idVida = "#vida" + vidas;
