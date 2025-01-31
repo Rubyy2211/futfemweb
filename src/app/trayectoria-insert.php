@@ -13,7 +13,7 @@
 <form id="buscarForm">
     <label for="nombre">Nombre de la Jugadora:</label>
     <input type="text" id="nombre" name="nombre" required>
-    <button type="submit" onclick="validarNombre()">Buscar</button>
+    <button type="button" id="boton-nombre">Buscar</button>
 </form>
 
 <h3>Trayectoria</h3>
@@ -64,5 +64,9 @@
 
 <script src="../js/opciones_jugadora.js"></script>
 <script src="../js/admin.js"></script>
+<script>
+    let boton = document.getElementById('boton-nombre');
+    boton.addEventListener("click", validarNombre);
+</script>
 </body>
 </html>
