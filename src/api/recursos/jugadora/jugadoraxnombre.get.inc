@@ -16,11 +16,12 @@ SELECT
     id_jugadora, 
     CONCAT(Nombre, ' ', Apellidos) AS Completo,
     imagen,
-    apodo
+    apodo,
+    Nacimiento
 FROM 
     jugadoras
 WHERE 
-    CONCAT(Nombre, ' ', Apodo, ' ', Apellidos) REGEXP CONCAT('(^|[[:space:]])', ?, '([[:space:]]|$)');
+        CONCAT(Nombre, ' ', Apodo, ' ', Apellidos) LIKE CONCAT('%', ?, '%');
 
 ";
 
@@ -41,6 +42,7 @@ if ($result->num_rows > 0) {
             'Nombre_Completo' => $fila['Completo'],
             'imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']), // Codificar la imagen en base64
             'Apodo' => $fila['apodo'],
+            'Nacimiento' => $fila['Nacimiento'],
 
         ];
     }
