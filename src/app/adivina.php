@@ -27,7 +27,7 @@
         <div class="player">
             <img id="player-image" src="../img/predeterm.jpg" alt="Jugador">
             <div id="player-name" class="player-name"></div>
-            <span id="msgResultado"></span>
+            <p id="msgResultado"></p>
         </div>
 
         <!-- Preguntas -->
