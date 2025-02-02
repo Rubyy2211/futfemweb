@@ -13,6 +13,7 @@ if ($idJugadora <= 0) {
 // Preparar y ejecutar la consulta para obtener la información de la jugadora y su trayectoria
 $query = "
     SELECT 
+    trayectoria.id AS trayectoria_id,
     trayectoria.jugadora, 
     trayectoria.equipo, 
     trayectoria.años, 

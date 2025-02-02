@@ -36,6 +36,7 @@ function displayTrayectoria(trayectoria) {
 
     trayectoria.forEach(item => {
         const row = document.createElement('tr');
+        row.id = `row-${item.trayectoria_id}`;
         row.innerHTML = `
             <td>${item.jugadora}</td>
             <td><img src="${item.escudo}" alt="Escudo del equipo" id="${item.equipo}" width="50"></td>
@@ -43,7 +44,7 @@ function displayTrayectoria(trayectoria) {
             <td><img src="${item.imagen}" alt="Imagen de la jugadora" width="50"></td>
             <td>${item.equipo_actual ? 'Sí' : 'No'}</td>
             <td>
-                <button onclick="editTrayectoria(${item.id})">Editar</button>
+                <button onclick="editTrayectoria(${item.trayectoria_id})">Editar</button>
                 <button onclick="deleteTrayectoria(${item.id})">Eliminar</button>
             </td>
         `;
@@ -194,3 +195,64 @@ async function anyadirTrayectoria(event) {
         alert("Hubo un problema con el envío de datos.");
     }
 }
+
+function editTrayectoria(id) {
+    const row = document.getElementById(`row-${id}`);
+
+    if (!row) {
+        alert("No se encontró la fila a editar.");
+        return;
+    }
+
+    // Obtener las celdas de la fila
+    const cells = row.getElementsByTagName("td");
+    const equipoId = cells[1].querySelector("img") ? cells[1].querySelector("img").id : "";
+
+    // Convertir las celdas en campos editables
+    cells[1].innerHTML = `<input type="text" value="${equipoId}" id="edit-equipo-${id}">`;
+    cells[2].innerHTML = `<input type="text" value="${cells[2].innerText}" id="edit-años-${id}">`;
+    cells[3].innerHTML = `<input type="file" id="edit-imagen-${id}">`;
+    cells[4].innerHTML = `
+        <input type="checkbox" id="edit-equipo-actual-${id}" ${cells[4].innerText === 'Sí' ? 'checked' : ''}>
+    `;
+
+    // Cambiar los botones por "Guardar" y "Cancelar"
+    cells[5].innerHTML = `
+        <button onclick="saveEditTrayectoria(${id})">Guardar</button>
+        <button onclick="cancelEditTrayectoria(${id})">Cancelar</button>
+    `;
+}
+
+function saveEditTrayectoria(id) {
+    const formData = new FormData();
+
+    formData.append("trayectoria_id", id);
+    formData.append("equipo", document.getElementById(`edit-equipo-${id}`).value);
+    formData.append("años", document.getElementById(`edit-años-${id}`).value);
+    formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? 1 : 0);
+
+    const imagenInput = document.getElementById(`edit-imagen-${id}`);
+    if (imagenInput.files.length > 0) {
+        formData.append("Imagen", imagenInput.files[0]);
+    }
+    // Depuración: Mostrar el contenido del FormData
+    for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+    }
+    console.log(formData);
+    fetch("../api/jugadora_edittrayectoria", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Registro actualizado correctamente");
+                location.reload(); // Recargar la tabla
+            } else {
+                alert("Error al actualizar: " + data.error);
+            }
+        })
+        .catch(error => console.error("Error al actualizar:", error));
+}
+
