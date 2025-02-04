@@ -247,8 +247,8 @@ function saveEditTrayectoria(id) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Registro actualizado correctamente");
-                location.reload(); // Recargar la tabla
+                //alert("Registro actualizado correctamente");
+                //location.reload(); // Recargar la tabla
             } else {
                 alert("Error al actualizar: " + data.error);
             }

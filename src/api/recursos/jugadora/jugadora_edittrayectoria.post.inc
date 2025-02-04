@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($imagen !== null) {
         $query .= ", imagen = ?";
         $params[] = $imagen;
-        $types .= "b"; // Tipo "b" para datos binarios
+        $types .= "s"; // Tipo "b" para datos binarios
     }
     $salida = [];
     $query .= " WHERE id = ?";
