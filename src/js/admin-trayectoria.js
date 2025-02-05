@@ -229,8 +229,8 @@ function saveEditTrayectoria(id) {
     formData.append("trayectoria_id", id);
     formData.append("equipo", document.getElementById(`edit-equipo-${id}`).value);
     formData.append("años", document.getElementById(`edit-años-${id}`).value);
-    formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? 1 : 0);
-
+    // ✅ Asegurar que siempre se envíe un valor (0 o 1)
+    formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? "1" : "0");
     const imagenInput = document.getElementById(`edit-imagen-${id}`);
     if (imagenInput.files.length > 0) {
         formData.append("Imagen", imagenInput.files[0]);

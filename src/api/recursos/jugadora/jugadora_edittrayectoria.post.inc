@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trayectoria_id = $_POST['trayectoria_id'] ?? null;
     $equipo_id = $_POST['equipo'] ?? null;
     $años = $_POST['años'] ?? null;
-    $equipo_actual = isset($_POST['equipo_actual']) ? 1 : 0;
+    $equipo_actual = isset($_POST['equipo_actual']) && $_POST['equipo_actual'] == "1" ? 1 : 0;
 
     if (!$trayectoria_id || !$equipo_id || !$años) {
         echo json_encode(["error" => "Todos los campos son obligatorios"]);
