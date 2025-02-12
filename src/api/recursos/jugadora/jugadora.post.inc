@@ -1,18 +1,18 @@
 <?php
-require_once "includes/conexion-bbdd.php"; // Asegúrate de que esta ruta sea correcta
+require_once "includes/conexion-bbdd.php";
 if (!isset($conn)) die();
 
-// Obtener los datos de la solicitud POST
-$input = json_decode(file_get_contents('php://input'), true);
+// Manejo de errores para salida JSON
+header("Content-Type: application/json");
 
-$nombre = $input['nombre'] ?? null;
-$apellidos = $input['apellidos'] ?? null;
-$apodo = $input['apodo'] ?? null;
-$nacimiento = $input['nacimiento'] ?? null;
-$nacionalidad = $input['nacionalidad'] ?? null;
-$posicion = $input['posicion'] ?? null;
-$imagen = $input['imagen'] ?? null; // Suponiendo que la imagen es un base64
-$retiro = $input['retiro'] ?? null;
+// Variables del formulario
+$nombre = $_POST['nombre'] ?? null;
+$apellidos = $_POST['apellidos'] ?? null;
+$apodo = $_POST['apodo'] ?? null;
+$nacimiento = $_POST['nacimiento'] ?? null;
+$nacionalidad = $_POST['nacionalidad'] ?? null;
+$posicion = $_POST['posicion'] ?? null;
+$retiro = isset($_POST['retiro']) ? $_POST['retiro'] : null;
 
 // Validar campos obligatorios
 if (!$nombre || !$apellidos || !$nacimiento || !$nacionalidad || !$posicion) {
@@ -20,45 +20,43 @@ if (!$nombre || !$apellidos || !$nacimiento || !$nacionalidad || !$posicion) {
     exit;
 }
 
+// Manejo de imagen (opcional)
+$imagenBinaria = null;
+if (!empty($_FILES['imagen']['tmp_name']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+    $imagenBinaria = file_get_contents($_FILES['imagen']['tmp_name']);
+}
+
 try {
     // Preparar la consulta
-    $query = "
-        INSERT INTO jugadoras (Nombre, Apellidos, Apodo, Nacimiento, Nacionalidad, Posicion, imagen, Retiro)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ";
-    $stmt = $conn->prepare($query);
 
-    // Convertir la imagen de base64 a binario, si es necesario
-    $imagenBinaria = $imagen ? base64_decode($imagen) : null;
-
-    $stmt->bind_param(
-        "ssssiiss",
-        $nombre,
-        $apellidos,
-        $apodo,
-        $nacimiento,
-        $nacionalidad,
-        $posicion,
-        $imagenBinaria,
-        $retiro
-    );
+    // Si no hay imagen, pasamos NULL
+    if ($imagenBinaria) {
+        $query = "INSERT INTO jugadoras (Nombre, Apellidos, Apodo, Nacimiento, Nacionalidad, Posicion, imagen, Retiro) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssssiiss", $nombre, $apellidos, $apodo, $nacimiento, $nacionalidad, $posicion, $imagenBinaria, $retiro);
+    } else {
+        $query = "INSERT INTO jugadoras (Nombre, Apellidos, Apodo, Nacimiento, Nacionalidad, Posicion, Retiro) 
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssssiis", $nombre, $apellidos, $apodo, $nacimiento, $nacionalidad, $posicion, $retiro);
+    }
 
     // Ejecutar la consulta
     $stmt->execute();
 
     // Confirmar inserción
     if ($stmt->affected_rows > 0) {
-        $salida["success"] = "Jugadora insertada correctamente";
+        $salida = ["success" => "Jugadora insertada correctamente"];
     } else {
-        $salida["success"] = "No se pudo insertar la jugadora";
+        $salida = ["error" => "No se pudo insertar la jugadora"];
     }
 
     $stmt->close();
 } catch (Exception $e) {
-
-    echo $salida["error"] = "Error al insertar jugadora: " . $e->getMessage();
+    $salida = ["error" => "Error al insertar jugadora: " . $e->getMessage()];
 }
 
+// Cerrar conexión
 $conn->close();
 ?>
-
