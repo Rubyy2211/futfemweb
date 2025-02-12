@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jugadora_id = $_POST['jugadora_id'] ?? null;
     $equipo_id = $_POST['equipo_id'] ?? null;
     $años = $_POST['años'] ?? null;
-    $equipo_actual = isset($_POST['equipo_actual']) ? 1 : 0;
+    $equipo_actual = isset($_POST['equipo_actual']) && $_POST['equipo_actual'] == "1" ? 1 : 0;
 
     if (!$jugadora_id || !$equipo_id || !$años) {
         echo json_encode(["error" => "Todos los campos son obligatorios"]);
@@ -24,7 +24,7 @@ $query = "INSERT INTO trayectoria (jugadora, equipo, años, imagen, equipo_actua
 $stmt = $conn->prepare($query);
 
     if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("iissb", $jugadora_id, $equipo_id, $años, $imagen, $equipo_actual);
+        $stmt->bind_param("iissi", $jugadora_id, $equipo_id, $años, $imagen, $equipo_actual);
 
         if ($stmt->execute()) {
             $salida = [

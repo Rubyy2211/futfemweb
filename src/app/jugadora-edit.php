@@ -4,7 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Insertar Jugadora</title>
+    <title>Editar Jugadora</title>
+    <style>
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+            color: var(--color-primario);
+        }
+
+        .jugadora-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .jugadora-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .equipo-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .equipo-info {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
     <script>
         function previewImage() {
             const file = document.getElementById("imagen").files[0];
@@ -25,8 +62,14 @@
 </head>
 <body>
 <div class="form-container">
+    <form id="buscarForm">
+        <label for="buscador">Nombre de la Jugadora:</label>
+        <input type="text" id="buscador" name="nombre" required>
+        <ul id="sugerencias"></ul>
+        <!--<button type="button" id="boton-nombre">Buscar</button>-->
+    </form>
 <form>
-
+    <input type="hidden" id="jugadora_id">
     <img id="preview" src="../img/predeterm.jpg" alt="Vista previa de la imagen" style="max-width: 200px; max-height: 200px;">
     <div class="form-item">
     <label for="nombre">Nombre:</label>
@@ -71,16 +114,20 @@
     <label for="retiro">Retiro:</label>
     <input type="number" name="retiro" id="retiro">
     </div>
-    <button type="button" onclick="insertarJugadora()" value="Consultar"></button>
+    <button type="button" onclick="actualizarJugadora()" value="Consultar">Enviar</button>
 </form>
 </div>
 <script src="../js/admin.js"></script>
 <script src="../js/admin-jugadora.js"></script>
 <script>
-    // Llamar a la función para cargar los países al inicializar la página
-    paisesAll();
+    // Añadir el evento de input al campo de texto
+    const textoInput = document.getElementById("buscador");
+    textoInput.addEventListener('input', debounce(handleAutocompleteJugadora, 1000)); // Debounce de 300ms
+// Llamar a la función para cargar los países al inicializar la página
+paisesAll();
     // Llamar a la función para cargar las posiciones al inicializar la página
     posicionesAll();
 </script>
 </body>
 </html>
+

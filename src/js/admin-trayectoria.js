@@ -44,8 +44,8 @@ function displayTrayectoria(trayectoria) {
             <td><img src="${item.imagen}" alt="Imagen de la jugadora" width="50"></td>
             <td>${item.equipo_actual ? 'Sí' : 'No'}</td>
             <td>
-                <button onclick="editTrayectoria(${item.trayectoria_id})">Editar</button>
-                <button onclick="deleteTrayectoria(${item.id})">Eliminar</button>
+                <button onclick="editTrayectoria(${item.trayectoria_id})"><i class="bi bi-pencil-fill"></i></button>
+                <button onclick="deleteTrayectoria(${item.id})"><i class="bi bi-trash-fill"></i></button>
             </td>
         `;
         tableBody.appendChild(row);
@@ -174,7 +174,7 @@ async function anyadirTrayectoria(event) {
     formData.append("equipo_id", document.getElementById("equipo_id").value);
     formData.append("años", document.getElementById("años").value);
     formData.append("Imagen", document.getElementById("Imagen").files[0]);
-    formData.append("equipo_actual", document.getElementById("equipo_actual").checked ? 1 : 0);
+    formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? "1" : "0");
 
     try {
         let response = await fetch("../api/jugadora_trayectoria", {
@@ -221,6 +221,10 @@ function editTrayectoria(id) {
         <button onclick="saveEditTrayectoria(${id})">Guardar</button>
         <button onclick="cancelEditTrayectoria(${id})">Cancelar</button>
     `;
+}
+
+function cancelEditTrayectoria(id) {
+    location.reload(); // Recargar la tabla para restablecer los datos originales
 }
 
 function saveEditTrayectoria(id) {

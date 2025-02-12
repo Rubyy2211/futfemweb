@@ -13,7 +13,7 @@ if ($id === 0) {
 // Preparar y ejecutar la consulta
 $query = "
 SELECT 
-    id_jugadora, Nombre, Apellidos, imagen, apodo
+    id_jugadora, Nombre, Apellidos, imagen, apodo, Nacimiento, Nacionalidad, Posicion, retiro
 FROM 
     jugadoras
 WHERE 
@@ -37,6 +37,12 @@ if ($result->num_rows > 0) {
             'Nombre_Completo' => $fila['Nombre'] . ' ' . $fila['Apellidos'], // Concatenación correcta
             'Imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']), // Codificar la imagen en base64
             'Apodo' => $fila['apodo'],
+            'Nombre' => $fila['Nombre'],
+            'Apellidos' => $fila['Apellidos'],
+            'Nacimiento' => $fila['Nacimiento'],
+            'Nacionalidad' => $fila['Nacionalidad'],
+            'Posicion' => $fila['Posicion'],
+            'Retiro' => $fila['retiro'],
         ];
     }
 } else {

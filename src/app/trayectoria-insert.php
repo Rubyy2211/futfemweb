@@ -44,7 +44,8 @@
 
         #agregarForm{
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: end;
         }
 
         #sugerenciasEquipo{
@@ -54,6 +55,47 @@
             background: var(--color-detalles);
             color: var(--color-secundario);
         }
+        #trayectoriaTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #trayectoriaTable thead {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-primario); /* Para que el encabezado se vea fijo */
+            z-index: 2;
+        }
+        #trayectoriaTable td{
+            text-align: center;
+        }
+        #trayectoriaTable td button{
+            width: fit-content;
+        }
+        .table-container {
+            max-height: 50vh;
+            overflow-y: auto;
+            display: block;
+        }
+
+        /* Estilo para navegadores WebKit (Chrome, Safari, Edge) */
+        .table-container::-webkit-scrollbar {
+            width: 8px; /* Ancho de la barra */
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: none; /* Color de fondo */
+            border-radius: 10px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--color-primario); /* Color de la barra */
+            border-radius: 10px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--color-secundario); /* Color al pasar el cursor */
+        }
     </style>
 </head>
 <body>
@@ -61,13 +103,15 @@
 <h2>Buscar y Editar Trayectoria de Jugadora</h2>
 
 <form id="buscarForm">
-    <label for="nombre">Nombre de la Jugadora:</label>
-    <input type="text" id="nombre" name="nombre" required>
+    <label for="buscador">Nombre de la Jugadora:</label>
+    <input type="text" id="buscador" name="nombre" required>
     <ul id="sugerencias"></ul>
     <!--<button type="button" id="boton-nombre">Buscar</button>-->
 </form>
 
 <h3>Trayectoria</h3>
+<div class="table-container">
+
 <table border="1" id="trayectoriaTable">
     <thead>
     <tr>
@@ -83,7 +127,7 @@
     <!-- Aquí se insertarán los datos dinámicamente -->
     </tbody>
 </table>
-
+</div>
 <h3>Añadir Nueva Trayectoria</h3>
 <form id="agregarForm">
     <input type="hidden" id="jugadora_id">
@@ -123,11 +167,11 @@
     //boton.addEventListener("click", validarNombre);
 
     // Añadir el evento de input al campo de texto
-    const textoInput = document.getElementById("nombre");
-    textoInput.addEventListener('input', debounce(handleAutocomplete, 300)); // Debounce de 300ms
+    const textoInput = document.getElementById("buscador");
+    textoInput.addEventListener('input', debounce(handleAutocomplete, 1000)); // Debounce de 300ms
     // Agregar el evento al input del nombre del equipo
     const textoInputEquipo = document.getElementById("equipo");
-    textoInputEquipo.addEventListener('input', debounce(handleAutocompleteEquipo, 300)); // Debounce de 300ms
+    textoInputEquipo.addEventListener('input', debounce(handleAutocompleteEquipo, 1000)); // Debounce de 300ms
 
     const btnAnyadir = document.getElementById("añadirTrayectoria");
     btnAnyadir.addEventListener('click', anyadirTrayectoria); // Debounce de 300ms
