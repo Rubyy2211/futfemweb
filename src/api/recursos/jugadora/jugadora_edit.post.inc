@@ -3,15 +3,14 @@ require_once "includes/conexion-bbdd.php"; // Asegúrate de que esta ruta sea co
 if (!isset($conn)) die();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $trayectoria_id = $_POST['trayectoria_id'] ?? null;
-    $equipo_id = $_POST['equipo'] ?? null;
-    $años = $_POST['años'] ?? null;
-    $equipo_actual = isset($_POST['equipo_actual']) && $_POST['equipo_actual'] == "1" ? 1 : 0;
-
-    if (!$trayectoria_id || !$equipo_id || !$años) {
-        echo json_encode(["error" => "Todos los campos son obligatorios"]);
-        exit;
-    }
+    $jugadora_id = $_POST['jugadora_id'] ?? null;
+    $nombre = $_POST['nombre'] ?? null;
+    $apellidos = $_POST['apellidos'] ?? null;
+    $apodo = $_POST['apodo'] ?? null;
+    $nacimiento = $_POST['nacimiento'] ?? null;
+    $nacionalidad = $_POST['nacionalidad'] ?? null;
+    $posicion = $_POST['posicion'] ?? null;
+    $retiro = $_POST['retiro'] ?? null;
 
     // 🔍 Verificar si se recibió la imagen
     error_log("Datos recibidos: " . print_r($_POST, true));
@@ -23,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Construir la consulta dinámicamente
-    $query = "UPDATE trayectoria SET equipo = ?, años = ?, equipo_actual = ?";
-    $params = [$equipo_id, $años, $equipo_actual];
-    $types = "isi"; // i: int, s: string
+    $query = "UPDATE jugadoras SET Nombre = ?, Apellidos = ?, Apodo = ?, Nacimiento = ?, Nacionalidad = ?, Posicion = ?, retiro = ?";
+    $params = [$nombre, $apellidos, $apodo, $nacimiento, $nacionalidad, $posicion, $retiro];
+    $types = "ssssiii"; // i: int, s: string
 
     if ($imagen !== null) {
         $query .= ", imagen = ?";
@@ -33,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $types .= "s"; // Tipo "b" para datos binarios
     }
     $salida = [];
-    $query .= " WHERE id = ?";
-    $params[] = $trayectoria_id;
+    $query .= " WHERE id_jugadora = ?";
+    $params[] = $jugadora_id;
     $types .= "i";
 
     // Preparar y ejecutar la consulta

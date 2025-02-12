@@ -315,69 +315,6 @@ async function posicionesAll() {
     }
 }
 
-
-async function insertarJugadora() {
-    // Obtener los datos del formulario
-    const nombre = document.getElementById("nombre").value;
-    const apellidos = document.getElementById("apellidos").value;
-    const apodo = document.getElementById("apodo").value;
-    const nacimiento = document.getElementById("nacimiento").value;
-    const nacionalidad = document.getElementById("nacionalidad").value;
-    const posicion = parseInt(document.getElementById("posicion").value, 10); // Convertir a número entero
-    const retiro = document.getElementById("retiro").value;
-    const imagenInput = document.getElementById("imagen");
-    let imagen = null;
-
-    // Leer la imagen como base64 si se seleccionó un archivo
-    if (imagenInput.files.length > 0) {
-        const file = imagenInput.files[0];
-        imagen = await fileToBase64(file);
-    }
-
-    // Crear el objeto con los datos
-    const data = {
-        nombre,
-        apellidos,
-        apodo,
-        nacimiento,
-        nacionalidad,
-        posicion,
-        retiro: retiro || null, // Puede ser opcional
-        imagen, // Esto será null si no se seleccionó ninguna imagen
-    };
-
-    console.log("Enviando datos al servidor:", data);
-
-    try {
-        // Enviar los datos al servidor usando fetch
-        const response = await fetch('../api/jugadora', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        const text = await response.text();
-        console.log("Respuesta en texto bruto:", text);
-
-        try {
-            const result = JSON.parse(text);
-            console.log("Respuesta JSON del servidor:", result);
-
-            if (result.success) {
-                console.log("Jugadora insertada con éxito.");
-            } else {
-                console.log("Error al insertar jugadora:", result.message || "Error desconocido");
-            }
-        } catch (jsonError) {
-            console.error("Error al parsear JSON:", jsonError);
-        }
-    } catch (error) {
-        console.error("Error durante el fetch:", error);
-    }
-}
-
 // Función para convertir imagen a base64
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {

@@ -32,7 +32,7 @@ try {
     $imagenBinaria = $imagen ? base64_decode($imagen) : null;
 
     $stmt->bind_param(
-        "ssssibss",
+        "ssssiiss",
         $nombre,
         $apellidos,
         $apodo,

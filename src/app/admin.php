@@ -9,6 +9,7 @@ session_start();
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Panel Admin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="../css/estilos.css">
   <link rel="stylesheet" href="../css/admin.css">
   <style>
@@ -104,6 +105,9 @@ session_start();
       padding: 20px;
       width: calc(100% - 250px);
       transition: margin-left 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .main-content.full-width {
@@ -135,6 +139,7 @@ session_start();
           <ul class="submenu" id="jugadoras-submenu" style="display: none;">
             <li><a onclick="loadPage('ligas.php')">Ver Todas</a></li>
             <li><a onclick="loadPage('insertar-jugadora.php')">Agregar Nueva</a></li>
+            <li><a onclick="loadPage('jugadora-edit.php')">Editar Jugadora</a></li>
             <li><a onclick="loadPage('trayectoria-insert.php')">Editar Trayectoria</a></li>
           </ul>
         </li>
@@ -245,6 +250,9 @@ session_start();
   </script>
   <script src="../js/funciones-tablas.js"></script>
   <script src="../js/admin.js"></script>
+  <script src="../js/opciones_jugadora.js"></script>
+  <script src="../js/admin-jugadora.js"></script>
+  <script src="../js/admin-trayectoria.js"></script>
 </body>
 
 </html>
