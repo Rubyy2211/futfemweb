@@ -13,8 +13,10 @@ async function insertarJugadora() {
         formData.append("imagen", imagenInput.files[0]);
     }
 
-    console.log("Enviando datos:", Array.from(formData.entries()));
-
+    // Depuración: Mostrar el contenido del FormData
+    for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+    }
     try {
         const response = await fetch('../api/jugadora', {
             method: 'POST',
