@@ -121,8 +121,8 @@
 <script src="../js/admin-jugadora.js"></script>
 <script>
     // Añadir el evento de input al campo de texto
-    const textoInput = document.getElementById("buscador");
-    textoInput.addEventListener('input', debounce(handleAutocompleteJugadora, 1000)); // Debounce de 300ms
+    const buscInput = document.getElementById("buscador");
+    buscInput.addEventListener('input', debounce(handleAutocompleteJugadora, 1000)); // Debounce de 300ms
 // Llamar a la función para cargar los países al inicializar la página
 paisesAll();
     // Llamar a la función para cargar las posiciones al inicializar la página

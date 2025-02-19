@@ -32,10 +32,15 @@ $jugadora = [];
 
 if ($result->num_rows > 0) {
     while ($fila = $result->fetch_assoc()) {
+        if(empty($fila['imagen'])){
+            $imagen = '\futfemweb\src\img\predeterm.jpg';
+        }else{
+            $imagen = 'data:image/jpeg;base64,' . base64_encode($fila['imagen']);// Codificar la imagen en base64
+        }
         $jugadora[] = [
             'id_jugadora' => $fila['id_jugadora'],
             'Nombre_Completo' => $fila['Nombre'] . ' ' . $fila['Apellidos'], // Concatenación correcta
-            'Imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']), // Codificar la imagen en base64
+            'Imagen' => $imagen,
             'Apodo' => $fila['apodo'],
             'Nombre' => $fila['Nombre'],
             'Apellidos' => $fila['Apellidos'],

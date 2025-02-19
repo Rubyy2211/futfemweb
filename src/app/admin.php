@@ -122,7 +122,7 @@ session_start();
   </style>
 </head>
 
-<body>
+<body class="loading">
   <div class="contenedor-admin">
     <!-- Botón para mostrar/ocultar el menú -->
     <button class="toggle-btn hidden" id="toggle-btn">☰ Menú</button>
@@ -131,7 +131,7 @@ session_start();
     <nav class="sidebar" id="sidebar">
       <h2>Admin Panel</h2>
       <ul>
-        <li><a href="#">Dashboard</a></li>
+        <li><a href="admin.php">Dashboard</a></li>
         <li><a href="#">Usuarios</a></li>
         <li><a href="#" onclick="loadPage('juegos-admin.php')">Administrar Juegos</a></li>
         <li>
@@ -143,10 +143,10 @@ session_start();
             <li><a onclick="loadPage('trayectoria-insert.php')">Editar Trayectoria</a></li>
           </ul>
         </li>
-        <li><a href="#">Medios</a></li>
+        <!--<li><a href="#">Medios</a></li>
         <li><a href="#">Configuración</a></li>
-        <li><a href="#">Extensiones</a></li>
-        <li><a href="#">Salir</a></li>
+        <li><a href="#">Extensiones</a></li>-->
+        <li><a onclick="logout()">Salir</a></li>
       </ul>
     </nav>
 
@@ -248,6 +248,7 @@ session_start();
       }
     }
   </script>
+  <script src="control-acceso.js" data-roles-restringidos="2"></script>
   <script src="../js/funciones-tablas.js"></script>
   <script src="../js/admin.js"></script>
   <script src="../js/opciones_jugadora.js"></script>

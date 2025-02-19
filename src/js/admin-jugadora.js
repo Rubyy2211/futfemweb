@@ -169,7 +169,9 @@ function actualizarJugadora(){
     formData.append("nacionalidad", nacionalidad);
     formData.append("retiro", retiro);
 
-    if (imagenInput.files.length > 0) {
+    let tiposPermitidos = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+    if (imagenInput.files.length > 0  && tiposPermitidos.includes(imagenInput.files[0].type)) {
         formData.append("Imagen", imagenInput.files[0]);
     }
     // Depuración: Mostrar el contenido del FormData
