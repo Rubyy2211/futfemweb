@@ -31,19 +31,24 @@ async function obtenerIdPais(nombre) {
 }
 
 // Función que compara el ID del país con los ID de las imágenes en la tabla
-function verificarNacionalidad(idPais) {
-    console.log(`ID del país para verificar: ${idPais}`);
-
+function verificarNacionalidad(equipos) {
+     console.log(equipos)
     // Buscar el ID de la nacionalidad en las imágenes de las columnas
-    const columnas = ["PaisA", "PaisB", "PaisC"];
+    const columnas = ["Equipo4", "Equipo5", "Equipo6"];
     let columnaEncontrada = null;
 
     columnas.forEach((id, index) => {
+        console.log('entrada')
         const th = document.getElementById(id);
         if (th) {
-            const img = th.querySelector('img');
-            if (img && img.className==="pais"+idPais){
+            for(let equipo of equipos){
+                const img = th.querySelector('img');
+                const idClub = equipo.equipo;
+                console.log(idClub)
+
+                if (img && img.className==="club"+idClub){
                 columnaEncontrada = index + 1; // Las columnas comienzan en 1
+            }
             }
         }
     });

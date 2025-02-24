@@ -2,7 +2,7 @@ async function init() {
     let valor = await fetchData(4);
     let paises = [valor.pais1, valor.pais2, valor.pais3];
     let clubes = [valor.club1, valor.club2, valor.club3];
-    ponerBanderas(paises, ["PaisA", "PaisB", "PaisC"]);
+    ponerClubes(paises, ["Equipo4", "Equipo5", "Equipo6"]);
     ponerClubes(clubes, ["Equipo1", "Equipo2", "Equipo3"]);
     await colocarAciertos();
 }
@@ -17,18 +17,13 @@ async function Verificar(){
     }
 
     try {
-        // Obtener el ID del país
-        const idPais = await obtenerIdPais(nombreJugadora);
-
-        if (idPais !== null) {
-            console.log('ID del país:', idPais);
-
+            // Obtener los equipos
+            const equipos = await obtenerEquipos(nombreJugadora);
             // Verificar la nacionalidad y obtener la columna
-            const columna = verificarNacionalidad(idPais);
+            const columna = verificarNacionalidad(equipos);
 
             if (columna !== null) {
-                // Obtener los equipos
-                const equipos = await obtenerEquipos(nombreJugadora);
+
                 if (equipos) {
                     // Comparar los equipos con las imágenes en la tabla y obtener la fila
                     const fila = verificarEquipo(equipos,columna);
@@ -39,7 +34,6 @@ async function Verificar(){
                             gestionarAciertos(idCelda,fila.foto);
                     }
                 }
-            }
         } else {
             console.log('No se encontró el ID del país.');
         }

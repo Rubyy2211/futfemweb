@@ -16,11 +16,11 @@
 <h1>Futfem Grid</h1>
 <table id="grid">
     <thead>
-    <tr>
+    <tr id="columnas">
         <th class="oculto"></th>
-        <th id="PaisA">Pais A</th>
-        <th id="PaisB">Pais B</th>
-        <th id="PaisC">Pais C</th>
+        <th id="Equipo4">Pais A</th>
+        <th id="Equipo5">Pais B</th>
+        <th id="Equipo6">Pais C</th>
     </tr>
     </thead>
     <tbody>
@@ -54,7 +54,6 @@
 <button onclick="Verificar()">Verificar</button>
 </div>
 <p id="resultado"></p>
-<script src="../js/opciones_jugadora.js"></script>
 <script src="../js/verificar.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/admin.js"></script>

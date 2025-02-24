@@ -259,7 +259,6 @@ session_start();
   <script src="control-acceso.js" data-roles-restringidos="2"></script>
   <script src="../js/funciones-tablas.js"></script>
   <script src="../js/admin.js"></script>
-  <script src="../js/opciones_jugadora.js"></script>
   <script src="../js/admin-jugadora.js"></script>
   <script src="../js/admin-trayectoria.js"></script>
 </body>

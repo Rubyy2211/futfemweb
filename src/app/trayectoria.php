@@ -40,7 +40,6 @@
   <button onclick="checkAnswer()" id="botonVerificar">Verificar</button>
   </div>
 </div>
-<script src="../js/opciones_jugadora.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/guesstrayectoria.js"></script>
