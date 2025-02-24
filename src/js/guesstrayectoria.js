@@ -126,34 +126,19 @@ function displayTrayectoria(data) {
 
 init();
 async function checkAnswer() {
-    try {
         const textoInput = document.getElementById('jugadoraInput');
-        const texto = textoInput.value.trim();
-        const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
+        const nombreCompleto = textoInput.value.trim();
+        const idJugadora = textoInput.getAttribute('data-id');
+        const div = document.getElementById('trayectoria');
+        const idClass = `id-${idJugadora}`;
+        const found = div.classList.contains(idClass);
 
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        const resultDiv = document.getElementById('result');
+        if (found) {
+            resultDiv.textContent = `${nombreCompleto}`;
+            //cambiarImagenConFlip();
+            Ganaste('trayectoria');
         }
-
-        const data = await response.json();
-        console.log('Datos recibidos:', data);
-
-        if (Array.isArray(data) && data.length > 0) {
-            if (data.length === 1) {
-                // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'trayectoria');
-            } else {
-                // Múltiples resultados, mostrar el modal
-                showModalForSelection(data,'trayectoria');
-            }
-        } else {
-            throw new Error("La respuesta no contiene los datos esperados.");
-        }
-    } catch (error) {
-        console.error("Error al obtener los datos:", error);
-        document.getElementById('result').textContent = "Ocurrió un error al realizar la solicitud.";
-    }
 }
 
 

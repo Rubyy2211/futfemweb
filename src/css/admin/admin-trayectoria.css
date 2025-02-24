@@ -1,0 +1,54 @@
+#agregarForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+#sugerenciasEquipo{
+    padding: unset;
+}
+button:hover{
+    background: var(--color-detalles);
+    color: var(--color-secundario);
+}
+#trayectoriaTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#trayectoriaTable thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-primario); /* Para que el encabezado se vea fijo */
+    z-index: 2;
+}
+#trayectoriaTable td{
+    text-align: center;
+}
+#trayectoriaTable td button{
+    width: fit-content;
+}
+.table-container {
+    max-height: 50vh;
+    overflow-y: auto;
+    display: block;
+}
+
+/* Estilo para navegadores WebKit (Chrome, Safari, Edge) */
+.table-container::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: none; /* Color de fondo */
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--color-primario); /* Color de la barra */
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secundario); /* Color al pasar el cursor */
+}

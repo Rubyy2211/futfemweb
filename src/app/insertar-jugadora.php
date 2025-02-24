@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Insertar Jugadora</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <script>
         function previewImage() {
             const file = document.getElementById("imagen").files[0];
@@ -71,9 +73,10 @@
     <label for="retiro">Retiro:</label>
     <input type="number" name="retiro" id="retiro">
     </div>
-    <button type="button" onclick="insertarJugadora()" value="Consultar"></button>
+    <button type="button" onclick="insertarJugadora()" value="Consultar">Enviar</button>
 </form>
 </div>
+<script src="control-acceso.js" data-roles-restringidos="2"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/admin-jugadora.js"></script>
 <script>

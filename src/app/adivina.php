@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Fútbol</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-
     <link rel="stylesheet" href="../css/adivina.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/combo.css">
 </head>
 
 <body>
@@ -62,7 +61,12 @@
         </div>
 
         <div class="container">
-            <label for="input"><input type="text" id="nombre" placeholder="Escribe el nombre de la jugadora"></label>
+            <label for="input">
+                <input type="text" id="nombre" placeholder="Escribe el nombre de la jugadora">
+                <div id="sugerencias-container">
+                    <ul id="sugerencias"></ul>
+                </div>
+            </label>
             <button onclick="validarJugadora()">Verificar</button>
             <button>Rendirse</button>
             <span id="lifeLeft"></span>
@@ -72,22 +76,16 @@
         </div>
     </div>
 
-    <!-- Modal Structure -->
-    <div id="selectionModal" class="modal">
-        <div class="modal-content">
-            <h4>Selecciona una jugadora</h4>
-            <ul id="jugadoraList"></ul>
-        </div>
-        <div class="modal-footer">
-            <button id="modalClose" class="modal-close" onclick="closeModal()">Cancelar</button>
-        </div>
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../js/admin.js"></script>
-    <script src="../js/opciones_jugadora.js"></script>
+    <script src="../js/funciones-tablas.js"></script>
     <script src="../js/adivinajugadora.js"></script>
+    <script>
+        // Añadir el evento de input al campo de texto
+        const textoInput = document.getElementById("nombre");
+        textoInput.addEventListener('input', debounce(handleAutocompletePlayer, 1000)); // Debounce de 300ms
+    </script>
 </body>
 
 </html>

@@ -174,7 +174,7 @@ async function anyadirTrayectoria(event) {
     formData.append("equipo_id", document.getElementById("equipo_id").value);
     formData.append("años", document.getElementById("años").value);
     formData.append("Imagen", document.getElementById("Imagen").files[0]);
-    formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? "1" : "0");
+    formData.append("equipo_actual", document.getElementById(`equipo_actual`).checked ? "1" : "0");
 
     try {
         let response = await fetch("../api/jugadora_trayectoria", {

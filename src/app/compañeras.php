@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/compañeras.css">
     <link rel="stylesheet" href="../css/trayectoria.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/combo.css">
 </head>
 <body>
 <?php require_once 'header.html'?>
@@ -35,19 +36,13 @@
         <div id="jugadora-5"></div>
     </div>
 
-    <!-- Modal Structure -->
-    <div id="selectionModal" class="modal">
-        <div class="modal-content">
-            <h4>Selecciona una jugadora</h4>
-            <ul id="jugadoraList"></ul>
-        </div>
-        <div class="modal-footer">
-            <button id="modalClose" class="modal-close" onclick="closeModal()">Cancelar</button>
-        </div>
-    </div>
-
     <div id="respuesta" class="cont">
-        <label for="jugadoraInput"><input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora"></label>
+        <label for="jugadoraInput">
+            <input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora">
+            <div id="sugerencias-container">
+                <ul id="sugerencias"></ul>
+            </div>
+        </label>
         <button onclick="checkJugadora()" id="botonVerificar">Verificar</button>
     </div>
 </div>
@@ -57,5 +52,10 @@
 <script src="../js/opciones_jugadora.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/compañeras.js"></script>
+<script>
+    // Añadir el evento de input al campo de texto
+    const textoInput = document.getElementById("jugadoraInput");
+    textoInput.addEventListener('input', debounce(handleAutocompletePlayer, 1000)); // Debounce de 300ms
+</script>
 </body>
 </html>

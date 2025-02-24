@@ -17,3 +17,26 @@
     justify-content: space-between;
     width: 100%;
 }
+button:hover{
+    background: white;
+    color: var(--color-primario);
+}
+#toggle-btn{
+    background: var(--color-primario);
+    color: white;
+    text-align: center;
+}
+
+#toggle-btn:hover{
+    background: var(--color-secundario);
+}
+
+select{
+    padding: 10px;
+    font-size: 16px;
+    max-width: 250px;
+    background: rgba(128, 0, 128, 0.3);
+    border: 2px solid purple;
+    border-radius: 20px;
+    color: white;
+}

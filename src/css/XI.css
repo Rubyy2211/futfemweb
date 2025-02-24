@@ -76,6 +76,13 @@ td div p{
 .pista p{
     margin: 0;
 }
+#sugerencias{
+    max-height: 125px;
+    overflow-y: scroll;
+}
+#sugerencias::-webkit-scrollbar{
+    color: var(--color-primario);
+}
 @media (max-width: 650px) {
     table{
         width: 80%;

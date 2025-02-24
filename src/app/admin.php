@@ -83,7 +83,6 @@ session_start();
       background-color: #34495E;
       color: white;
       border: none;
-      padding: 10px 15px;
       cursor: pointer;
       border-radius: 5px;
       z-index: 1000;
@@ -146,7 +145,7 @@ session_start();
         <!--<li><a href="#">Medios</a></li>
         <li><a href="#">Configuración</a></li>
         <li><a href="#">Extensiones</a></li>-->
-        <li><a onclick="logout()">Salir</a></li>
+        <li><a onclick="logout()" id="logout">Salir</a></li>
       </ul>
     </nav>
 
@@ -159,6 +158,14 @@ session_start();
   </div>
 
   <script>
+    const lastPage = localStorage.getItem('pag');
+    if(lastPage){
+        loadPage(lastPage);
+    }
+    const btnLogout = document.getElementById('logout');
+    btnLogout.addEventListener('click', function (){
+        localStorage.removeItem('pag');
+    });
     // Referencias a los elementos HTML
     const toggleBtn = document.getElementById('toggle-btn');
     const sidebar = document.getElementById('sidebar');
@@ -195,6 +202,7 @@ session_start();
 
     function loadPage(pageUrl) {
       const mainContent = document.getElementById('main-content');
+      localStorage.setItem('pag', pageUrl);
       mainContent.classList.add('loading'); // Muestra el indicador de carga
 
       fetch(pageUrl)

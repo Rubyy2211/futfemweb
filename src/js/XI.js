@@ -46,7 +46,9 @@ function activarCeldas(celdas) {
         celda.classList.add('activado');
     });
 }
-async function introducirJugadora(id) {
+async function introducirJugadora() {
+    const input = document.getElementById('input');
+    const id = input.getAttribute('data-id');
     let jugadora = await sacarJugadora(id);
     console.log(id)
     const res = await comprobarPaisEquipo(id);
@@ -58,7 +60,7 @@ async function introducirJugadora(id) {
         console.log(respos)
         if (respos) {
             console.log("Encontrado");
-            colocarImagen(respos,jugadora);
+            await colocarImagen(respos, jugadora);
         } else {
             console.log("NO Encontrado");
         }

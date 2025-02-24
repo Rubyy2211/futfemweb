@@ -55,7 +55,7 @@ select{
 
  #vidas{
   display: flex;
-  height: 80px;
+  height: 40px;
   justify-content: end;  
   margin-right: 100px;
 } 
@@ -112,7 +112,13 @@ select{
  animation: typing 2s steps(12), blink .5s infinite step-end alternate;
  overflow: hidden;
 }
-
+#sugerencias{
+    max-height: 125px;
+    overflow-y: scroll;
+}
+#sugerencias::-webkit-scrollbar{
+    color: var(--color-primario);
+}
 @keyframes typing{
  from {
    width: 0
