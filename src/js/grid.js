@@ -5,6 +5,7 @@ async function init() {
     ponerClubes(paises, ["Equipo4", "Equipo5", "Equipo6"]);
     ponerClubes(clubes, ["Equipo1", "Equipo2", "Equipo3"]);
     await colocarAciertos();
+    startCounter(60, 'grid')
 }
 init()
 async function Verificar(){

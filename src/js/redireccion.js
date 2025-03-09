@@ -2,7 +2,7 @@
 
 function redireccionarA(url) {
     // Redirige a la página de carga primero
-    window.location.href = 'app/carga.html?url=' + encodeURIComponent(url);
+    window.location.href = 'carga.html?url=' + encodeURIComponent(url);
 }
 
 // Al cargar la página, redirige a la página final especificada en la URL

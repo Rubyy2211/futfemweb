@@ -17,7 +17,7 @@
 <table id="grid">
     <thead>
     <tr id="columnas">
-        <th class="oculto"></th>
+        <th class=""><div id="reloj"></div></th>
         <th id="Equipo4">Pais A</th>
         <th id="Equipo5">Pais B</th>
         <th id="Equipo6">Pais C</th>

@@ -269,6 +269,26 @@ input::placeholder{
     text-decoration: none;
     color: var(--color-detalles);
 }
+
+/* Selecciona cualquier ID que empiece con "racha-" */
+[id^="racha-"] {
+    position: absolute;
+    z-index: 50;
+    right: 0;
+    top: -30px;
+    background-image: url(".././img/fuego.gif");  /* Fondo con el GIF */
+    background-size: cover;  /* Para que el GIF cubra completamente el área del div */
+    background-position: bottom; /* Alinea el GIF al centro */    padding: 15px;
+    width: 90px;           /* Ancho del círculo */
+    height: 100px;          /* Alto del círculo (igual que el ancho) */
+    /*border-radius: 50%;    /* Hace que el fondo sea un círculo */
+    font-size: 25px;
+    display: flex;         /* Usamos flexbox para centrar el contenido */
+    align-items: center;   /* Centra el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    opacity: 0;
+}
+
 @media (max-width: 768px){
     header .container .botones{
         display: none;

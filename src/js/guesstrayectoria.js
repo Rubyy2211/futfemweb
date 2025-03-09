@@ -1,35 +1,40 @@
 let jugadoraId;
-
+let nombreCompleto;
 // Función principal que controla el flujo de carga
 async function init() {
     let jugadora = await fetchData(1);
-    jugadoraId = jugadora.idJugadora;
-    console.log(jugadora.idJugadora)
-    // Obtener el valor de localStorage
-    const answer2 = localStorage.getItem('hasWon');
+    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+
+    console.log(jugadora.idJugadora);
+    let segundos = 60;
+    // Obtener valores de localStorage
     const nombre = localStorage.getItem('nombre');
     const answer = localStorage.getItem('Attr1');
-    // Convertir el valor a booleano, ya que localStorage almacena todo como cadenas
+
+    // Verificar si el usuario ha ganado
     const isAnswerTrue = (answer === jugadoraId);
     console.log('Has won:', isAnswerTrue);
+
     if (isAnswerTrue) {
-        // Luego, cargar la trayectoria
-        await loadJugadoraById(jugadoraId);
-        Ganaste('trayectoria')
-        const resultDiv = document.getElementById('result');
-        resultDiv.textContent=nombre;
-    }else{
-        localStorage.removeItem('Attr1');
-        localStorage.removeItem('nombre');
-
-        // Luego, cargar la trayectoria
-        await loadJugadoraById(jugadoraId);
+        await loadJugadoraById(jugadoraId, true);
+        Ganaste('trayectoria');
+        document.getElementById('result').textContent = nombre;
+    } else {
+        await loadJugadoraById(jugadoraId, false);
+        if(!answer || answer.trim() === ''){
+            startCounter(segundos, 'trayectoria');
+            if(segundos===0){
+                cambiarImagenConFlip();
+            }
+        }else{
+            startCounter(segundos, 'trayectoria');
+        }
+        /*localStorage.removeItem('Attr1');
+        localStorage.removeItem('nombre');*/
     }
-
-
 }
 
-async function loadJugadoraById(id) {
+async function loadJugadoraById(id, ganaste) {
     try {
         const response = await fetch(`../api/jugadora_trayectoria?id=${id}`);
         if (!response.ok) {
@@ -40,7 +45,7 @@ async function loadJugadoraById(id) {
         console.log('Datos recibidos:', data);
 
         if (Array.isArray(data) && data.length > 0) {
-            displayTrayectoria(data);
+            displayTrayectoria(data, ganaste);
         } else {
             console.warn('No hay datos de la jugadora disponibles.');
         }
@@ -50,34 +55,29 @@ async function loadJugadoraById(id) {
     }
 }
 
-function displayTrayectoria(data) {
+function displayTrayectoria(data, acertaste) {
     const trayectoriaDiv = document.getElementById('trayectoria');
+    trayectoriaDiv.setAttribute('Attr1', data[0].jugadora)
     trayectoriaDiv.innerHTML = ''; // Limpiar contenido previo
     const myst = document.getElementById('jugadora');
-    myst.src = data[0].ImagenJugadora;
 
-    // Definir el número máximo de elementos por fila
     const maxPerRow = 5;
-
-    // Crear un contenedor para cada fila
     let currentRow;
 
     data.forEach((item, index) => {
-        // Si el índice es múltiplo de maxPerRow, crea una nueva fila
         if (index % maxPerRow === 0) {
             currentRow = document.createElement('div');
-            currentRow.classList.add('trayectoria-row'); // Añadir clase para la fila
+            currentRow.classList.add('trayectoria-row');
             trayectoriaDiv.appendChild(currentRow);
         }
 
-        // Crear el contenedor del flip
         const flipContainer = document.createElement('div');
         flipContainer.classList.add('flip-container');
 
         const flipper = document.createElement('div');
         flipper.classList.add('flipper');
 
-        // Crear y añadir el lado frontal
+        // Lado frontal
         const front = document.createElement('div');
         front.classList.add('front');
 
@@ -87,60 +87,63 @@ function displayTrayectoria(data) {
             escudoImg.alt = item.nombre;
             front.appendChild(escudoImg);
 
-            // Crear y añadir el texto de los años
             const anyos = document.createElement('p');
             anyos.textContent = item.años;
-            anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
+            anyos.style.textAlign = 'center';
             front.appendChild(anyos);
         }
 
-        // Crear y añadir el lado trasero
-        const back = document.createElement('div');
-        back.classList.add('back');
+        flipper.appendChild(front);
 
-        if (item.imagen) {
-            const jugadoraImg = document.createElement('img');
-            jugadoraImg.src = item.imagen;
-            jugadoraImg.alt = 'Imagen de la Jugadora';
-            back.appendChild(jugadoraImg);
-            trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
-            trayectoriaDiv.setAttribute('Attr1', item.jugadora);
+        // Solo mostrar la parte trasera si el usuario ha ganado
+        if (acertaste) {
+            if (data.length > 0) {
+                myst.src = data[0].ImagenJugadora; // Asignar imagen de jugadora
+            }
+            const back = document.createElement('div');
+            back.classList.add('back');
 
-            // Crear y añadir el texto de los años
-            const anyos = document.createElement('p');
-            anyos.textContent = item.años;
-            anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
-            back.appendChild(anyos);
+            if (item.imagen) {
+                const jugadoraImg = document.createElement('img');
+                jugadoraImg.src = item.imagen;
+                jugadoraImg.alt = 'Imagen de la Jugadora';
+                back.appendChild(jugadoraImg);
+
+                const anyos = document.createElement('p');
+                anyos.textContent = item.años;
+                anyos.style.textAlign = 'center';
+                back.appendChild(anyos);
+
+                flipper.appendChild(back);
+            }
         }
 
-        flipper.appendChild(front);
-        flipper.appendChild(back);
         flipContainer.appendChild(flipper);
-
-        // Añadir el flipContainer a la fila actual
         currentRow.appendChild(flipContainer);
     });
 }
 
-//loadJugadoraById(jugadoraId);
-
-init();
 async function checkAnswer() {
-        const textoInput = document.getElementById('jugadoraInput');
-        const nombreCompleto = textoInput.value.trim();
-        const idJugadora = textoInput.getAttribute('data-id');
-        const div = document.getElementById('trayectoria');
-        const idClass = `id-${idJugadora}`;
-        const found = div.classList.contains(idClass);
+    const textoInput = document.getElementById('jugadoraInput');
+    const nombreCompleto = textoInput.value.trim();
+    const idJugadora = textoInput.getAttribute('data-id');
 
-        const resultDiv = document.getElementById('result');
-        if (found) {
-            resultDiv.textContent = `${nombreCompleto}`;
-            //cambiarImagenConFlip();
-            Ganaste('trayectoria');
+    if (!idJugadora) {
+        console.warn('No se encontró data-id en el input.');
+        return;
+    }else{
+        if(localStorage.length===0){
+            await updateRacha(1, 2);
+        }else{
+            await updateRacha(1, 1);
+            document.getElementById('result').textContent = nombreCompleto;
         }
+        localStorage.setItem('Attr1', idJugadora);
+        localStorage.setItem('nombre', nombreCompleto);
+
+        await loadJugadoraById(idJugadora, true);
+        Ganaste('trayectoria');
+    }
 }
 
-
-
-
+init();

@@ -1,3 +1,5 @@
+<?php
+session_start()?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,8 +16,13 @@
 </head>
 <body>
 <?php require_once 'header.html'?>
+<div>
 <h1>Adivina la Jugadora</h1>
+    <div id="racha-1" class="fire" style="display: none"></div>
+
+</div>
 <div id="game">
+    <div id="reloj"></div>
     <div class="flip-container" id="foto-jug" style="height: 150px">
         <div class="flipper">
             <div class="front">
