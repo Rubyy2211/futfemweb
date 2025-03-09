@@ -521,23 +521,106 @@ function displayRacha(racha, juego){
     }
 }
 
-function startCounter(segundos, juego) {
-    let reloj = document.getElementById('reloj');
-    // Inicializamos un intervalo que ejecutará cada segundo
-    const intervalo = setInterval(() => {
-        reloj.textContent = segundos;
-        // Resta un segundo
-        segundos--;
-        localStorage.setItem(juego, segundos);
-        // Si el contador llega a 0, detén el intervalo y devuelve false
-        if (segundos <= 0) {
-            clearInterval(intervalo);  // Detenemos el intervalo
-            console.log("Tiempo agotado");
-            return false;  // Devuelve false cuando el contador llega a 0
-        }
+let intervalos = {}; // Objeto para almacenar los intervalos
 
-        // Opcional: Mostrar el contador en consola cada segundo
+function startCounter(segundos, juego, onFinish) {
+    let reloj = document.getElementById('reloj');
+
+    // Limpiar cualquier intervalo previo asociado a este juego
+    if (intervalos[juego]) clearInterval(intervalos[juego]);
+
+    intervalos[juego] = setInterval(() => {
+        reloj.textContent = segundos;
+        segundos--;
+
+        if (segundos < 0) {
+            clearInterval(intervalos[juego]);
+            delete intervalos[juego]; // Eliminar del objeto
+            console.log("Tiempo agotado");
+            if (onFinish) onFinish();
+        }
+        localStorage.setItem(juego, segundos);
         console.log(segundos);
-    }, 1000); // 1000 ms = 1 segundo
+    }, 1000);
 }
+
+function stopCounter(juego) {
+    if (intervalos[juego]) {
+        clearInterval(intervalos[juego]); // Detiene el intervalo
+        delete intervalos[juego]; // Elimina la referencia
+        console.log(`Contador de ${juego} detenido`);
+    } else {
+        console.log(`No hay un contador en ejecución para ${juego}`);
+    }
+}
+
+function crearPopupInicialJuego(titulo, explicacion, imagen) {
+    // Crear el contenedor del popup
+    const popup = document.createElement('div');
+    popup.classList.add('popup-ex');
+    popup.id = 'popup-ex';
+
+    // Crear el contenedor de la explicación
+    const explicar = document.createElement('div');
+    explicar.classList.add('explicar');
+
+    // Crear el contenedor de la imagen
+    const imagenDiv = document.createElement('div');
+    const imagenElemento = document.createElement('img');
+    imagenElemento.src = imagen;
+    imagenDiv.appendChild(imagenElemento);
+
+    // Crear el contenedor de la explicación con el título y el texto
+    const textoExplicacion = document.createElement('div');
+    const tituloElemento = document.createElement('h2');
+    tituloElemento.textContent = titulo;
+    const parrafoExplicacion = document.createElement('p');
+    parrafoExplicacion.textContent = explicacion;
+
+    // Añadir el título y el párrafo a la sección de explicación
+    popup.appendChild(tituloElemento);
+    textoExplicacion.appendChild(parrafoExplicacion);
+
+    // Añadir la imagen y la explicación al contenedor "explicar"
+    explicar.appendChild(imagenDiv);
+    explicar.appendChild(textoExplicacion);
+
+    // Crear el contenedor de los botones de dificultad
+    const selectorDificultad = document.createElement('div');
+    selectorDificultad.classList.add('selector-dificultad');
+    const textoSelectorDificultad = document.createElement('p');
+    textoSelectorDificultad.textContent = 'Selecciona dificultad';
+    const botonesSelectorDificultad = document.createElement('div');
+
+
+    // Crear los botones de dificultad
+    const botonFacil = document.createElement('button');
+    botonFacil.textContent = 'Fácil';
+    botonFacil.onclick = () => iniciar('facil');  // Usamos una función de flecha para pasar el parámetro 'facil'
+
+    const botonMedio = document.createElement('button');
+    botonMedio.textContent = 'Medio';
+    botonMedio.onclick = () => iniciar('medio');  // Usamos una función de flecha para pasar el parámetro 'normal'
+
+    const botonDificil = document.createElement('button');
+    botonDificil.textContent = 'Difícil';
+    botonDificil.onclick = () => iniciar('dificil');  // Usamos una función de flecha para pasar el parámetro 'dificil'
+
+
+    // Añadir los botones al contenedor de dificultad
+    selectorDificultad.appendChild(textoSelectorDificultad);
+    botonesSelectorDificultad.appendChild(botonFacil);
+    botonesSelectorDificultad.appendChild(botonMedio);
+    botonesSelectorDificultad.appendChild(botonDificil);
+    selectorDificultad.appendChild(botonesSelectorDificultad);
+
+    // Añadir los contenedores de la explicación y los botones al popup
+    popup.appendChild(explicar);
+    popup.appendChild(selectorDificultad);
+
+    // Añadir el popup al cuerpo del documento o a un contenedor específico
+    document.body.appendChild(popup);
+}
+
+
 
