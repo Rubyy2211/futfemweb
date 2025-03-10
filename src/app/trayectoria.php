@@ -47,6 +47,7 @@ session_start()?>
   <button onclick="checkAnswer()" id="botonVerificar">Verificar</button>
   </div>
 </div>
+<?php include './widgets/language.html'; ?>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/guesstrayectoria.js"></script>

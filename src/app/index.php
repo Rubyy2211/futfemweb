@@ -83,6 +83,8 @@ session_start()?>
     </div>
 </div>
 </section>
+<?php include './widgets/language.html'; ?>
+<link rel="" href="widgets/language.html">
 <script src="../js/redireccion.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

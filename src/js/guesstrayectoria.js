@@ -1,10 +1,10 @@
 let jugadoraId;
 let nombreCompleto;
 // Función principal que controla el flujo de carga
-const answer = localStorage.getItem('Attr1');
 
 async function iniciar(dificultad) {
     const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
+    const answer = localStorage.getItem('Attr1');
     if (popup) {
     popup.style.display = 'none'; // Cambia el estilo para ocultarlo
     }
@@ -38,6 +38,7 @@ async function iniciar(dificultad) {
     console.log('Has won:', isAnswerTrue);
 
     if (isAnswerTrue) {
+        console.log("Deteniendo contador..."); // Verificar si llega aquí
         await loadJugadoraById(jugadoraId, true);
         stopCounter("trayectoria");  // ⬅️ Detenemos el temporizador si el usuario gana
         Ganaste('trayectoria');
@@ -159,7 +160,7 @@ async function checkAnswer() {
         console.warn('No se encontró data-id en el input.');
         return;
     }else{
-        if(localStorage.length===0){
+        if(localStorage.length===1){
             await updateRacha(1, 2);
         }else{
             await updateRacha(1, 1);
@@ -169,6 +170,7 @@ async function checkAnswer() {
         localStorage.setItem('nombre', nombreCompleto);
 
         await loadJugadoraById(idJugadora, true);
+        stopCounter('trayectoria');
         Ganaste('trayectoria');
     }
 }
@@ -205,7 +207,8 @@ async function play() {
     jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
     const res = localStorage.getItem('res1');
     if(res !== jugadoraId || !res){
-        crearPopupInicialJuego('Guess Trayectoria', texto, imagen)
+        localStorage.removeItem('Attr1');
+        crearPopupInicialJuego('Guess Trayectoria', texto, imagen);
     } else {
         await iniciar('');
     }

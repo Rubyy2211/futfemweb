@@ -539,7 +539,7 @@ function startCounter(segundos, juego, onFinish) {
             console.log("Tiempo agotado");
             if (onFinish) onFinish();
         }
-        localStorage.setItem(juego, segundos);
+        //localStorage.setItem(juego, segundos);
         console.log(segundos);
     }, 1000);
 }
