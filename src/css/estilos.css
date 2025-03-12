@@ -333,6 +333,7 @@ input::placeholder{
     display: flex;
     justify-content: right;
     align-items: center;
+    width: 75%;
 }
 .popup-ex .selector-dificultad{
     display: flex;

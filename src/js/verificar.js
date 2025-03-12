@@ -120,7 +120,7 @@ function verificarEquipo(equipos,columna) {
                             if (equipo.imagen===''){
                                 return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
                             }else{
-                                return  {'columna': resultadoEncontrado, 'foto' : equipo.imagen};
+                                return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
                             }
                         }
                     }

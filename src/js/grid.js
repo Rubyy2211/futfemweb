@@ -1,13 +1,119 @@
-async function init() {
+let idres;
+async function iniciar(dificultad) {
+    const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
+    const answer = localStorage.getItem('Attr4');
+    if (popup) {
+        popup.style.display = 'none'; // Cambia el estilo para ocultarlo
+    }
     let valor = await fetchData(4);
     let paises = [valor.pais1, valor.pais2, valor.pais3];
     let clubes = [valor.club1, valor.club2, valor.club3];
+    idres = paises.map(String).concat(clubes.map(String)).join('');;
+
+    // Definir los segundos según la dificultad
+    let segundos;
+    switch (dificultad) {
+        case "facil":
+            segundos = 180;
+            break;
+        case "medio":
+            segundos = 120;
+            break;
+        case "dificil":
+            segundos = 60;
+            break;
+        default:
+            segundos = 120; // Valor por defecto si la dificultad no es válida
+    }
     ponerClubes(paises, ["Equipo4", "Equipo5", "Equipo6"]);
     ponerClubes(clubes, ["Equipo1", "Equipo2", "Equipo3"]);
+    localStorage.setItem('res4', idres);
     await colocarAciertos();
-    startCounter(60, 'grid')
+    //startCounter(segundos, 'grid')
+
+    if (answer && answer.length === 6) {
+        console.log("Deteniendo contador..."); // Verificar si llega aquí
+        //await loadJugadoraById(jugadoraId, true);
+        stopCounter("grid");  // ⬅️ Detenemos el temporizador si el usuario gana
+        Ganaste('grid');
+        //document.getElementById('result').textContent = nombre;
+    } else {
+        //await loadJugadoraById(jugadoraId, false);
+        if (!answer || answer.trim() === '') {
+            startCounter(segundos, "grid", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await gridPerder();
+            });
+        } else if (answer === 'loss') {
+            await gridPerder();
+        } else {
+            startCounter(segundos, "grid", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await gridPerder();
+            });
+        }
+    }
 }
-init()
+
+/*async function iniciar(dificultad) {
+    const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
+    const answer = localStorage.getItem('Attr1');
+    if (popup) {
+        popup.style.display = 'none'; // Cambia el estilo para ocultarlo
+    }
+    let jugadora = await fetchData(1);
+    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+    localStorage.setItem('res1', jugadoraId);
+
+    console.log(jugadora.idJugadora);
+
+    // Definir los segundos según la dificultad
+    let segundos;
+    switch (dificultad) {
+        case "facil":
+            segundos = 90;
+            break;
+        case "medio":
+            segundos = 60;
+            break;
+        case "dificil":
+            segundos = 30;
+            break;
+        default:
+            segundos = 10; // Valor por defecto si la dificultad no es válida
+    }
+
+    // Obtener valores de localStorage
+    const nombre = localStorage.getItem('nombre');
+
+    // Verificar si el usuario ha ganado
+    const isAnswerTrue = (answer === jugadoraId);
+    console.log('Has won:', isAnswerTrue);
+
+    if (isAnswerTrue) {
+        console.log("Deteniendo contador..."); // Verificar si llega aquí
+        await loadJugadoraById(jugadoraId, true);
+        stopCounter("trayectoria");  // ⬅️ Detenemos el temporizador si el usuario gana
+        Ganaste('trayectoria');
+        document.getElementById('result').textContent = nombre;
+    } else {
+        await loadJugadoraById(jugadoraId, false);
+
+        if (!answer || answer.trim() === '') {
+            startCounter(segundos, "trayectoria", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await trayectoriaPerder();
+            });
+        } else if (answer === 'loss') {
+            await trayectoriaPerder();
+        } else {
+            startCounter(segundos, "trayectoria", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await trayectoriaPerder();
+            });
+        }
+    }
+}*/
 async function Verificar(){
     const input = document.getElementById('input');
     const nombreJugadora = input.getAttribute('data-id');
@@ -76,7 +182,7 @@ async function colocarImagenEnTabla(equipo, columna, player) {
 }
 
 async function colocarAciertos() {
-    let grid = localStorage.getItem('Attr2');
+    let grid = localStorage.getItem('Attr4');
 
     // Asegurarse de que retrievedGrid es un array
     let retrievedGrid = grid ? JSON.parse(grid) : [];
@@ -84,7 +190,7 @@ async function colocarAciertos() {
     // Verificar si retrievedGrid es un array (puede haber errores en la conversión)
     if (!Array.isArray(retrievedGrid)) {
         retrievedGrid = []; // Reiniciar como array vacío si no es un array válido
-        localStorage.setItem('Attr2', JSON.stringify(retrievedGrid));
+        localStorage.setItem('Attr4', JSON.stringify(retrievedGrid));
     } else {
         for (let i = 0; i < retrievedGrid.length; i++) {
             let celda = retrievedGrid[i].celda;
@@ -96,7 +202,7 @@ async function colocarAciertos() {
 }
 
 function gestionarAciertos(celda, foto) {
-    let grid = localStorage.getItem('Attr2');
+    let grid = localStorage.getItem('Attr4');
 
     // Asegurarse de que retrievedGrid es un array
     let retrievedGrid = grid ? JSON.parse(grid) : [];
@@ -105,7 +211,7 @@ function gestionarAciertos(celda, foto) {
     retrievedGrid.push(item); // Agregar el nuevo objeto
 
     // Guardar de nuevo en localStorage
-    localStorage.setItem('Attr2', JSON.stringify(retrievedGrid));
+    localStorage.setItem('Attr4', JSON.stringify(retrievedGrid));
 }
 
 
@@ -195,6 +301,50 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(aplicarImagenes, 500); // Esperar 1 segundo (1000 milisegundos)
     };
 });
+
+
+async function gridPerder() {
+    // Bloquear el botón y el input
+    const boton = document.getElementById('botonVerificar');
+    const input = document.getElementById('jugadoraInput');
+    const resultDiv = document.getElementById('result');
+    //const jugadora = await sacarJugadora(jugadoraId);
+
+    boton.disabled = true;
+    input.disabled = true;
+
+    resultDiv.textContent = 'Has perdido, era: '+jugadora[0].Nombre_Completo;
+    const div = document.getElementById('trayectoria');
+    const jugadora_id = 'loss';
+    localStorage.setItem('Attr4', jugadora_id);
+    //await loadJugadoraById(jugadoraId, true);
+    // Agregar un delay de 2 segundos (2000 ms)
+    if(localStorage.length>0){
+        await updateRacha(1, 0);
+    }
+}
+
+
+const texto = '¡Demuestra tu conocimiento sobre fútbol femenino! En "Futfem Grid", los jugadores se enfrentan a una cuadrícula llena de escudos de equipos de fútbol. El objetivo del juego es rellenar correctamente las casillas de la tabla con los nombres de las jugadoras que coinciden con los equipos de las filas y columnas. ' +
+    'El tablero es una rejilla (Grid) con filas y columnas. Cada celda contiene el escudo de un equipo de fútbol.\n' +
+    'Tu misión es rellenar cada celda con el nombre de una jugadora que haya jugado en ese equipo, tanto en la fila como en la columna correspondiente.\n' +
+    'Los jugadores deben completar el tablero lo más rápido posible, identificando correctamente las jugadoras que han jugado en esos equipos.\n';
+const imagen = '../img/Captura de pantalla 2024-09-01 192457.png';
+
+play().then(r => r);
+async function play() {
+    let jugadora = await fetchData(4);
+    let paises = [jugadora.pais1, jugadora.pais2, jugadora.pais3];
+    let clubes = [jugadora.club1, jugadora.club2, jugadora.club3];
+    idres = paises.map(String).concat(clubes.map(String)).join('');;
+    const res = localStorage.getItem('res4');
+    if(res !== idres || !res){
+        localStorage.removeItem('Attr4');
+        crearPopupInicialJuego('Futfem Grid', texto, imagen);
+    } else {
+        await iniciar('');
+    }
+}
 
 
 
