@@ -174,7 +174,7 @@ async function anyadirTrayectoria(event) {
     formData.append("equipo_id", document.getElementById("equipo_id").value);
     formData.append("años", document.getElementById("años").value);
     formData.append("Imagen", document.getElementById("Imagen").files[0]);
-    formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? "1" : "0");
+    formData.append("equipo_actual", document.getElementById(`equipo_actual`).checked ? "1" : "0");
 
     try {
         let response = await fetch("../api/jugadora_trayectoria", {
@@ -236,7 +236,9 @@ function saveEditTrayectoria(id) {
     // ✅ Asegurar que siempre se envíe un valor (0 o 1)
     formData.append("equipo_actual", document.getElementById(`edit-equipo-actual-${id}`).checked ? "1" : "0");
     const imagenInput = document.getElementById(`edit-imagen-${id}`);
-    if (imagenInput.files.length > 0) {
+    let tipos = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+    if (imagenInput.files.length > 0  && tipos.includes(imagenInput.files[0].type)) {
         formData.append("Imagen", imagenInput.files[0]);
     }
     // Depuración: Mostrar el contenido del FormData

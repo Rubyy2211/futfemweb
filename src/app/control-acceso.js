@@ -26,6 +26,6 @@ async function logout() {
         method: 'DELETE'
     });
     if (respuesta.ok) {
-        location.href = '../';
+        location.href = " \ ";
     }
 }

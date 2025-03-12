@@ -4,6 +4,13 @@ table {
     margin: 20px 0;
     border-radius: 20px;
 }
+#sugerencias{
+    max-height: 125px;
+    overflow-y: scroll;
+}
+#sugerencias::-webkit-scrollbar{
+    color: var(--color-primario);
+}
 div.cont{
     display: flex;
     flex-direction: column;
@@ -57,6 +64,13 @@ img {
 }
 #c33 img {
     display: block;
+}
+#sugerencias{
+    max-height: 125px;
+    overflow-y: scroll;
+}
+#sugerencias::-webkit-scrollbar{
+    color: var(--color-primario);
 }
 @media (max-width: 450px) {
     td, th{

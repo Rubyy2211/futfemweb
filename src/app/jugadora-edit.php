@@ -5,43 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Editar Jugadora</title>
-    <style>
-        .suggestion-item {
-            display: flex;
-            align-items: center;
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        .suggestion-item:hover {
-            background-color: #f0f0f0;
-            color: var(--color-primario);
-        }
-
-        .jugadora-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .jugadora-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .equipo-img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-
-        .equipo-info {
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/combo.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <script>
         function previewImage() {
             const file = document.getElementById("imagen").files[0];
@@ -65,7 +31,9 @@
     <form id="buscarForm">
         <label for="buscador">Nombre de la Jugadora:</label>
         <input type="text" id="buscador" name="nombre" required>
+        <div id="sugerencias-container">
         <ul id="sugerencias"></ul>
+        </div>
         <!--<button type="button" id="boton-nombre">Buscar</button>-->
     </form>
 <form>
@@ -117,14 +85,15 @@
     <button type="button" onclick="actualizarJugadora()" value="Consultar">Enviar</button>
 </form>
 </div>
+<script src="control-acceso.js" data-roles-restringidos="2"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/admin-jugadora.js"></script>
 <script>
     // Añadir el evento de input al campo de texto
-    const textoInput = document.getElementById("buscador");
-    textoInput.addEventListener('input', debounce(handleAutocompleteJugadora, 1000)); // Debounce de 300ms
-// Llamar a la función para cargar los países al inicializar la página
-paisesAll();
+    const buscInput = document.getElementById("buscador");
+    buscInput.addEventListener('input', debounce(handleAutocompleteJugadora, 1000)); // Debounce de 300ms
+    // Llamar a la función para cargar los países al inicializar la página
+    paisesAll();
     // Llamar a la función para cargar las posiciones al inicializar la página
     posicionesAll();
 </script>

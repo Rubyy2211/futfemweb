@@ -37,13 +37,17 @@ $jugadoras = [];
 
 if ($result->num_rows > 0) {
     while ($fila = $result->fetch_assoc()) {
+        if(empty($fila['imagen'])){
+           $imagen = '\futfemweb\src\img\predeterm.jpg';
+        }else{
+            $imagen = 'data:image/jpeg;base64,' . base64_encode($fila['imagen']);// Codificar la imagen en base64
+        }
         $jugadoras[] = [
             'id_jugadora' => $fila['id_jugadora'],
             'Nombre_Completo' => $fila['Completo'],
-            'imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']), // Codificar la imagen en base64
+            'imagen' => $imagen,
             'Apodo' => $fila['apodo'],
             'Nacimiento' => $fila['Nacimiento'],
-
         ];
     }
 } else {

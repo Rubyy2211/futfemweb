@@ -1,35 +1,68 @@
 let jugadoraId;
-
+let nombreCompleto;
 // Función principal que controla el flujo de carga
-async function init() {
-    let jugadora = await fetchData(1);
-    jugadoraId = jugadora.idJugadora;
-    console.log(jugadora.idJugadora)
-    // Obtener el valor de localStorage
-    const answer2 = localStorage.getItem('hasWon');
-    const nombre = localStorage.getItem('nombre');
-    const answer = localStorage.getItem('Attr1');
-    // Convertir el valor a booleano, ya que localStorage almacena todo como cadenas
-    const isAnswerTrue = (answer === jugadoraId);
-    console.log('Has won:', isAnswerTrue);
-    if (isAnswerTrue) {
-        // Luego, cargar la trayectoria
-        await loadJugadoraById(jugadoraId);
-        Ganaste('trayectoria')
-        const resultDiv = document.getElementById('result');
-        resultDiv.textContent=nombre;
-    }else{
-        localStorage.removeItem('Attr1');
-        localStorage.removeItem('nombre');
 
-        // Luego, cargar la trayectoria
-        await loadJugadoraById(jugadoraId);
+async function iniciar(dificultad) {
+    const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
+    const answer = localStorage.getItem('Attr1');
+    if (popup) {
+    popup.style.display = 'none'; // Cambia el estilo para ocultarlo
+    }
+    let jugadora = await fetchData(1);
+    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+    localStorage.setItem('res1', jugadoraId);
+
+    console.log(jugadora.idJugadora);
+
+    // Definir los segundos según la dificultad
+    let segundos;
+    switch (dificultad) {
+        case "facil":
+            segundos = 90;
+            break;
+        case "medio":
+            segundos = 60;
+            break;
+        case "dificil":
+            segundos = 30;
+            break;
+        default:
+            segundos = 10; // Valor por defecto si la dificultad no es válida
     }
 
+    // Obtener valores de localStorage
+    const nombre = localStorage.getItem('nombre');
 
+    // Verificar si el usuario ha ganado
+    const isAnswerTrue = (answer === jugadoraId);
+    console.log('Has won:', isAnswerTrue);
+
+    if (isAnswerTrue) {
+        console.log("Deteniendo contador..."); // Verificar si llega aquí
+        await loadJugadoraById(jugadoraId, true);
+        stopCounter("trayectoria");  // ⬅️ Detenemos el temporizador si el usuario gana
+        Ganaste('trayectoria');
+        document.getElementById('result').textContent = nombre;
+    } else {
+        await loadJugadoraById(jugadoraId, false);
+
+        if (!answer || answer.trim() === '') {
+            startCounter(segundos, "trayectoria", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await trayectoriaPerder();
+            });
+        } else if (answer === 'loss') {
+            await trayectoriaPerder();
+        } else {
+            startCounter(segundos, "trayectoria", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await trayectoriaPerder();
+            });
+        }
+    }
 }
 
-async function loadJugadoraById(id) {
+async function loadJugadoraById(id, ganaste) {
     try {
         const response = await fetch(`../api/jugadora_trayectoria?id=${id}`);
         if (!response.ok) {
@@ -40,7 +73,7 @@ async function loadJugadoraById(id) {
         console.log('Datos recibidos:', data);
 
         if (Array.isArray(data) && data.length > 0) {
-            displayTrayectoria(data);
+            displayTrayectoria(data, ganaste);
         } else {
             console.warn('No hay datos de la jugadora disponibles.');
         }
@@ -50,34 +83,29 @@ async function loadJugadoraById(id) {
     }
 }
 
-function displayTrayectoria(data) {
+function displayTrayectoria(data, acertaste) {
     const trayectoriaDiv = document.getElementById('trayectoria');
+    trayectoriaDiv.setAttribute('Attr1', data[0].jugadora)
     trayectoriaDiv.innerHTML = ''; // Limpiar contenido previo
     const myst = document.getElementById('jugadora');
-    myst.src = data[0].ImagenJugadora;
 
-    // Definir el número máximo de elementos por fila
     const maxPerRow = 5;
-
-    // Crear un contenedor para cada fila
     let currentRow;
 
     data.forEach((item, index) => {
-        // Si el índice es múltiplo de maxPerRow, crea una nueva fila
         if (index % maxPerRow === 0) {
             currentRow = document.createElement('div');
-            currentRow.classList.add('trayectoria-row'); // Añadir clase para la fila
+            currentRow.classList.add('trayectoria-row');
             trayectoriaDiv.appendChild(currentRow);
         }
 
-        // Crear el contenedor del flip
         const flipContainer = document.createElement('div');
         flipContainer.classList.add('flip-container');
 
         const flipper = document.createElement('div');
         flipper.classList.add('flipper');
 
-        // Crear y añadir el lado frontal
+        // Lado frontal
         const front = document.createElement('div');
         front.classList.add('front');
 
@@ -87,75 +115,101 @@ function displayTrayectoria(data) {
             escudoImg.alt = item.nombre;
             front.appendChild(escudoImg);
 
-            // Crear y añadir el texto de los años
             const anyos = document.createElement('p');
             anyos.textContent = item.años;
-            anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
+            anyos.style.textAlign = 'center';
             front.appendChild(anyos);
         }
 
-        // Crear y añadir el lado trasero
-        const back = document.createElement('div');
-        back.classList.add('back');
+        flipper.appendChild(front);
 
-        if (item.imagen) {
-            const jugadoraImg = document.createElement('img');
-            jugadoraImg.src = item.imagen;
-            jugadoraImg.alt = 'Imagen de la Jugadora';
-            back.appendChild(jugadoraImg);
-            trayectoriaDiv.classList.add(`id-${item.jugadora}`); // Usar prefijo para evitar conflictos de clase
-            trayectoriaDiv.setAttribute('Attr1', item.jugadora);
+        // Solo mostrar la parte trasera si el usuario ha ganado
+        if (acertaste) {
+            if (data.length > 0) {
+                myst.src = data[0].ImagenJugadora; // Asignar imagen de jugadora
+            }
+            const back = document.createElement('div');
+            back.classList.add('back');
 
-            // Crear y añadir el texto de los años
-            const anyos = document.createElement('p');
-            anyos.textContent = item.años;
-            anyos.style.textAlign = 'center'; // Centrar el texto debajo del escudo
-            back.appendChild(anyos);
+            if (item.imagen) {
+                const jugadoraImg = document.createElement('img');
+                jugadoraImg.src = item.imagen;
+                jugadoraImg.alt = 'Imagen de la Jugadora';
+                back.appendChild(jugadoraImg);
+
+                const anyos = document.createElement('p');
+                anyos.textContent = item.años;
+                anyos.style.textAlign = 'center';
+                back.appendChild(anyos);
+
+                flipper.appendChild(back);
+            }
         }
 
-        flipper.appendChild(front);
-        flipper.appendChild(back);
         flipContainer.appendChild(flipper);
-
-        // Añadir el flipContainer a la fila actual
         currentRow.appendChild(flipContainer);
     });
 }
 
-//loadJugadoraById(jugadoraId);
-
-init();
 async function checkAnswer() {
-    try {
-        const textoInput = document.getElementById('jugadoraInput');
-        const texto = textoInput.value.trim();
-        const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
+    const textoInput = document.getElementById('jugadoraInput');
+    const nombreCompleto = textoInput.value.trim();
+    const idJugadora = textoInput.getAttribute('data-id');
 
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
+    if (!idJugadora) {
+        console.warn('No se encontró data-id en el input.');
+        return;
+    }else{
+        if(localStorage.length===1){
+            await updateRacha(1, 2);
+        }else{
+            await updateRacha(1, 1);
+            document.getElementById('result').textContent = nombreCompleto;
         }
+        localStorage.setItem('Attr1', idJugadora);
+        localStorage.setItem('nombre', nombreCompleto);
 
-        const data = await response.json();
-        console.log('Datos recibidos:', data);
-
-        if (Array.isArray(data) && data.length > 0) {
-            if (data.length === 1) {
-                // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,'trayectoria');
-            } else {
-                // Múltiples resultados, mostrar el modal
-                showModalForSelection(data,'trayectoria');
-            }
-        } else {
-            throw new Error("La respuesta no contiene los datos esperados.");
-        }
-    } catch (error) {
-        console.error("Error al obtener los datos:", error);
-        document.getElementById('result').textContent = "Ocurrió un error al realizar la solicitud.";
+        await loadJugadoraById(idJugadora, true);
+        stopCounter('trayectoria');
+        Ganaste('trayectoria');
     }
 }
 
+async function trayectoriaPerder() {
+    // Bloquear el botón y el input
+    const boton = document.getElementById('botonVerificar');
+    const input = document.getElementById('jugadoraInput');
+    const resultDiv = document.getElementById('result');
+    const jugadora = await sacarJugadora(jugadoraId);
 
+    boton.disabled = true;
+    input.disabled = true;
 
+    resultDiv.textContent = 'Has perdido, era: '+jugadora[0].Nombre_Completo;
+    const div = document.getElementById('trayectoria');
+    const jugadora_id = 'loss';
+    localStorage.setItem('Attr1', jugadora_id);
+    await loadJugadoraById(jugadoraId, true);
+    // Agregar un delay de 2 segundos (2000 ms)
+    if(localStorage.length>0){
+        await updateRacha(1, 0);
+    }
+    setTimeout(() => {
+        cambiarImagenConFlip();
+    }, 1000);
+}
 
+const texto = 'Adivina la Jugadora de Fútbol" es un juego de trivia en el que los jugadores deben adivinar el nombre de una jugadora de fútbol basándose en los equipos en los que ha jugado a lo largo de su carrera. El juego presenta una serie de pistas sobre los clubes y selecciones nacionales en los que la jugadora ha jugado, y el objetivo es identificar correctamente a la jugadora lo más rápido posible. A medida que avanzas, las pistas se hacen más desafiantes y los jugadores deben demostrar su conocimiento sobre el fútbol femenino y sus estrellas. ¡Pon a prueba tus conocimientos y compite para ver quién adivina más jugadoras correctamente!';
+const imagen = '../img/trayectoria.jpg';
+play().then(r => r);
+async function play() {
+    let jugadora = await fetchData(1);
+    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+    const res = localStorage.getItem('res1');
+    if(res !== jugadoraId || !res){
+        localStorage.removeItem('Attr1');
+        crearPopupInicialJuego('Guess Trayectoria', texto, imagen);
+    } else {
+        await iniciar('');
+    }
+}

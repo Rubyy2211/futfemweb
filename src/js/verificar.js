@@ -31,19 +31,24 @@ async function obtenerIdPais(nombre) {
 }
 
 // Función que compara el ID del país con los ID de las imágenes en la tabla
-function verificarNacionalidad(idPais) {
-    console.log(`ID del país para verificar: ${idPais}`);
-
+function verificarNacionalidad(equipos) {
+     console.log(equipos)
     // Buscar el ID de la nacionalidad en las imágenes de las columnas
-    const columnas = ["PaisA", "PaisB", "PaisC"];
+    const columnas = ["Equipo4", "Equipo5", "Equipo6"];
     let columnaEncontrada = null;
 
     columnas.forEach((id, index) => {
+        console.log('entrada')
         const th = document.getElementById(id);
         if (th) {
-            const img = th.querySelector('img');
-            if (img && img.className==="pais"+idPais){
+            for(let equipo of equipos){
+                const img = th.querySelector('img');
+                const idClub = equipo.equipo;
+                console.log(idClub)
+
+                if (img && img.className==="club"+idClub){
                 columnaEncontrada = index + 1; // Las columnas comienzan en 1
+            }
             }
         }
     });
@@ -90,8 +95,6 @@ async function obtenerEquipos(nombre) {
         return null;
     }
 }
-
-
 // Función que compara el ID del país con los ID de las imágenes en la tabla
 function verificarEquipo(equipos,columna) {
     console.log("Equipos para verificar:", equipos);
@@ -117,7 +120,7 @@ function verificarEquipo(equipos,columna) {
                             if (equipo.imagen===''){
                                 return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
                             }else{
-                                return  {'columna': resultadoEncontrado, 'foto' : equipo.imagen};
+                                return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
                             }
                         }
                     }
@@ -133,44 +136,3 @@ function verificarEquipo(equipos,columna) {
         return null;
     }
 }
-
-async function obtenerJugadoras(modo) {
-    try {
-        const jugInput = document.getElementById('input');
-        const texto = jugInput.value.trim();
-        const urlj = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
-
-        const response = await fetch(urlj);
-        if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log('Datos recibidos:', data);
-
-        if (Array.isArray(data) && data.length > 0) {
-            if (data.length === 1) {
-                // Solo un resultado, no es necesario mostrar el modal
-                handleSelectedJugadora(data[0].id_jugadora, data[0].Nombre_Completo,modo);
-            } else {
-                // Múltiples resultados, mostrar el modal
-                showModalForSelection(data,modo);
-            }
-        } else {
-            throw new Error("La respuesta no contiene los datos esperados.");
-        }
-    } catch (error) {
-        console.error("Error al obtener los datos:", error);
-        document.getElementById('result').textContent = "Ocurrió un error al realizar la solicitud.";
-    }
-}
-
-
-
-
-
-
-
-
-
-

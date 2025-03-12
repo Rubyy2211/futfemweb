@@ -356,3 +356,271 @@ function cambiarImagenConFlip() {
 }
 
 
+async function handleAutocompletePlayer(event) {
+    const input = event.target;
+    const texto = input.value.trim();
+    const suggestionsList = document.getElementById("sugerencias");
+
+    // Limpiar sugerencias previas
+    suggestionsList.innerHTML = '';
+
+    if (texto.length > 2) { // Solo si hay más de 2 caracteres
+        const url = `../api/jugadoraxnombre?nombre=${encodeURIComponent(texto)}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const results = await response.json();
+
+            // Evitar duplicados
+            const idsMostrados = new Set();
+
+            results.forEach(jugadora => {
+                const { id_jugadora, Nombre_Completo, imagen, Nacimiento } = jugadora;
+
+                if (!idsMostrados.has(id_jugadora)) { // Verificar que no se haya mostrado este ID
+                    idsMostrados.add(id_jugadora);
+
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('suggestion-item');
+
+                    listItem.innerHTML = `
+                        <img src="${imagen}" alt="${Nombre_Completo}" class="jugadora-img">
+                        <div class="jugadora-info">
+                            <strong>${Nombre_Completo}</strong>
+                            <p>Nacimiento: ${Nacimiento}</p>
+                        </div>
+                    `;
+
+                    listItem.addEventListener('click', () => {
+                        // Insertar el nombre en el input al hacer clic
+                        input.value = Nombre_Completo;
+                        input.setAttribute('data-id', id_jugadora);
+                        suggestionsList.innerHTML = '';  // Limpiar las sugerencias
+                        /*document.getElementById("jugadora_id").value = id_jugadora;
+                        loadPlayerById(id_jugadora);  // Cargar los detalles de la jugadora*/
+                    });
+
+                    suggestionsList.appendChild(listItem);
+                }
+            });
+        } catch (error) {
+            console.error('Error al buscar la jugadora:', error);
+        }
+    }
+}
+
+// Función debounce para limitar las solicitudes
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+}
+
+async function getSesion() {
+    try {
+        const respuesta = await fetch('../api/sesion/');
+        if (!respuesta.ok) throw new Error('No se pudo obtener la sesión');
+
+        const data = await respuesta.json();
+        return data.id ?? null;
+    } catch (error) {
+        console.error("Error al obtener la sesión:", error);
+        return null;
+    }
+}
+
+async function obtenerRacha(juego) {
+    try {
+        let usuario = await getSesion();
+        if (!usuario) {
+            console.error("Error: No se pudo obtener el usuario de la sesión.");
+            return null;
+        }
+
+        const url = `../api/juego_racha?juego=${juego}&user=${usuario}`;
+        console.log("URL generada:", url);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+        displayRacha(data[0].Racha, data[0].Juego);
+        return data ?? null;  // Devuelve `data` si existe, si no, `null`
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+        return null;
+    }
+}
+
+async function updateRacha(juego, condicion) {
+    let rachaActual;
+    try {
+        // Obtén el ID del usuario de la sesión
+        let usuario = await getSesion();
+
+        // Verificar la condición, si es 0, establecer la racha como 0
+        if (condicion === 0) {
+            rachaActual = 0;
+        }else if(condicion === 2){
+            rachaActual = await obtenerRacha(juego);
+            rachaActual = rachaActual[0].Racha; // Asumimos que 'obtenerRacha' devuelve un array
+        } else {
+            // Si la condición no es 0, obtenemos la racha actual
+            rachaActual = await obtenerRacha(juego);
+            rachaActual = rachaActual[0].Racha; // Asumimos que 'obtenerRacha' devuelve un array
+            rachaActual = rachaActual + 1;
+        }
+
+        // Crear una nueva instancia de FormData
+        const formData = new FormData();
+
+        // Agregar los datos al FormData
+        formData.append('racha', rachaActual);
+        formData.append('juego', juego);
+        formData.append('user', parseInt(usuario, 10));  // Convertir usuario a entero
+
+        console.log(formData); // Verificar el contenido del FormData (para debugging)
+
+        // Realizamos el POST con fetch
+        const response = await fetch('../api/juego_racha', {
+            method: 'POST',
+            body: formData // Usar FormData directamente
+        });
+
+        // Verificar si la solicitud fue exitosa
+        if (!response.ok) {
+            throw new Error(`Error al actualizar la racha: ${response.statusText}`);
+        }
+
+        // Si la respuesta es exitosa, puedes hacer algo con los datos
+        const responseData = await response.json();
+        console.log('Racha actualizada:', responseData);
+        return responseData;
+
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+        return null;
+    }
+}
+
+
+function displayRacha(racha, juego){
+    const displayJuego = document.getElementById('racha-'+juego)
+    if(racha === 0 || !racha){
+        displayJuego.style.opacity = '0';
+    }else{
+        displayJuego.style.display = '100%';
+        displayJuego.textContent = racha;
+    }
+}
+
+let intervalos = {}; // Objeto para almacenar los intervalos
+
+function startCounter(segundos, juego, onFinish) {
+    let reloj = document.getElementById('reloj');
+
+    // Limpiar cualquier intervalo previo asociado a este juego
+    if (intervalos[juego]) clearInterval(intervalos[juego]);
+
+    intervalos[juego] = setInterval(() => {
+        reloj.textContent = segundos;
+        segundos--;
+
+        if (segundos < 0) {
+            clearInterval(intervalos[juego]);
+            delete intervalos[juego]; // Eliminar del objeto
+            console.log("Tiempo agotado");
+            if (onFinish) onFinish();
+        }
+        //localStorage.setItem(juego, segundos);
+        console.log(segundos);
+    }, 1000);
+}
+
+function stopCounter(juego) {
+    if (intervalos[juego]) {
+        clearInterval(intervalos[juego]); // Detiene el intervalo
+        delete intervalos[juego]; // Elimina la referencia
+        console.log(`Contador de ${juego} detenido`);
+    } else {
+        console.log(`No hay un contador en ejecución para ${juego}`);
+    }
+}
+
+function crearPopupInicialJuego(titulo, explicacion, imagen) {
+    // Crear el contenedor del popup
+    const popup = document.createElement('div');
+    popup.classList.add('popup-ex');
+    popup.id = 'popup-ex';
+
+    // Crear el contenedor de la explicación
+    const explicar = document.createElement('div');
+    explicar.classList.add('explicar');
+
+    // Crear el contenedor de la imagen
+    const imagenDiv = document.createElement('div');
+    const imagenElemento = document.createElement('img');
+    imagenElemento.src = imagen;
+    imagenDiv.appendChild(imagenElemento);
+
+    // Crear el contenedor de la explicación con el título y el texto
+    const textoExplicacion = document.createElement('div');
+    const tituloElemento = document.createElement('h2');
+    tituloElemento.textContent = titulo;
+    const parrafoExplicacion = document.createElement('p');
+    parrafoExplicacion.textContent = explicacion;
+
+    // Añadir el título y el párrafo a la sección de explicación
+    popup.appendChild(tituloElemento);
+    textoExplicacion.appendChild(parrafoExplicacion);
+
+    // Añadir la imagen y la explicación al contenedor "explicar"
+    explicar.appendChild(imagenDiv);
+    explicar.appendChild(textoExplicacion);
+
+    // Crear el contenedor de los botones de dificultad
+    const selectorDificultad = document.createElement('div');
+    selectorDificultad.classList.add('selector-dificultad');
+    const textoSelectorDificultad = document.createElement('p');
+    textoSelectorDificultad.textContent = 'Selecciona dificultad';
+    const botonesSelectorDificultad = document.createElement('div');
+
+
+    // Crear los botones de dificultad
+    const botonFacil = document.createElement('button');
+    botonFacil.textContent = 'Fácil';
+    botonFacil.onclick = () => iniciar('facil');  // Usamos una función de flecha para pasar el parámetro 'facil'
+
+    const botonMedio = document.createElement('button');
+    botonMedio.textContent = 'Medio';
+    botonMedio.onclick = () => iniciar('medio');  // Usamos una función de flecha para pasar el parámetro 'normal'
+
+    const botonDificil = document.createElement('button');
+    botonDificil.textContent = 'Difícil';
+    botonDificil.onclick = () => iniciar('dificil');  // Usamos una función de flecha para pasar el parámetro 'dificil'
+
+
+    // Añadir los botones al contenedor de dificultad
+    selectorDificultad.appendChild(textoSelectorDificultad);
+    botonesSelectorDificultad.appendChild(botonFacil);
+    botonesSelectorDificultad.appendChild(botonMedio);
+    botonesSelectorDificultad.appendChild(botonDificil);
+    selectorDificultad.appendChild(botonesSelectorDificultad);
+
+    // Añadir los contenedores de la explicación y los botones al popup
+    popup.appendChild(explicar);
+    popup.appendChild(selectorDificultad);
+
+    // Añadir el popup al cuerpo del documento o a un contenedor específico
+    document.body.appendChild(popup);
+}
+
+
+

@@ -9,17 +9,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/grid.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/combo.css">
 </head>
 <body>
 <?php require_once 'header.html'?>
 <h1>Futfem Grid</h1>
 <table id="grid">
     <thead>
-    <tr>
-        <th class="oculto"></th>
-        <th id="PaisA">Pais A</th>
-        <th id="PaisB">Pais B</th>
-        <th id="PaisC">Pais C</th>
+    <tr id="columnas">
+        <th class=""><div id="reloj"></div></th>
+        <th id="Equipo4">Pais A</th>
+        <th id="Equipo5">Pais B</th>
+        <th id="Equipo6">Pais C</th>
     </tr>
     </thead>
     <tbody>
@@ -43,28 +44,26 @@
     </tr>
     </tbody>
 </table>
-<!-- Modal Structure -->
-<div id="selectionModal" class="modal ocultar">
-    <div class="modal-content">
-        <h4>Selecciona una jugadora</h4>
-        <ul id="jugadoraList"></ul>
-    </div>
-    <div class="modal-footer">
-        <button id="modalClose" class="modal-close" onclick="closeModal()">Cancelar</button>
-    </div>
-</div>
-
 <div class="cont">
-<label for="input"><input type="text" id="input" placeholder="Escribe el nombre de la jugadora"></label>
-<button onclick="obtenerJugadoras('grid')">Verificar</button>
+<label for="input">
+    <input type="text" id="input" placeholder="Escribe el nombre de la jugadora">
+    <div id="sugerencias-container">
+        <ul id="sugerencias"></ul>
+    </div>
+</label>
+<button onclick="Verificar()">Verificar</button>
 </div>
 <p id="resultado"></p>
-<script src="../js/opciones_jugadora.js"></script>
 <script src="../js/verificar.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/grid.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Añadir el evento de input al campo de texto
+    const textoInput = document.getElementById("input");
+    textoInput.addEventListener('input', debounce(handleAutocompletePlayer, 1000)); // Debounce de 300ms
+</script>
 </body>
 </html>

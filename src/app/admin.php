@@ -83,7 +83,6 @@ session_start();
       background-color: #34495E;
       color: white;
       border: none;
-      padding: 10px 15px;
       cursor: pointer;
       border-radius: 5px;
       z-index: 1000;
@@ -122,7 +121,7 @@ session_start();
   </style>
 </head>
 
-<body>
+<body class="loading">
   <div class="contenedor-admin">
     <!-- Botón para mostrar/ocultar el menú -->
     <button class="toggle-btn hidden" id="toggle-btn">☰ Menú</button>
@@ -131,7 +130,7 @@ session_start();
     <nav class="sidebar" id="sidebar">
       <h2>Admin Panel</h2>
       <ul>
-        <li><a href="#">Dashboard</a></li>
+        <li><a href="admin.php">Dashboard</a></li>
         <li><a href="#">Usuarios</a></li>
         <li><a href="#" onclick="loadPage('juegos-admin.php')">Administrar Juegos</a></li>
         <li>
@@ -143,10 +142,10 @@ session_start();
             <li><a onclick="loadPage('trayectoria-insert.php')">Editar Trayectoria</a></li>
           </ul>
         </li>
-        <li><a href="#">Medios</a></li>
+        <!--<li><a href="#">Medios</a></li>
         <li><a href="#">Configuración</a></li>
-        <li><a href="#">Extensiones</a></li>
-        <li><a href="#">Salir</a></li>
+        <li><a href="#">Extensiones</a></li>-->
+        <li><a onclick="logout()" id="logout">Salir</a></li>
       </ul>
     </nav>
 
@@ -159,6 +158,14 @@ session_start();
   </div>
 
   <script>
+    const lastPage = localStorage.getItem('pag');
+    if(lastPage){
+        loadPage(lastPage);
+    }
+    const btnLogout = document.getElementById('logout');
+    btnLogout.addEventListener('click', function (){
+        localStorage.removeItem('pag');
+    });
     // Referencias a los elementos HTML
     const toggleBtn = document.getElementById('toggle-btn');
     const sidebar = document.getElementById('sidebar');
@@ -195,6 +202,7 @@ session_start();
 
     function loadPage(pageUrl) {
       const mainContent = document.getElementById('main-content');
+      localStorage.setItem('pag', pageUrl);
       mainContent.classList.add('loading'); // Muestra el indicador de carga
 
       fetch(pageUrl)
@@ -248,9 +256,9 @@ session_start();
       }
     }
   </script>
+  <script src="control-acceso.js" data-roles-restringidos="2"></script>
   <script src="../js/funciones-tablas.js"></script>
   <script src="../js/admin.js"></script>
-  <script src="../js/opciones_jugadora.js"></script>
   <script src="../js/admin-jugadora.js"></script>
   <script src="../js/admin-trayectoria.js"></script>
 </body>

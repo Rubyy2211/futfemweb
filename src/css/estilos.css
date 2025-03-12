@@ -26,7 +26,7 @@ body {
     color: var(--color-detalles);
     overflow-x: hidden;
     background-image: url("../img/fondo cesped.jpg.png");
-    background-size: cover;
+    /*background-size: cover;*/
     background-repeat: no-repeat;
     background-color: rgba(128, 0, 128, 0.5); /* Color negro con transparencia */
     background-blend-mode: color-dodge; /* Modo de mezcla */
@@ -268,6 +268,86 @@ input::placeholder{
 .dropdown-menu div a{
     text-decoration: none;
     color: var(--color-detalles);
+}
+
+/* Selecciona cualquier ID que empiece con "racha-" */
+[id^="racha-"] {
+    position: absolute;
+    z-index: 50;
+    right: 0;
+    top: -30px;
+    background-image: url(".././img/fuego.gif");  /* Fondo con el GIF */
+    background-size: cover;  /* Para que el GIF cubra completamente el área del div */
+    background-position: bottom; /* Alinea el GIF al centro */    padding: 15px;
+    width: 90px;           /* Ancho del círculo */
+    height: 100px;          /* Alto del círculo (igual que el ancho) */
+    /*border-radius: 50%;    /* Hace que el fondo sea un círculo */
+    font-size: 25px;
+    display: flex;         /* Usamos flexbox para centrar el contenido */
+    align-items: center;   /* Centra el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.popup-ex {
+    display: flex; /* Establece el contenedor como un flexbox */
+    flex-direction: column; /* Organiza los elementos dentro del popup de arriba a abajo */
+    position: absolute; /* Posiciona el popup de manera absoluta dentro del contenedor más cercano */
+    top: 50%; /* Centrado verticalmente */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta el desplazamiento para un verdadero centrado */
+    width: 75%; /* El popup ocupará el 75% del ancho de su contenedor principal */
+    /*max-width: 600px; /* Establece un límite de ancho máximo para evitar que se haga demasiado grande */
+    background: var(--color-gray-dark); /* Color de fondo con una variable CSS */
+    border-radius: 48px; /* Bordes redondeados */
+    padding: 30px; /* Espaciado interno */
+    z-index: 1000; /* Asegura que el popup esté por encima de otros elementos */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Sombra suave para darle un efecto de elevación */
+    overflow: hidden; /* Previene que el contenido se desborde */
+    opacity: 0; /* Inicialmente oculto para efectos de transición */
+    animation: fadeIn 0.3s forwards; /* Animación para mostrar el popup de manera suave */
+    align-items: center;
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.popup-ex>h2{
+    font-family: "Bauhaus 93", sans-serif;
+}
+.popup-ex .explicar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.popup-ex .explicar img{
+    max-width: 200px;
+}
+.popup-ex .explicar div:nth-child(2){
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 75%;
+}
+.popup-ex .selector-dificultad{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.popup-ex .selector-dificultad div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 @media (max-width: 768px){
     header .container .botones{

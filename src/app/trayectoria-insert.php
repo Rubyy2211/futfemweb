@@ -5,98 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Trayectoria de Jugadora</title>
     <link rel="stylesheet" href="../css/estilos.css">
-    <style>
-        .suggestion-item {
-            display: flex;
-            align-items: center;
-            padding: 5px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        .suggestion-item:hover {
-            background-color: #f0f0f0;
-            color: var(--color-primario);
-        }
-
-        .jugadora-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .jugadora-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .equipo-img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-
-        .equipo-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #agregarForm{
-            display: flex;
-            flex-direction: row;
-            justify-content: end;
-        }
-
-        #sugerenciasEquipo{
-            padding: unset;
-        }
-        button:hover{
-            background: var(--color-detalles);
-            color: var(--color-secundario);
-        }
-        #trayectoriaTable {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        #trayectoriaTable thead {
-            position: sticky;
-            top: 0;
-            background-color: var(--color-primario); /* Para que el encabezado se vea fijo */
-            z-index: 2;
-        }
-        #trayectoriaTable td{
-            text-align: center;
-        }
-        #trayectoriaTable td button{
-            width: fit-content;
-        }
-        .table-container {
-            max-height: 50vh;
-            overflow-y: auto;
-            display: block;
-        }
-
-        /* Estilo para navegadores WebKit (Chrome, Safari, Edge) */
-        .table-container::-webkit-scrollbar {
-            width: 8px; /* Ancho de la barra */
-        }
-
-        .table-container::-webkit-scrollbar-track {
-            background: none; /* Color de fondo */
-            border-radius: 10px;
-        }
-
-        .table-container::-webkit-scrollbar-thumb {
-            background: var(--color-primario); /* Color de la barra */
-            border-radius: 10px;
-        }
-
-        .table-container::-webkit-scrollbar-thumb:hover {
-            background: var(--color-secundario); /* Color al pasar el cursor */
-        }
-    </style>
+    <link rel="stylesheet" href="../css/combo.css?v1.0">
+    <link rel="stylesheet" href="../css/admin/admin-trayectoria.css">
 </head>
 <body>
 
@@ -105,7 +15,9 @@
 <form id="buscarForm">
     <label for="buscador">Nombre de la Jugadora:</label>
     <input type="text" id="buscador" name="nombre" required>
-    <ul id="sugerencias"></ul>
+    <div id="sugerencias-container">
+        <ul id="sugerencias"></ul>
+    </div>
     <!--<button type="button" id="boton-nombre">Buscar</button>-->
 </form>
 
@@ -148,18 +60,9 @@
 
     <button type="button" id="añadirTrayectoria">Añadir</button>
 </form>
+<div id="result"></div>
 
-<!-- Modal Structure -->
-<div id="selectionModal" class="modal">
-    <div class="modal-content">
-        <h4>Selecciona una jugadora</h4>
-        <ul id="jugadoraList"></ul>
-    </div>
-    <div class="modal-footer">
-        <button id="modalClose" class="modal-close" onclick="closeModal()">Cancelar</button>
-    </div>
-</div>
-
+<script src="control-acceso.js" data-roles-restringidos="2"></script>
 <script src="../js/opciones_jugadora.js"></script>
 <script src="../js/admin-trayectoria.js"></script>
 <script>

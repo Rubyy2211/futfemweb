@@ -6,6 +6,8 @@ session_start();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/combo.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <style>
         .Juegos {
             display: grid;
@@ -80,6 +82,9 @@ session_start();
         <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
             <label for="id-jugadora1">Id de Jugadora:</label>
             <input id="id-jugadora1">
+            <div id="sugerencias-container">
+                <ul id="sugerencias"></ul>
+            </div>
             <button onclick="actualizarGuessTrayectoria()">Actualizar</button>
         </div>
     </div>
@@ -162,17 +167,23 @@ session_start();
         <div id="collapseAdivina" class="collapse" role="tabpanel" aria-labelledby="headingAdivina">
             <label for="id-jugadora3"></label>
             <input id="id-jugadora3">
+            <div id="sugerencias-container">
+                <ul id="sugerencias3"></ul>
+            </div>
             <button onclick="actualizarAdivina()">Actualizar</button>
         </div>
     </div>
 
     <div id="juego-?" class="card">
         <div class="card-header">
-            <a data-toggle="collapse" href="#collapseUnknown" aria-expanded="false" aria-controls="collapseUnknown">Juego ?<i class="bi bi-chevron-down"></i></a>
+            <a data-toggle="collapse" href="#collapseUnknown" aria-expanded="false" aria-controls="collapseUnknown">Juego Compañeras<i class="bi bi-chevron-down"></i></a>
         </div>
         <div id="collapseUnknown" class="collapse" role="tabpanel" aria-labelledby="headingUnknown">
-            <label for="id-jugadora4">Desconocido:</label>
+            <label for="id-jugadora4">Jugadora:</label>
             <input id="id-jugadora4">
+            <div id="sugerencias-container">
+                <ul id="sugerencias4"></ul>
+            </div>
             <button onclick="actualizarGuessCompanyeras()">Actualizar</button>
         </div>
     </div>
@@ -188,5 +199,15 @@ session_start();
     Adivina();
     Grid();
     Companyeras();
+
+    // Añadir el evento de input al campo de texto
+    const jugadora1 = document.getElementById("id-jugadora1");
+    jugadora1.addEventListener('input', debounce((event) => handleAutocompleteJ(event, "sugerencias"), 1000));
+
+    const jugadora7 = document.getElementById("id-jugadora3");
+    jugadora7.addEventListener('input', debounce((event) => handleAutocompleteJ(event, "sugerencias3"), 1000));
+
+    const jugadora4 = document.getElementById("id-jugadora4");
+    jugadora4.addEventListener('input', debounce((event) => handleAutocompleteJ(event, "sugerencias4"), 1000));
 </script>
 </body>
