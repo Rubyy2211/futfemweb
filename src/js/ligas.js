@@ -27,18 +27,19 @@ function mostrarEquipo(index) {
 function mostrarPais(index) {
     const paisName = document.getElementById('paisNombre');
     const paisLogo = document.getElementById('country');
-    const equipo = paises[index];  // Suponemos que equipos tiene {nombre, logo}
+    const pais = paises[index];  // Suponemos que equipos tiene {nombre, logo}
 
-    paisName.textContent = equipo.nombre;
-    paisLogo.src = equipo.bandera;
-    buscarLigaPorPais(equipo.pais);
+    paisName.textContent = pais.nombre;
+    paisLogo.src = pais.bandera;
+    paisLogo.className = pais.pais;
+    buscarLigaPorPais(pais.pais);
 }
 // Función para buscar ligas basadas en el país
 function buscarLigaPorPais(paisId) {
     fetch(`../api/ligaxpais?pais=${paisId}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if (data.success.length > 0) {
                 ligas = data.success;  // Guardar todas las ligas
                 currentIndex = 0;  // Empezar desde la primera liga
@@ -55,13 +56,13 @@ function buscarEquipoPorLiga(ligaId) {
     fetch(`../api/equiposxliga?liga=${ligaId}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            //console.log(data);
             if (data.success.length > 0) {
                 // Aquí puedes manejar la lista de equipos devueltos
                 equipos = data.success;
-                console.log('Equipos:', equipos);  // Imprimir los equipos devueltos
+                //console.log('Equipos:', equipos);  // Imprimir los equipos devueltos
                 // Aquí podrías añadir lógica para mostrar los equipos en la UI
-                currentEquipoIndex=0;
+                currentEquipoIndex = 0;
                 mostrarEquipo(currentEquipoIndex);  // Mostrar la primera liga
             } else {
                 console.error('No se encontraron equipos para esta liga');
@@ -74,13 +75,13 @@ function buscarPaisesConLiga() {
     fetch(`../api/paisesconliga`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if (data.success.length > 0) {
                 // Aquí puedes manejar la lista de equipos devueltos
                 paises = data.success;
                 //console.log('Equipos:', paises);  // Imprimir los equipos devueltos
                 // Aquí podrías añadir lógica para mostrar los equipos en la UI
-                currentPaisIndex=0;
+                currentPaisIndex = 0;
                 mostrarPais(currentPaisIndex);  // Mostrar la primera liga
             } else {
                 console.error('No se encontraron equipos para esta liga');

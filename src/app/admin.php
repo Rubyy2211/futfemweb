@@ -131,7 +131,7 @@ session_start();
       <h2>Admin Panel</h2>
       <ul>
         <li><a href="admin.php">Dashboard</a></li>
-        <li><a href="#">Usuarios</a></li>
+        <li><a href="#" onclick="loadPage('admin\\usuarios.php')">Usuarios</a></li>
         <li><a href="#" onclick="loadPage('juegos-admin.php')">Administrar Juegos</a></li>
         <li>
           <a href="#" class="index-submenu" onclick="toggleSubmenu('jugadoras-submenu')">Jugadoras</a>
@@ -159,12 +159,12 @@ session_start();
 
   <script>
     const lastPage = localStorage.getItem('pag');
-    if(lastPage){
-        loadPage(lastPage);
+    if (lastPage) {
+      loadPage(lastPage);
     }
     const btnLogout = document.getElementById('logout');
-    btnLogout.addEventListener('click', function (){
-        localStorage.removeItem('pag');
+    btnLogout.addEventListener('click', function() {
+      localStorage.removeItem('pag');
     });
     // Referencias a los elementos HTML
     const toggleBtn = document.getElementById('toggle-btn');
