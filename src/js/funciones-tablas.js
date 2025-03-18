@@ -538,8 +538,8 @@ function startCounter(segundos, juego, onFinish) {
             delete intervalos[juego]; // Eliminar del objeto
             console.log("Tiempo agotado");
             if (onFinish) onFinish();
-        }
-        //localStorage.setItem(juego, segundos);
+        }else{
+        localStorage.setItem(juego, segundos);}
         console.log(segundos);
     }, 1000);
 }

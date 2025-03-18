@@ -23,7 +23,7 @@ async function iniciar(dificultad) {
             segundos = 60;
             break;
         default:
-            segundos = 120; // Valor por defecto si la dificultad no es válida
+            segundos = localStorage.getItem('grid'); // Valor por defecto si la dificultad no es válida
     }
     ponerClubes(paises, ["Equipo4", "Equipo5", "Equipo6"]);
     ponerClubes(clubes, ["Equipo1", "Equipo2", "Equipo3"]);
@@ -55,67 +55,8 @@ async function iniciar(dificultad) {
     }
 }
 
-/*async function iniciar(dificultad) {
-    const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
-    const answer = localStorage.getItem('Attr1');
-    if (popup) {
-        popup.style.display = 'none'; // Cambia el estilo para ocultarlo
-    }
-    let jugadora = await fetchData(1);
-    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
-    localStorage.setItem('res1', jugadoraId);
-
-    console.log(jugadora.idJugadora);
-
-    // Definir los segundos según la dificultad
-    let segundos;
-    switch (dificultad) {
-        case "facil":
-            segundos = 90;
-            break;
-        case "medio":
-            segundos = 60;
-            break;
-        case "dificil":
-            segundos = 30;
-            break;
-        default:
-            segundos = 10; // Valor por defecto si la dificultad no es válida
-    }
-
-    // Obtener valores de localStorage
-    const nombre = localStorage.getItem('nombre');
-
-    // Verificar si el usuario ha ganado
-    const isAnswerTrue = (answer === jugadoraId);
-    console.log('Has won:', isAnswerTrue);
-
-    if (isAnswerTrue) {
-        console.log("Deteniendo contador..."); // Verificar si llega aquí
-        await loadJugadoraById(jugadoraId, true);
-        stopCounter("trayectoria");  // ⬅️ Detenemos el temporizador si el usuario gana
-        Ganaste('trayectoria');
-        document.getElementById('result').textContent = nombre;
-    } else {
-        await loadJugadoraById(jugadoraId, false);
-
-        if (!answer || answer.trim() === '') {
-            startCounter(segundos, "trayectoria", async () => {
-                console.log("El contador llegó a 0. Ejecutando acción...");
-                await trayectoriaPerder();
-            });
-        } else if (answer === 'loss') {
-            await trayectoriaPerder();
-        } else {
-            startCounter(segundos, "trayectoria", async () => {
-                console.log("El contador llegó a 0. Ejecutando acción...");
-                await trayectoriaPerder();
-            });
-        }
-    }
-}*/
 async function Verificar(){
-    const input = document.getElementById('input');
+    const input = document.getElementById('jugadoraInput');
     const nombreJugadora = input.getAttribute('data-id');
     console.log('Procesando jugadora:', nombreJugadora);
     if (!nombreJugadora) {

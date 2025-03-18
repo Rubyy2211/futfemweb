@@ -5,6 +5,7 @@ let nombreCompleto;
 async function iniciar(dificultad) {
     const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
     const answer = localStorage.getItem('Attr1');
+    const name = await sacarJugadora(jugadoraId);
     if (popup) {
     popup.style.display = 'none'; // Cambia el estilo para ocultarlo
     }
@@ -27,7 +28,7 @@ async function iniciar(dificultad) {
             segundos = 30;
             break;
         default:
-            segundos = 10; // Valor por defecto si la dificultad no es válida
+            segundos = localStorage.getItem('trayectoria'); // Valor por defecto si la dificultad no es válida
     }
 
     // Obtener valores de localStorage
@@ -42,7 +43,7 @@ async function iniciar(dificultad) {
         await loadJugadoraById(jugadoraId, true);
         stopCounter("trayectoria");  // ⬅️ Detenemos el temporizador si el usuario gana
         Ganaste('trayectoria');
-        document.getElementById('result').textContent = nombre;
+        document.getElementById('result').textContent = name[0].Nombre_Completo;
     } else {
         await loadJugadoraById(jugadoraId, false);
 
@@ -160,7 +161,7 @@ async function checkAnswer() {
         console.warn('No se encontró data-id en el input.');
         return;
     }else{
-        if(localStorage.length===1){
+        if(!localStorage.getItem('Attr1')){
             await updateRacha(1, 2);
         }else{
             await updateRacha(1, 1);

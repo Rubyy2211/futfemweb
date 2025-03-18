@@ -15,44 +15,51 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         require_once '../includes/conexion-bbdd.php';
-        if(!isset($conn)) die();
+        if (!isset($conn)) die();
+
         // Obtener los datos del formulario
         $nombre_usuario = $_POST['username'];
         $contraseña = $_POST['password'];
 
-        // Consulta SQL para obtener el hash de la contraseña del usuario
-        $sql = "SELECT `usuarios`.`id`, 
-       `usuarios`.`nombre`, 
-        usuarios.Correo,
-       `roles`.`id` as `idRol`, 
-       `roles`.`Nombre` 
-	FROM `usuarios` 
-		INNER JOIN `roles` ON `usuarios`.`rol` = `roles`.`id`
-	WHERE `usuarios`.`Correo` = '$nombre_usuario' AND `usuarios`.`Contrasena` = SHA1('$contraseña')";
-        $resultado = mysqli_query($conn, $sql);
+        // Consulta SQL con placeholders para evitar inyección SQL
+        $sql = "SELECT usuarios.id, 
+                   usuarios.nombre, 
+                   usuarios.Correo, 
+                   roles.id as idRol, 
+                   roles.Nombre 
+            FROM usuarios 
+            INNER JOIN roles ON usuarios.rol = roles.id 
+            WHERE usuarios.Correo = ? AND usuarios.Contrasena = SHA1(?)";
 
-        if (mysqli_affected_rows($conn) === 1) {
-            $registro = mysqli_fetch_assoc($resultado);
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Vincular parámetros
+            mysqli_stmt_bind_param($stmt, "ss", $nombre_usuario, $contraseña);
+            mysqli_stmt_execute($stmt);
+            $resultado = mysqli_stmt_get_result($stmt);
 
-            session_start();
-            $_SESSION['user'] = $registro;
+            if (mysqli_num_rows($resultado) === 1) {
+                $registro = mysqli_fetch_assoc($resultado);
+                session_start();
+                $_SESSION['user'] = $registro;
 
-            //var_dump($_SESSION['user']);
-            $salida = [];
-            $salida['id'] = $registro['id'];
-            $salida['nombre'] = $registro['nombre'];
-            $salida['Correo'] = $registro['Correo'];
-            $salida['idRol'] = $registro['idRol'];
+                $salida = [
+                    'id' => $registro['id'],
+                    'nombre' => $registro['nombre'],
+                    'Correo' => $registro['Correo'],
+                    'idRol' => $registro['idRol']
+                ];
 
-            http_response_code(200);
-
-            header('Access-Control-Allow-Origin: *');
-            header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE');
-            header('Content-Type: application/json; charset=utf-8');
-
-            echo json_encode($salida);
+                http_response_code(200);
+                header('Access-Control-Allow-Origin: *');
+                header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE');
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode($salida);
+            } else {
+                http_response_code(401);
+            }
+            mysqli_stmt_close($stmt);
         } else {
-            http_response_code(401);
+            http_response_code(500); // Error en la preparación de la consulta
         }
         break;
     case 'DELETE':

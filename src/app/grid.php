@@ -46,12 +46,12 @@
 </table>
 <div class="cont">
 <label for="input">
-    <input type="text" id="input" placeholder="Escribe el nombre de la jugadora">
+    <input type="text" id="jugadoraInput" placeholder="Escribe el nombre de la jugadora">
     <div id="sugerencias-container">
         <ul id="sugerencias"></ul>
     </div>
 </label>
-<button onclick="Verificar()">Verificar</button>
+<button onclick="Verificar()" id="botonVerificar">Verificar</button>
 </div>
 <p id="resultado"></p>
 <script src="../js/verificar.js"></script>

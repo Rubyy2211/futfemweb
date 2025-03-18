@@ -67,7 +67,7 @@
                     <ul id="sugerencias"></ul>
                 </div>
             </label>
-            <button onclick="validarJugadora()">Verificar</button>
+            <button onclick="validarJugadora()" id="botonVerificar">Verificar</button>
             <button>Rendirse</button>
             <span id="lifeLeft"></span>
             <!-- <div class="contenedor">
