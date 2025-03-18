@@ -1,0 +1,5 @@
+/* Definir variables a utilizar en el resto de la web */
+:root { 
+    --text-color-white:white;
+    --bg-table: purple;
+}
