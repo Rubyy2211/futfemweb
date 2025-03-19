@@ -12,7 +12,7 @@ if (empty($nombre)) {
     exit;
 }
     // Crear la cláusula IN para la consulta SQL
-    $query = "SELECT id_equipo, nombre, escudo FROM equipos WHERE nombre LIKE CONCAT('%', ?, '%');
+    $query = "SELECT id_equipo, nombre, escudo, liga FROM equipos WHERE nombre LIKE CONCAT('%', ?, '%');
 ";
 
     // Preparar y ejecutar la consulta
@@ -26,6 +26,7 @@ if (empty($nombre)) {
             $equipos[] = [
                 'club' =>$fila['id_equipo'],
                 'nombre' => $fila['nombre'],
+                'liga' => $fila['liga'],
                 'escudo' => 'data:image/jpeg;base64,' . base64_encode($fila['escudo'])
             ];
         }

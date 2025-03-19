@@ -142,9 +142,16 @@ session_start();
             <li><a onclick="loadPage('trayectoria-insert.php')">Editar Trayectoria</a></li>
           </ul>
         </li>
-        <!--<li><a href="#">Medios</a></li>
-        <li><a href="#">Configuración</a></li>
-        <li><a href="#">Extensiones</a></li>-->
+        <li><a href="#" class="index-submenu" onclick="toggleSubmenu('equipos-submenu')">Equipos</a>
+            <ul class="submenu" id="equipos-submenu" style="display: none;">
+                <li><a onclick="loadPage('.php')">Ver Todas</a></li>
+                <li><a onclick="loadPage('equipo-insert.php')">Agregar Nuevo</a></li>
+                <li><a onclick="loadPage('equipo-edit.php')">Editar Equipo</a></li>
+            </ul>
+        </li>
+          <!--<li><a href="#">Medios</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#">Extensiones</a></li>-->
         <li><a onclick="logout()" id="logout">Salir</a></li>
       </ul>
     </nav>
@@ -260,6 +267,7 @@ session_start();
   <script src="../js/funciones-tablas.js"></script>
   <script src="../js/admin.js"></script>
   <script src="../js/admin-jugadora.js"></script>
+  <script src="../js/admin-equipo.js"></script>
   <script src="../js/admin-trayectoria.js"></script>
 </body>
 
