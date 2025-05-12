@@ -156,23 +156,27 @@ async function checkAnswer() {
     const textoInput = document.getElementById('jugadoraInput');
     const nombreCompleto = textoInput.value.trim();
     const idJugadora = textoInput.getAttribute('data-id');
+    const div = document.getElementById('trayectoria');
+    const result = document.getElementById('result');
 
     if (!idJugadora) {
         console.warn('No se encontró data-id en el input.');
         return;
-    }else{
+    }else if(div.getAttribute('Attr1')===idJugadora){
         if(!localStorage.getItem('Attr1')){
             await updateRacha(1, 2);
         }else{
-            await updateRacha(1, 1);
-            document.getElementById('result').textContent = nombreCompleto;
-        }
+            //await updateRacha(1, 1);
+    }
+        result.textContent = nombreCompleto;
         localStorage.setItem('Attr1', idJugadora);
         localStorage.setItem('nombre', nombreCompleto);
 
         await loadJugadoraById(idJugadora, true);
         stopCounter('trayectoria');
         Ganaste('trayectoria');
+    }else{
+        result.textContent = 'Sigue intentando!'
     }
 }
 
