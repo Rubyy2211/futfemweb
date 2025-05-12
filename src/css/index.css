@@ -6,6 +6,8 @@ body{
     background-blend-mode: color-dodge; /* Modo de mezcla */
 }
 
+.container{
+}
 
 /* Estilos principales para .game-button */
 .game-button {

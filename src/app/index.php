@@ -20,7 +20,7 @@ session_start()?>
 <?php require_once 'header.html' ?>
 <section class="juegos">
 <div class="container mt-5 sibling-fade">
-    <div class="row sibling-fade">
+    <div class="row sibling-fade d-flex justify-content-center">
         <div class="col-md-3">
             <div id="racha-1" class="fire"></div>
             <div class="game-button glow" onclick="redireccionarA('trayectoria.php')">
@@ -36,7 +36,7 @@ session_start()?>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='grid.php'">PLAY</button>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" style="display: none">
             <div class="game-button glow" onclick="redireccionarA('XI_Clubs.php')">
                 <img src="../img/XI_Clubs.png" alt="Game 3">
                 <h4>Futfem Clubs</h4>
@@ -51,8 +51,8 @@ session_start()?>
             </div>
         </div>
     </div>
-    <div class="row sibling-fade">
-        <div class="col-md-3">
+    <div class="row sibling-fade d-flex justify-content-center">
+        <div class="col-md-3" style="display: none">
             <div class="game-button glow" onclick="redireccionarA('XI_Nations.php')">
                 <img src="../img/XI_Nations.png" alt="Game 3">
                 <h4>Futfem Nations</h4>

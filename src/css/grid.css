@@ -17,6 +17,11 @@ div.cont{
     align-items: center;
     justify-content: center;
 }
+.resaltado {
+    background-color: #ffe58a; /* color amarillo claro */
+    transition: background-color 0.3s ease;
+}
+
 .oculto{
     border: none;
     background: none;

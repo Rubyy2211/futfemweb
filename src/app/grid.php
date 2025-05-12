@@ -53,7 +53,7 @@
 </label>
 <button onclick="Verificar()" id="botonVerificar">Verificar</button>
 </div>
-<p id="resultado"></p>
+<div id="resultado"></div>
 <script src="../js/verificar.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/admin.js"></script>
@@ -62,7 +62,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     // Añadir el evento de input al campo de texto
-    const textoInput = document.getElementById("input");
+    const textoInput = document.getElementById("jugadoraInput");
     textoInput.addEventListener('input', debounce(handleAutocompletePlayer, 1000)); // Debounce de 300ms
 </script>
 </body>

@@ -314,11 +314,13 @@ function Ganaste(modo) {
 
     // Guardar en localStorage que el usuario ha ganado
     localStorage.setItem('hasWon', 'true');
-    localStorage.setItem('nombre',resultDiv.textContent)
+    if(modo!=='grid') localStorage.setItem('nombre',resultDiv.textContent)
     // Llamar a la función que cambia la imagen con flip
     if(modo==='grid'){
     const input = document.querySelector('input');
+    const result = document.getElementById('resultado');
     const button = document.querySelector('button');
+    result.textContent = '¡Has Ganado!';
     button.disabled=true;
     input.disabled=true;
     }else if(modo==='trayectoria'){

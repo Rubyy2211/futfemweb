@@ -39,6 +39,9 @@
     <div class="form-item">
     <label for="liga">Liga:</label>
     <input type="text" name="liga" id="liga">
+        <div id="sugerencias-container">
+            <ul id="sugerenciasLiga"></ul>
+        </div>
     </div>
 
     <div class="form-item">
@@ -51,6 +54,11 @@
 <script src="control-acceso.js" data-roles-restringidos="2"></script>
 <script src="../js/admin.js"></script>
 <script src="../js/admin-equipo.js"></script>
+<script>
+    // Añadir el evento de input al campo de texto
+    const buscInput = document.getElementById("liga");
+    buscInput.addEventListener('input', debounce(handleAutocompleteLiga, 1000)); // Debounce de 300ms
+</script>
 </body>
 </html>
 

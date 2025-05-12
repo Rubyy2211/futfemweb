@@ -4,7 +4,8 @@
     flex-direction: column;
     align-items: center;
 }
-#sugerencias{
+#sugerencias,
+#sugerenciasLiga{
     position: absolute;
     padding: unset;
     margin: unset;

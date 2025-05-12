@@ -30,8 +30,8 @@ async function iniciar(dificultad) {
     localStorage.setItem('res4', idres);
     await colocarAciertos();
     //startCounter(segundos, 'grid')
-
-    if (answer && answer.length === 6) {
+    const celdas = comprobarFotosEnCeldas();
+    if (celdas) {
         console.log("Deteniendo contador..."); // Verificar si llega aquí
         //await loadJugadoraById(jugadoraId, true);
         stopCounter("grid");  // ⬅️ Detenemos el temporizador si el usuario gana
@@ -57,6 +57,7 @@ async function iniciar(dificultad) {
 
 async function Verificar(){
     const input = document.getElementById('jugadoraInput');
+    input.value = "";
     const nombreJugadora = input.getAttribute('data-id');
     console.log('Procesando jugadora:', nombreJugadora);
     if (!nombreJugadora) {
@@ -68,7 +69,7 @@ async function Verificar(){
             // Obtener los equipos
             const equipos = await obtenerEquipos(nombreJugadora);
             // Verificar la nacionalidad y obtener la columna
-            const columna = verificarNacionalidad(equipos);
+            const columna = verificarNacionalidad(equipos, nombreJugadora);
 
             if (columna !== null) {
 
@@ -80,6 +81,13 @@ async function Verificar(){
                             await colocarImagenEnTabla(fila.columna, columna, fila.foto);
                             const idCelda = `c${fila.columna}${columna}`;
                             gestionarAciertos(idCelda,fila.foto);
+                            const celdas = comprobarFotosEnCeldas();
+                            if (celdas) {
+                                console.log("Deteniendo contador..."); // Verificar si llega aquí
+                                //await loadJugadoraById(jugadoraId, true);
+                                stopCounter("grid");  // ⬅️ Detenemos el temporizador si el usuario gana
+                                Ganaste('grid');
+                            }
                     }
                 }
         } else {
@@ -127,6 +135,11 @@ async function colocarAciertos() {
 
     // Asegurarse de que retrievedGrid es un array
     let retrievedGrid = grid ? JSON.parse(grid) : [];
+    const celdas = comprobarFotosEnCeldas();
+    if(celdas){
+        stopCounter('grid');
+        Ganaste('grid');
+    }
 
     // Verificar si retrievedGrid es un array (puede haber errores en la conversión)
     if (!Array.isArray(retrievedGrid)) {
@@ -248,13 +261,13 @@ async function gridPerder() {
     // Bloquear el botón y el input
     const boton = document.getElementById('botonVerificar');
     const input = document.getElementById('jugadoraInput');
-    const resultDiv = document.getElementById('result');
+    const resultDiv = document.getElementById('resultado');
     //const jugadora = await sacarJugadora(jugadoraId);
 
     boton.disabled = true;
     input.disabled = true;
 
-    resultDiv.textContent = 'Has perdido, era: '+jugadora[0].Nombre_Completo;
+    resultDiv.textContent = 'Has perdido';//+jugadora[0].Nombre_Completo;
     const div = document.getElementById('trayectoria');
     const jugadora_id = 'loss';
     localStorage.setItem('Attr4', jugadora_id);

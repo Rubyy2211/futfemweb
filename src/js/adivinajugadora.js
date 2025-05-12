@@ -2,10 +2,33 @@ let jugadora;
 let preguntas = 10;
 let vidas = 3;
 let player;
-async function inici() {
+async function iniciar(dificultad) {
+    const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
+    const answer = localStorage.getItem('Attr3');
+    const name = await sacarJugadora(jugadoraId);
+    if (popup) {
+        popup.style.display = 'none'; // Cambia el estilo para ocultarlo
+    }
     let jugadoraid = await fetchData(3);
-    console.log(jugadoraid.idJugadora)
+    //jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+    localStorage.setItem('res3', jugadora);
     jugadora = jugadoraid.idJugadora;
+
+    // Definir los segundos según la dificultad
+    let segundos;
+    switch (dificultad) {
+        case "facil":
+            segundos = 90;
+            break;
+        case "medio":
+            segundos = 60;
+            break;
+        case "dificil":
+            segundos = 30;
+            break;
+        default:
+            segundos = localStorage.getItem('Guess Player'); // Valor por defecto si la dificultad no es válida
+    }
     // Llamada a la API para obtener la jugadora
     const url = `../api/jugadora_datos?id=${jugadora}`;
     fetch(url)
@@ -18,7 +41,68 @@ async function inici() {
             // displayMessage('Error loading word.');
         });
 }
-inici();
+/*
+async function iniciar(dificultad) {
+    const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
+    const answer = localStorage.getItem('Attr1');
+    const name = await sacarJugadora(jugadoraId);
+    if (popup) {
+        popup.style.display = 'none'; // Cambia el estilo para ocultarlo
+    }
+    let jugadora = await fetchData(1);
+    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+    localStorage.setItem('res1', jugadoraId);
+
+    console.log(jugadora.idJugadora);
+
+    // Definir los segundos según la dificultad
+    let segundos;
+    switch (dificultad) {
+        case "facil":
+            segundos = 90;
+            break;
+        case "medio":
+            segundos = 60;
+            break;
+        case "dificil":
+            segundos = 30;
+            break;
+        default:
+            segundos = localStorage.getItem('trayectoria'); // Valor por defecto si la dificultad no es válida
+    }
+
+    // Obtener valores de localStorage
+    const nombre = localStorage.getItem('nombre');
+
+    // Verificar si el usuario ha ganado
+    const isAnswerTrue = (answer === jugadoraId);
+    console.log('Has won:', isAnswerTrue);
+
+    if (isAnswerTrue) {
+        console.log("Deteniendo contador..."); // Verificar si llega aquí
+        await loadJugadoraById(jugadoraId, true);
+        stopCounter("trayectoria");  // ⬅️ Detenemos el temporizador si el usuario gana
+        Ganaste('trayectoria');
+        document.getElementById('result').textContent = name[0].Nombre_Completo;
+    } else {
+        await loadJugadoraById(jugadoraId, false);
+
+        if (!answer || answer.trim() === '') {
+            startCounter(segundos, "trayectoria", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await trayectoriaPerder();
+            });
+        } else if (answer === 'loss') {
+            await trayectoriaPerder();
+        } else {
+            startCounter(segundos, "trayectoria", async () => {
+                console.log("El contador llegó a 0. Ejecutando acción...");
+                await trayectoriaPerder();
+            });
+        }
+    }
+}*/
+
 let namePlayer = document.getElementById('player-name');
 namePlayer.style.display = "none";
 // let lifeLeft = document.getElementById('lifeLeft');
@@ -349,6 +433,7 @@ async function validarJugadora() {
         let img = document.querySelector(idVida);
         img.classList.add('oculto');
 
+        await adivinaJugadoraPerder();
         let imgPlayer = document.getElementById('player-image');
         imgPlayer.src = player.imagen;
         let namePlayer = document.getElementById('player-name');
@@ -387,4 +472,43 @@ function AdivinaJugadora(idJugadora) {
         lifeLeft.style.display = "block";
     }
 
+}
+
+async function adivinaJugadoraPerder() {
+    // Bloquear el botón y el input
+    const boton = document.getElementById('botonVerificar');
+    const input = document.getElementById('input');
+    const resultDiv = document.getElementById('result');
+    const jugadora = await sacarJugadora(jugadoraId);
+
+    boton.disabled = true;
+    input.disabled = true;
+
+    resultDiv.textContent = 'Has perdido, era: '+jugadora[0].Nombre_Completo;
+    const div = document.getElementById('trayectoria');
+    const jugadora_id = 'loss';
+    localStorage.setItem('Attr3', jugadora_id);
+    await loadJugadoraById(jugadoraId, true);
+    // Agregar un delay de 2 segundos (2000 ms)
+    if(localStorage.length>0){
+        await updateRacha(1, 0);
+    }
+    setTimeout(() => {
+        cambiarImagenConFlip();
+    }, 1000);
+}
+
+const texto = 'Guess Player" es un juego de trivia en el que los jugadores deben adivinar el nombre de una jugadora de fútbol basándose en los equipos en los que ha jugado a lo largo de su carrera. El juego presenta una serie de pistas sobre los clubes y selecciones nacionales en los que la jugadora ha jugado, y el objetivo es identificar correctamente a la jugadora lo más rápido posible. A medida que avanzas, las pistas se hacen más desafiantes y los jugadores deben demostrar su conocimiento sobre el fútbol femenino y sus estrellas. ¡Pon a prueba tus conocimientos y compite para ver quién adivina más jugadoras correctamente!';
+const imagen = '../img/ComingSoon.png';
+play().then(r => r);
+async function play() {
+    let jugadora = await fetchData(3);
+    jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
+    const res = localStorage.getItem('res3');
+    if(res !== jugadoraId || !res){
+        localStorage.removeItem('Attr3');
+        crearPopupInicialJuego('Guess Player', texto, imagen);
+    } else {
+        await iniciar('');
+    }
 }
