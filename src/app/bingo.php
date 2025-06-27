@@ -19,8 +19,8 @@
         <div id="player-name" class="player-name">Jugadora</div>
         <!-- Botón de Skip -->
     </div>
-    <button class="skip-button" onclick="skipPlayer(paises,clubes,ligas)">SKIP</button>
-
+    <button class="skip-button" onclick="skipPlayer(paises,equipos,ligas)">SKIP</button>
+    <div id="reloj"></div>
 <table id="grid">
     <tbody>
         <tr>
@@ -43,11 +43,13 @@
         </tr>
         </tbody>
     </table>
+<div id="resultado"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/verificar.js"></script>
+<script src="../js/admin.js"></script>
 <script src="../js/bingo.js"></script>
 </body>
 </html>

@@ -40,3 +40,8 @@ select{
     border-radius: 20px;
     color: white;
 }
+
+.form-group>div{
+    display: flex;
+    flex-direction: row;
+}

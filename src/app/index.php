@@ -21,7 +21,7 @@ session_start()?>
 <section class="juegos">
 <div class="container mt-5 sibling-fade">
     <div class="row sibling-fade d-flex justify-content-center">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div id="racha-1" class="fire"></div>
             <div class="game-button glow" onclick="redireccionarA('trayectoria.php')">
                 <img src="../img/trayectoria.jpg" alt="Game 1">
@@ -29,7 +29,7 @@ session_start()?>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='trayectoria.php'">PLAY</button>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="game-button glow" onclick="redireccionarA('grid.php')">
                 <img src="../img/Captura%20de%20pantalla%202024-09-01%20192457.png" alt="Game 2">
                 <h4>Futfem Grid</h4>
@@ -43,7 +43,7 @@ session_start()?>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='XI_Clubs.php'">PLAY</button>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="game-button glow" onclick="redireccionarA('bingo.php')">
                 <img src="../img/Bingo.png" alt="Game 4">
                 <h4>Futfem Bingo</h4>
@@ -59,21 +59,21 @@ session_start()?>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='XI_Nations.php'">PLAY</button>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="game-button glow" onclick="redireccionarA('wordle.php')">
                 <img src="../img/Captura%20de%20pantalla%202024-09-01%20201329.png" alt="Game 6">
                 <h4>Futfem Wordle</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='wordle.php'">PLAY</button>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="game-button glow" onclick="redireccionarA('adivina.php')">
                 <img src="../img/ComingSoon.png" alt="Game 5">
                 <h4>Futfem Guess</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="game-button glow" onclick="redireccionarA('compañeras.php')">
                 <img src="../img/ComingSoon.png" alt="Game 6">
                 <h4>Futfem Compañeras</h4>

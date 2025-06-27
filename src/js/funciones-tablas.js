@@ -306,15 +306,15 @@ const resultDiv = document.getElementById('result');
 
 function Ganaste(modo) {
     // Bloquear el botón y el input
-    const boton = document.getElementById('botonVerificar');
+    /*const boton = document.getElementById('botonVerificar');
     const input = document.getElementById('jugadoraInput');
 
     boton.disabled = true;
-    input.disabled = true;
+    input.disabled = true;*/
 
     // Guardar en localStorage que el usuario ha ganado
     localStorage.setItem('hasWon', 'true');
-    if(modo!=='grid') localStorage.setItem('nombre',resultDiv.textContent)
+    //if(modo!=='grid') localStorage.setItem('nombre',resultDiv.textContent)
     // Llamar a la función que cambia la imagen con flip
     if(modo==='grid'){
     const input = document.querySelector('input');
@@ -323,6 +323,12 @@ function Ganaste(modo) {
     result.textContent = '¡Has Ganado!';
     button.disabled=true;
     input.disabled=true;
+    }
+    if(modo==='bingo'){
+        const result = document.getElementById('resultado');
+        const button = document.getElementsByClassName('skip-button');
+        result.textContent = '¡Has Ganado!';
+        button.disabled=true;
     }else if(modo==='trayectoria'){
         const div = document.getElementById('trayectoria');
         const jugadora_id = div.getAttribute('Attr1');

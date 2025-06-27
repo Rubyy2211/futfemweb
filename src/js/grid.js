@@ -8,7 +8,7 @@ async function iniciar(dificultad) {
     let valor = await fetchData(4);
     let paises = [valor.pais1, valor.pais2, valor.pais3];
     let clubes = [valor.club1, valor.club2, valor.club3];
-    idres = paises.map(String).concat(clubes.map(String)).join('');;
+    idres = paises.map(String).concat(clubes.map(String)).join('');
 
     // Definir los segundos según la dificultad
     let segundos;
@@ -268,7 +268,7 @@ async function gridPerder() {
     input.disabled = true;
 
     resultDiv.textContent = 'Has perdido';//+jugadora[0].Nombre_Completo;
-    const div = document.getElementById('trayectoria');
+    //const div = document.getElementById('trayectoria');
     const jugadora_id = 'loss';
     localStorage.setItem('Attr4', jugadora_id);
     //await loadJugadoraById(jugadoraId, true);
@@ -277,7 +277,6 @@ async function gridPerder() {
         await updateRacha(1, 0);
     }
 }
-
 
 const texto = '¡Demuestra tu conocimiento sobre fútbol femenino! En "Futfem Grid", los jugadores se enfrentan a una cuadrícula llena de escudos de equipos de fútbol. El objetivo del juego es rellenar correctamente las casillas de la tabla con los nombres de las jugadoras que coinciden con los equipos de las filas y columnas. ' +
     'El tablero es una rejilla (Grid) con filas y columnas. Cada celda contiene el escudo de un equipo de fútbol.\n' +
@@ -290,7 +289,7 @@ async function play() {
     let jugadora = await fetchData(4);
     let paises = [jugadora.pais1, jugadora.pais2, jugadora.pais3];
     let clubes = [jugadora.club1, jugadora.club2, jugadora.club3];
-    idres = paises.map(String).concat(clubes.map(String)).join('');;
+    idres = paises.map(String).concat(clubes.map(String)).join('');
     const res = localStorage.getItem('res4');
     if(res !== idres || !res){
         localStorage.removeItem('Attr4');
@@ -299,6 +298,3 @@ async function play() {
         await iniciar('');
     }
 }
-
-
-
