@@ -21,7 +21,8 @@
     </div>
     <button class="skip-button" onclick="skipPlayer(paises,equipos,ligas)">SKIP</button>
     <div id="reloj"></div>
-<table id="grid">
+    <div id="resultado"></div>
+    <table id="grid">
     <tbody>
         <tr>
             <td id="c11"></td>
@@ -43,7 +44,6 @@
         </tr>
         </tbody>
     </table>
-<div id="resultado"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

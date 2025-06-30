@@ -326,9 +326,10 @@ function Ganaste(modo) {
     }
     if(modo==='bingo'){
         const result = document.getElementById('resultado');
-        const button = document.getElementsByClassName('skip-button');
+        const button = document.querySelector('.skip-button'); // usa querySelector
         result.textContent = '¡Has Ganado!';
         button.disabled=true;
+        button.style.pointerEvents = 'none';
     }else if(modo==='trayectoria'){
         const div = document.getElementById('trayectoria');
         const jugadora_id = div.getAttribute('Attr1');
@@ -539,16 +540,17 @@ function startCounter(segundos, juego, onFinish) {
 
     intervalos[juego] = setInterval(() => {
         reloj.textContent = segundos;
-        segundos--;
 
-        if (segundos < 0) {
+        if (segundos <= 0) {
             clearInterval(intervalos[juego]);
-            delete intervalos[juego]; // Eliminar del objeto
+            delete intervalos[juego];
             console.log("Tiempo agotado");
             if (onFinish) onFinish();
-        }else{
-        localStorage.setItem(juego, segundos);}
-        console.log(segundos);
+        } else {
+            localStorage.setItem(juego, segundos);
+            segundos--;
+            console.log(segundos);
+        }
     }, 1000);
 }
 

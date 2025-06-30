@@ -26,7 +26,6 @@ async function iniciar(dificultad) {
         default:
             segundos = localStorage.getItem('bingo'); // Valor por defecto si la dificultad no es válida
     }
-
     ponerBanderas(paises, ["c21", "c32", "c33"]); // Asigna banderas a ciertos países por su ID.
     ponerLigas(ligas, ["c13", "c34",'c23']); // Asigna ligas a los países por su ID.
     ponerClubes(equipos, ["c12", "c14", "c31"]); // Asigna clubes a los países.
@@ -41,25 +40,23 @@ async function iniciar(dificultad) {
             console.log("Deteniendo contador..."); // Verificar si llega aquí
             stopCounter("bingo");  // ⬅️ Detenemos el temporizador si el usuario gana
             Ganaste('bingo');
-        }//await loadJugadoraById(jugadoraId, false);
-        if (!answer || answer.trim() === '') {
-            startCounter(segundos, "bingo", async () => {
-                console.log("El contador llegó a 0. Ejecutando acción...");
-                //await gridPerder();
-            });
-        } else if (answer === 'loss') {
-            await gridPerder();
-        } else {
-            startCounter(segundos, "bingo", async () => {
-                console.log("El contador llegó a 0. Ejecutando acción...");
-                //await gridPerder();
-            });
         }
-
-    }, 500); // espera 500ms
-
-
-
+        else{
+            if (!answer || answer.trim() === '') {
+                startCounter(segundos, "bingo", async () => {
+                    console.log("El contador llegó a 0. Ejecutando acción...");
+                    //await gridPerder();
+                });
+            } else if (answer === 'loss') {
+                //await gridPerder();
+            } else {
+                startCounter(segundos, "bingo", async () => {
+                    console.log("El contador llegó a 0. Ejecutando acción...");
+                    //await gridPerder();
+                });
+            }
+        }
+    }, 500); // espera 500m
 }
 
 function calcularEdad(fechaNacimiento) {
