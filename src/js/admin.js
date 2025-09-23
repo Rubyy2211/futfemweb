@@ -79,6 +79,37 @@ function Grid() {
         }
     });
 }
+function Bingo(){
+    const pais1 = document.getElementById('pais1');
+    const pais2 = document.getElementById('pais2');
+    const pais3 = document.getElementById('pais3');
+    const equipo1 = document.getElementById('club1');
+    const equipo2 = document.getElementById('club2');
+    const equipo3 = document.getElementById('club3');
+    const liga1 = document.getElementById('liga1');
+    const liga2 = document.getElementById('liga2');
+    const liga3 = document.getElementById('liga3');
+
+    // Llamar a fetchData y manejar la promesa
+    fetchData(6).then(datos => {
+        console.log(datos)
+        if (datos.error) {
+            // Manejar el error
+            //input.textContent = datos.error; // Mostrar mensaje de error en el input
+        } else {
+            // Suponiendo que "idJugadora" es una propiedad de la respuesta JSON
+            pais1.value = datos.paises[0] // Usar .value para actualizar un input
+            pais2.value = datos.paises[1] // Usar .value para actualizar un input
+            pais3.value = datos.paises[2] // Usar .value para actualizar un input
+            equipo1.value = datos.equipos[0] // Usar .value para actualizar un input
+            equipo2.value = datos.equipos[1] // Usar .value para actualizar un input
+            equipo3.value = datos.equipos[2] // Usar .value para actualizar un input
+            liga1.value = datos.ligas[0]
+            liga2.value = datos.ligas[1]
+            liga3.value = datos.ligas[2]
+        }
+    });
+}
 function GTrayectoria() {
     const input = document.getElementById('id-jugadora1');
 
@@ -194,6 +225,25 @@ function actualizarGrid() {
     // Aquí puedes hacer lo que quieras con el JSON, como enviarlo a un servidor
     // Por ejemplo, llamar a la función para enviar a una API
     sendToAPI(jsonString, 4);
+}
+function actualizarBingo(){
+    const pais1 = document.getElementById('pais1').getAttribute('data-id');
+    const pais2 = document.getElementById('pais2').getAttribute('data-id');
+    const pais3 = document.getElementById('pais3').getAttribute('data-id');
+    const equipo1 = document.getElementById('club1').getAttribute('data-id');
+    const equipo2 = document.getElementById('club2').getAttribute('data-id');
+    const equipo3 = document.getElementById('club3').getAttribute('data-id');
+    const liga1 = document.getElementById('liga1').getAttribute('data-id');
+    const liga2 = document.getElementById('liga2').getAttribute('data-id');
+    const liga3 = document.getElementById('liga3').getAttribute('data-id');
+    const objeto = {paises: [pais1, pais2, pais3], equipos: [equipo1, equipo2, equipo3], ligas: [liga1, liga2, liga3]}
+
+    // Convertir a JSON
+    const jsonString = JSON.stringify(objeto);
+
+    // Aquí puedes hacer lo que quieras con el JSON, como enviarlo a un servidor
+    // Por ejemplo, llamar a la función para enviar a una API
+    sendToAPI(jsonString, 6);
 }
 function actualizarWordle() {
     // Obtener el valor del input
@@ -377,6 +427,153 @@ async function handleAutocompleteJ(event, listaId) {
         }
     }
 }
+
+async function handleAutocompleteEquipo(event, id) {
+    const input = event.target;
+    const texto = input.value.trim();
+    const suggestionsList = document.getElementById(id);
+
+    // Limpiar sugerencias previas
+    suggestionsList.innerHTML = '';
+
+    if (texto.length > 2) { // Solo si hay más de 2 caracteres
+        const url = `../api/equipoxnombre?nombre=${encodeURIComponent(texto)}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const results = await response.json();
+
+            results.forEach(equipo => {
+                const { club, nombre, escudo } = equipo;
+                const listItem = document.createElement('li');
+                listItem.classList.add('suggestion-item');
+
+                listItem.innerHTML = `
+                        <img src="${escudo}" alt="${nombre}" class="equipo-img">
+                        <div class="equipo-info">
+                            <strong>${nombre}</strong>
+                        </div>
+                    `;
+
+                listItem.addEventListener('click', () => {
+                    // Insertar el nombre del equipo en el input al hacer clic
+                    input.value = nombre;
+                    input.setAttribute('data-id', club); // Guardar el ID del equipo
+                    suggestionsList.innerHTML = '';  // Limpiar las sugerencias
+                });
+
+                suggestionsList.appendChild(listItem);
+
+            });
+        } catch (error) {
+            console.error('Error al buscar el equipo:', error);
+        }
+    }
+}
+
+async function handleAutocompleteLiga(event, id) {
+    const input = event.target;
+    const texto = input.value.trim();
+    const suggestionsList = document.getElementById(id);
+
+    // Limpiar sugerencias previas
+    suggestionsList.innerHTML = '';
+
+    if (texto.length > 2) { // Solo si hay más de 2 caracteres
+        const url = `../api/ligaxnombre?nombre=${encodeURIComponent(texto)}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const results = await response.json();
+
+            // Evitar duplicados
+            const idsMostrados = new Set();
+
+            results.forEach(equipo => {
+                const { liga, nombre, logo, pais } = equipo;
+                console.log(equipo)
+                if (!idsMostrados.has(liga)) { // Verificar que no se haya mostrado este ID
+                    idsMostrados.add(liga);
+
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('suggestion-item');
+
+                    listItem.innerHTML = `
+                        <img src="${logo}" alt="${logo}" class="jugadora-img">
+                        <div class="jugadora-info">
+                            <strong>${nombre}</strong>
+                            <p>País: ${pais}</p>
+                        </div>
+                    `;
+
+                    listItem.addEventListener('click', () => {
+                        // Insertar el nombre en el input al hacer clic
+                        input.value = nombre;
+                        input.setAttribute('data-id', liga);
+                        suggestionsList.innerHTML = '';  // Limpiar las sugerencias
+                    });
+
+                    suggestionsList.appendChild(listItem);
+                }
+            });
+        } catch (error) {
+            console.error('Error al buscar la jugadora:', error);
+        }
+    }
+}
+
+async function handleAutocompletePais(event, id) {
+    const input = event.target;
+    const texto = input.value.trim();
+    const suggestionsList = document.getElementById(id);
+
+    // Limpiar sugerencias previas
+    suggestionsList.innerHTML = '';
+
+    if (texto.length > 2) { // Solo si hay más de 2 caracteres
+        const url = `../api/paisxnombre?nombre=${encodeURIComponent(texto)}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const results = await response.json();
+
+            // Evitar duplicados
+            const idsMostrados = new Set();
+
+            results.forEach(equipo => {
+                const { pais, nombre, bandera } = equipo;
+                if (!idsMostrados.has(pais)) { // Verificar que no se haya mostrado este ID
+                    idsMostrados.add(pais);
+
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('suggestion-item');
+
+                    listItem.innerHTML = `
+                        <img src="${bandera}" alt="${nombre}" class="jugadora-img">
+                        <div class="jugadora-info">
+                            <strong>${nombre}</strong>
+                        </div>
+                    `;
+
+                    listItem.addEventListener('click', () => {
+                        // Insertar el nombre en el input al hacer clic
+                        input.value = nombre;
+                        input.setAttribute('data-id', pais);
+                        suggestionsList.innerHTML = '';  // Limpiar las sugerencias
+                    });
+
+                    suggestionsList.appendChild(listItem);
+                }
+            });
+        } catch (error) {
+            console.error('Error al buscar la jugadora:', error);
+        }
+    }
+}
+
 
 // Función debounce para limitar las solicitudes
 function debounce(func, wait) {

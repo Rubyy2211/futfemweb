@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/variables.css">
     <style>
-        #users {
-            background: var(--border-table);
+        #users thead {
+            background: var(--bg-table);
         }
     </style>
 </head>
@@ -20,19 +20,26 @@
 <body>
     <?php require_once '../header.html' ?>
     <div class="form-container">
-        <h2>Usuarios</h2>
+        <div style="margin-bottom: 10px;">
+            <span style="font-size: 30px;">Usuarios</span>
+            <button onclick="createUser()"><i class="bi bi-plus-circle"></i></button>
+        </div>
         <table id="users">
-            <tr>
-                <th>Username</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Correo</th>
-                <th>Rol</th>
-                <th></th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
         </table>
     </div>
     <script src="control-acceso.js" data-roles-restringidos="2"></script>
+    <script src="\futfemweb\src\js\admin-usuarios.js"></script>
     <!-- <script src="../js/admin.js"></script>
 <script src="../js/admin-jugadora.js"></script> -->
     <script>

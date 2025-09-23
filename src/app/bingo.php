@@ -13,15 +13,18 @@
 <body>
 <?php require_once 'header.html'?>
 <div class="contenedor">
+    <div id="cabecera-bingo">
     <!-- Imagen y nombre del jugador -->
     <div class="player">
         <img id="player-image" src="../img/predeterm.jpg" alt="Jugador">
         <div id="player-name" class="player-name">Jugadora</div>
         <!-- Botón de Skip -->
     </div>
-    <button class="skip-button" onclick="skipPlayer(paises,clubes,ligas)">SKIP</button>
-
-<table id="grid">
+    <button class="skip-button" onclick="skipPlayer(paises,equipos,ligas)">SKIP</button>
+    </div>
+    <div id="reloj"></div>
+    <div id="resultado"></div>
+    <table id="grid">
     <tbody>
         <tr>
             <td id="c11"></td>
@@ -48,6 +51,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="../js/funciones-tablas.js"></script>
 <script src="../js/verificar.js"></script>
+<script src="../js/admin.js"></script>
 <script src="../js/bingo.js"></script>
 </body>
 </html>

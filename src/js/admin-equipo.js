@@ -165,4 +165,79 @@ async function insertarEquipo() {
 }
 
 
+async function handleAutocompleteLiga(event) {
+    const input = event.target;
+    const texto = input.value.trim();
+    const suggestionsList = document.getElementById("sugerenciasLiga");
+
+    // Limpiar sugerencias previas
+    suggestionsList.innerHTML = '';
+
+    if (texto.length > 2) { // Solo si hay más de 2 caracteres
+        const url = `../api/ligaxnombre?nombre=${encodeURIComponent(texto)}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const results = await response.json();
+
+            // Evitar duplicados
+            const idsMostrados = new Set();
+
+            results.forEach(equipo => {
+                const { liga, nombre, logo, pais } = equipo;
+                console.log(equipo)
+                if (!idsMostrados.has(liga)) { // Verificar que no se haya mostrado este ID
+                    idsMostrados.add(liga);
+
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('suggestion-item');
+
+                    listItem.innerHTML = `
+                        <img src="${logo}" alt="${logo}" class="jugadora-img">
+                        <div class="jugadora-info">
+                            <strong>${nombre}</strong>
+                            <p>País: ${pais}</p>
+                        </div>
+                    `;
+
+                    listItem.addEventListener('click', () => {
+                        // Insertar el nombre en el input al hacer clic
+                        input.value = nombre;
+                        input.setAttribute('data-id', liga);
+                        suggestionsList.innerHTML = '';  // Limpiar las sugerencias
+                        document.getElementById("liga").value = liga;
+                        //loadEquipoById(liga);  // Cargar los detalles de la jugadora
+                    });
+
+                    suggestionsList.appendChild(listItem);
+                }
+            });
+        } catch (error) {
+            console.error('Error al buscar la jugadora:', error);
+        }
+    }
+}
+
+async function getPaisById(id){
+    try {
+        const response = await fetch(`../api/paisxid?id=${id}`, {
+            method: 'GET',
+        });
+
+        const result = await response.json();
+        console.log("Respuesta del servidor:", result);
+
+        if (result.success) {
+            console.log("Equipo insertado con éxito.");
+        } else {
+            console.log("Error al insertar equipo:", result.message || "Error desconocido");
+        }
+    } catch (error) {
+        console.error("Error durante el fetch:", error);
+    }
+}
+
+
+
 

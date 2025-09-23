@@ -132,9 +132,63 @@ session_start();
             <a data-toggle="collapse" href="#collapseBingo" aria-expanded="false" aria-controls="collapseBingo">Juego Bingo<i class="bi bi-chevron-down"></i></a>
         </div>
         <div id="collapseBingo" class="collapse" role="tabpanel" aria-labelledby="headingBingo">
-            <label for="id-bingo">Bingo:</label>
-            <input id="id-bingo">
-            <button onclick="">Actualizar</button>
+            <!-- Input Países -->
+            <div class="form-group mb-3">
+                <label for="paises-bingo">Países (3):</label>
+                <div>
+                    <div class="mb-2">
+                    <label for="pais1"></label><input type="text" class="form-control mb-1" id="pais1" placeholder="ID país 1">
+                        <ul id="sugerenciasPais1" class="list-group position-absolute"></ul>
+                    </div>
+                    <div class="mb-2">
+                    <label for="pais2"></label><input type="text" class="form-control mb-1" id="pais2" placeholder="ID país 2">
+                        <ul id="sugerenciasPais2" class="list-group position-absolute"></ul>
+                    </div>
+                    <div class="mb-2">
+                    <label for="pais3"></label><input type="text" class="form-control" id="pais3" placeholder="ID país 3">
+                        <ul id="sugerenciasPais3" class="list-group position-absolute"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Clubes -->
+            <div class="form-group mb-3">
+                <label for="clubes-bingo">Clubes (3):</label>
+                <div>
+                    <div class="mb-2">
+                        <label for="club1"></label><input type="text" class="form-control" id="club1" placeholder="ID club 1">
+                        <ul id="sugerenciasEquipo1" class="list-group position-absolute"></ul>
+                    </div>
+                    <div class="mb-2">
+                        <label for="club2"></label><input type="text" class="form-control" id="club2" placeholder="ID club 2">
+                        <ul id="sugerenciasEquipo2" class="list-group position-absolute"></ul>
+                    </div>
+                    <div>
+                        <label for="club3"></label><input type="text" class="form-control" id="club3" placeholder="ID club 3">
+                        <ul id="sugerenciasEquipo3" class="list-group position-absolute"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Ligas -->
+            <div class="form-group mb-3">
+                <label for="ligas-bingo">Ligas (2):</label>
+                <div>
+                    <div class="mb-2">
+                    <label for="liga1"></label><input type="text" class="form-control mb-1" id="liga1" placeholder="ID liga 1">
+                        <ul id="sugerenciasLiga1" class="list-group position-absolute"></ul>
+                    </div>
+                    <div class="mb-2">
+                    <label for="liga2"></label><input type="text" class="form-control" id="liga2" placeholder="ID liga 2">
+                        <ul id="sugerenciasLiga2" class="list-group position-absolute"></ul>
+                    </div>
+                    <div class="mb-2">
+                        <label for="liga3"></label><input type="text" class="form-control" id="liga3" placeholder="ID liga 3">
+                        <ul id="sugerenciasLiga3" class="list-group position-absolute"></ul>
+                    </div>
+                </div>
+            </div>
+            <button onclick="actualizarBingo()">Actualizar</button>
         </div>
     </div>
 
@@ -199,6 +253,7 @@ session_start();
     Adivina();
     Grid();
     Companyeras();
+    Bingo();
 
     // Añadir el evento de input al campo de texto
     const jugadora1 = document.getElementById("id-jugadora1");
@@ -209,5 +264,37 @@ session_start();
 
     const jugadora4 = document.getElementById("id-jugadora4");
     jugadora4.addEventListener('input', debounce((event) => handleAutocompleteJ(event, "sugerencias4"), 1000));
+
+    let lista = document.getElementById('sugerencias');
+    //boton.addEventListener("click", validarNombre);
+
+    // Añadir el evento de input al campo de texto
+    const textoInputEquipo1 = document.getElementById("club1");
+    textoInputEquipo1.addEventListener('input', debounce((event) => handleAutocompleteEquipo(event, "sugerenciasEquipo1"), 1000)); // Debounce de 300ms
+    // Agregar el evento al input del nombre del equipo
+    const textoInputEquipo2 = document.getElementById("club2");
+    textoInputEquipo2.addEventListener('input', debounce((event) => handleAutocompleteEquipo(event, "sugerenciasEquipo2"), 1000)); // Debounce de 300ms
+
+    const textoInputEquipo3 = document.getElementById("club3");
+    textoInputEquipo3.addEventListener('input', debounce((event) => handleAutocompleteEquipo(event, "sugerenciasEquipo3"), 1000)); // Debounce de 300ms
+
+    const textoInputLiga1 = document.getElementById("liga1");
+    textoInputLiga1.addEventListener('input', debounce((event) => handleAutocompleteLiga(event, "sugerenciasLiga1"), 1000)); // Debounce de 300ms
+
+    const textoInputLiga2 = document.getElementById("liga2");
+    textoInputLiga2.addEventListener('input', debounce((event) => handleAutocompleteLiga(event, "sugerenciasLiga2"), 1000)); // Debounce de 300ms
+
+    const textoInputLiga3 = document.getElementById("liga3");
+    textoInputLiga3.addEventListener('input', debounce((event) => handleAutocompleteLiga(event, "sugerenciasLiga3"), 1000)); // Debounce de 300ms
+
+    // Añadir el evento de input al campo de texto
+    const textoInputPais1 = document.getElementById("pais1");
+    textoInputPais1.addEventListener('input', debounce((event) => handleAutocompletePais(event, "sugerenciasPais1"), 1000)); // Debounce de 300ms
+    // Agregar el evento al input del nombre del equipo
+    const textoInputPais2 = document.getElementById("pais2");
+    textoInputPais2.addEventListener('input', debounce((event) => handleAutocompletePais(event, "sugerenciasPais2"), 1000)); // Debounce de 300ms
+
+    const textoInputPais3 = document.getElementById("pais3");
+    textoInputPais3.addEventListener('input', debounce((event) => handleAutocompletePais(event, "sugerenciasPais3"), 1000)); // Debounce de 300ms
 </script>
 </body>

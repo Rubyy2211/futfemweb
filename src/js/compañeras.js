@@ -181,7 +181,7 @@ function cambiarImagenFlipRonda(div) {
     if(currentIndex>4){
         cambiarImagenConFlip();
         localStorage.setItem('Attr8', jugadoraId);
-        localStorage.setItem('hasWon8', false);
+        localStorage.setItem('hasWon8', null);
         return;
     }
     // Seleccionar todos los contenedores de flip dentro del div pasado como parámetro

@@ -11,38 +11,35 @@ $recurso = $peticion->recurso();
 $metodo = strtolower($peticion->metodo());
 
 $salida = [];
-if(str_starts_with($recurso,'liga')){
+if (str_starts_with($recurso, 'liga')) {
 
     $file = "recursos/liga/$recurso.$metodo.inc";
-
-}else if(str_starts_with($recurso,'equipo')){
+} else if (str_starts_with($recurso, 'equipo')) {
 
     $file = "recursos/equipo/$recurso.$metodo.inc";
-
-}else if(str_starts_with($recurso,'pais')){
+} else if (str_starts_with($recurso, 'pais')) {
 
     $file = "recursos/pais/$recurso.$metodo.inc";
-
-}else if(str_starts_with($recurso,'jugadora')){
+} else if (str_starts_with($recurso, 'jugadora')) {
 
     $file = "recursos/jugadora/$recurso.$metodo.inc";
-
-}else if(str_starts_with($recurso,'posicion')){
+} else if (str_starts_with($recurso, 'posicion')) {
 
     $file = "recursos/posicion/$recurso.$metodo.inc";
-
-}else if(str_starts_with($recurso,'juego')){
+} else if (str_starts_with($recurso, 'juego')) {
 
     $file = "recursos/juegos/$recurso.$metodo.inc";
+} else if (str_starts_with($recurso, 'users')) {
 
-}else{
-// archivo a importar según el recurso solicitado
-$file = "recursos/$recurso.$metodo.inc";
+    $file = "recursos/users/$recurso.$metodo.inc";
+} else {
+    // archivo a importar según el recurso solicitado
+    $file = "recursos/$recurso.$metodo.inc";
 }
 // comprobar que existe, si no, devolver error 400
-if(!file_exists($file)) {
-	http_response_code(400);
-	die();
+if (!file_exists($file)) {
+    http_response_code(400);
+    die();
 }
 // importar el archivo
 require_once $file;

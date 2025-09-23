@@ -1,98 +1,70 @@
 <?php
 require_once "includes/conexion-bbdd.php";
 
-// Obtener los parámetros como arrays
 $nacionalidades = $_GET['nacionalidades'] ?? [];
 $equipos = $_GET['equipos'] ?? [];
 $ligas = $_GET['ligas'] ?? [];
-// Asegúrate de que estás recibiendo los arrays correctamente
-// En vez de var_dump, usa error_log para registrar
-error_log(print_r($nacionalidades, true));
-error_log(print_r($equipos, true));
-error_log(print_r($ligas, true));
+
 if(!isset($conn)) die();
 
-$conditions = [];
-$params = [];
+function obtenerJugadoras($conn, $filtro, $valores): array
+{
+if (empty($valores)) return [];
 
-// Si hay nacionalidades, sanitizar y crear placeholders
-if (!empty($nacionalidades)) {
-    $nacionalidades = array_map('intval', $nacionalidades); // Sanitizar
-    $placeholders = implode(',', array_fill(0, count($nacionalidades), '?'));
-    $conditions[] = "jugadoras.nacionalidad IN ($placeholders)";
-    $params = array_merge($params, $nacionalidades);
+$valores = array_map('intval', $valores);
+$placeholders = implode(',', array_fill(0, count($valores), '?'));
+
+$condiciones = [
+'pais' => "jugadoras.nacionalidad IN ($placeholders)",
+'equipo' => "trayectoria.equipo IN ($placeholders)",
+'liga' => "equipos.liga IN ($placeholders)"
+];
+
+$query = "SELECT DISTINCT jugadoras.id_jugadora,
+CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) AS nombre,
+jugadoras.imagen,
+jugadoras.nacionalidad,
+jugadoras.Nacimiento
+FROM jugadoras
+JOIN trayectoria ON trayectoria.jugadora = jugadoras.id_jugadora
+JOIN equipos ON trayectoria.equipo = equipos.id_equipo
+WHERE {$condiciones[$filtro]}
+ORDER BY RAND()
+LIMIT 10"; // hasta 10 por grupo
+
+$stmt = $conn->prepare($query);
+$stmt->execute($valores);
+$res = $stmt->get_result();
+$jugadoras = [];
+while ($fila = $res->fetch_assoc()) {
+$jugadoras[$fila['id_jugadora']] = [
+'nombre' => $fila['nombre'],
+'imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']),
+'pais' => $fila['nacionalidad'],
+'id' => $fila['id_jugadora'],
+'Nacimiento' => $fila['Nacimiento'],
+];
+}
+$stmt->close();
+return $jugadoras;
 }
 
-// Si hay equipos, sanitizar y crear placeholders
-if (!empty($equipos)) {
-    $equipos = array_map('intval', $equipos); // Sanitizar
-    $placeholders = implode(',', array_fill(0, count($equipos), '?'));
-    $conditions[] = "trayectoria.equipo IN ($placeholders)";
-    $params = array_merge($params, $equipos);
+// Obtener jugadoras de cada grupo
+$jugadoras_pais = obtenerJugadoras($conn, 'pais', $nacionalidades);
+$jugadoras_equipo = obtenerJugadoras($conn, 'equipo', $equipos);
+$jugadoras_liga = obtenerJugadoras($conn, 'liga', $ligas);
+
+// Unir todas, asegurando unicidad por ID
+$jugadoras = array_merge($jugadoras_pais, $jugadoras_equipo, $jugadoras_liga);
+$jugadoras = array_values($jugadoras); // Reindexar
+
+// Si hay más de 30, tomar aleatoriamente 30
+if (count($jugadoras) > 30) {
+shuffle($jugadoras);
+$jugadoras = array_slice($jugadoras, 0, 30);
 }
 
-// Si hay ligas, sanitizar y crear placeholders
-if (!empty($ligas)) {
-    $ligas = array_map('intval', $ligas); // Sanitizar
-    $placeholders = implode(',', array_fill(0, count($ligas), '?'));
-    $conditions[] = "equipos.liga IN ($placeholders)";
-    $params = array_merge($params, $ligas);
-}
-
-// Verificar si hay condiciones para filtrar
-if (!empty($conditions)) {
-    $query = "SELECT jugadoras.id_jugadora, 
-                     CONCAT(jugadoras.Nombre, ' ', jugadoras.apellidos) AS nombre, 
-                     jugadoras.imagen, 
-                     jugadoras.nacionalidad, 
-                     jugadoras.Nacimiento
-              FROM jugadoras
-              JOIN trayectoria ON trayectoria.jugadora = jugadoras.id_jugadora
-              JOIN equipos ON trayectoria.equipo = equipos.id_equipo
-              WHERE " . implode(' OR ', $conditions) . " 
-              ORDER BY RAND() 
-              LIMIT 1";
-
-    // Preparar la consulta
-    $stmt = $conn->prepare($query);
-
-    // Ejecutar la consulta con los parámetros
-    $stmt->execute($params);
-    $resultado = $stmt->get_result();
-    $salida=[];
-    if ($resultado->num_rows > 0) {
-        $fila = $resultado->fetch_assoc();
-        $jugadora = array(
-            'nombre' => $fila['nombre'],
-            'imagen' => 'data:image/jpeg;base64,' . base64_encode($fila['imagen']), // Codificar la imagen en base64
-            'pais' => $fila['nacionalidad'],
-            'id' => $fila['id_jugadora'],
-            'Nacimiento' => $fila['Nacimiento'],
-        );
-    } else {
-        $jugadora = array(
-            'nombre' => "",
-            'imagen' => "",
-            'pais' => '',
-            'id' => '',
-            'Nacimiento' => '',
-        );
-    }
-
-    $stmt->close();
-} else {
-    // Si no hay condiciones, devolver respuesta vacía
-    $jugadora = array(
-        'nombre' => "",
-        'imagen' => "",
-        'pais' => '',
-        'id' => '',
-        'Nacimiento' => '',
-    );
-}
-
-$conn->close();
-
-// Devolver el jugador como JSON
+// Devolver resultado
 header('Content-Type: application/json');
-$salida=$jugadora;
+$salida = $jugadoras;
+$conn->close();

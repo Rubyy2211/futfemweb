@@ -306,21 +306,30 @@ const resultDiv = document.getElementById('result');
 
 function Ganaste(modo) {
     // Bloquear el botón y el input
-    const boton = document.getElementById('botonVerificar');
+    /*const boton = document.getElementById('botonVerificar');
     const input = document.getElementById('jugadoraInput');
 
     boton.disabled = true;
-    input.disabled = true;
+    input.disabled = true;*/
 
     // Guardar en localStorage que el usuario ha ganado
     localStorage.setItem('hasWon', 'true');
-    localStorage.setItem('nombre',resultDiv.textContent)
+    //if(modo!=='grid') localStorage.setItem('nombre',resultDiv.textContent)
     // Llamar a la función que cambia la imagen con flip
     if(modo==='grid'){
     const input = document.querySelector('input');
+    const result = document.getElementById('resultado');
     const button = document.querySelector('button');
+    result.textContent = '¡Has Ganado!';
     button.disabled=true;
     input.disabled=true;
+    }
+    if(modo==='bingo'){
+        const result = document.getElementById('resultado');
+        const button = document.querySelector('.skip-button'); // usa querySelector
+        result.textContent = '¡Has Ganado!';
+        button.disabled=true;
+        button.style.pointerEvents = 'none';
     }else if(modo==='trayectoria'){
         const div = document.getElementById('trayectoria');
         const jugadora_id = div.getAttribute('Attr1');
@@ -531,16 +540,17 @@ function startCounter(segundos, juego, onFinish) {
 
     intervalos[juego] = setInterval(() => {
         reloj.textContent = segundos;
-        segundos--;
 
-        if (segundos < 0) {
+        if (segundos <= 0) {
             clearInterval(intervalos[juego]);
-            delete intervalos[juego]; // Eliminar del objeto
+            delete intervalos[juego];
             console.log("Tiempo agotado");
             if (onFinish) onFinish();
-        }else{
-        localStorage.setItem(juego, segundos);}
-        console.log(segundos);
+        } else {
+            localStorage.setItem(juego, segundos);
+            segundos--;
+            console.log(segundos);
+        }
     }, 1000);
 }
 
