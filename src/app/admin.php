@@ -144,7 +144,7 @@ session_start();
         </li>
         <li><a href="#" class="index-submenu" onclick="toggleSubmenu('equipos-submenu')">Equipos</a>
             <ul class="submenu" id="equipos-submenu" style="display: none;">
-                <li><a onclick="loadPage('.php')">Ver Todas</a></li>
+                <li><a onclick="loadPage('admin\\equipos-liga.php')">Ver Todas</a></li>
                 <li><a onclick="loadPage('equipo-insert.php')">Agregar Nuevo</a></li>
                 <li><a onclick="loadPage('equipo-edit.php')">Editar Equipo</a></li>
             </ul>
