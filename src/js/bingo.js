@@ -45,14 +45,14 @@ async function iniciar(dificultad) {
             if (!answer || answer.trim() === '') {
                 startCounter(segundos, "bingo", async () => {
                     console.log("El contador llegó a 0. Ejecutando acción...");
-                    //await gridPerder();
+                    await bingoPerder();
                 });
             } else if (answer === 'loss') {
-                //await gridPerder();
+                    await bingoPerder();
             } else {
                 startCounter(segundos, "bingo", async () => {
                     console.log("El contador llegó a 0. Ejecutando acción...");
-                    //await gridPerder();
+                    await bingoPerder();
                 });
             }
         }
@@ -387,6 +387,21 @@ async function play() {
         await iniciar('');
     }
 }
+
+async function bingoPerder() {
+    // Bloquear el botón y el input
+    const boton = document.querySelector('.skip-button');
+    const resultDiv = document.getElementById('resultado');
+    boton.disabled = true;
+    resultDiv.textContent = 'Has perdido';
+    const jugadora_id = 'loss';
+    localStorage.setItem('Attr6', jugadora_id);
+    // Agregar un delay de 2 segundos (2000 ms)
+    if(localStorage.length>0){
+        //await updateRacha(1, 0);
+    }
+}
+
 
 const texto = '¡Pon a prueba tu memoria en "Futfem Bingo"! En este juego recibirás jugadoras al azar y deberás colocarlas en las casillas de país, equipo o liga que coincidan con su trayectoria.\n' +
     'Cada jugadora tiene varias características, y tu objetivo es encajarla correctamente en el tablero.\n' +

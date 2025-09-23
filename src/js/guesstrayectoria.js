@@ -209,6 +209,7 @@ const imagen = '../img/trayectoria.jpg';
 play().then(r => r);
 async function play() {
     let jugadora = await fetchData(1);
+    console.log(jugadora)
     jugadoraId = jugadora.idJugadora.toString(); // Convertir a string para comparación segura
     const res = localStorage.getItem('res1');
     if(res !== jugadoraId || !res){

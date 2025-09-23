@@ -22,6 +22,14 @@ img {
     /*margin-top: 50px;*/
 }
 
+#cabecera-bingo{
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center;      /* Centra verticalmente */
+    gap: 1rem;                /* Espacio entre el player y el botón */
+    padding: 0.5rem;
+}
+
 .player {
     margin-bottom: 10px;
 }
@@ -125,6 +133,8 @@ td.selected {
     border: none;
     border-radius: 15px;
     cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
 }
 
 /* Ocultar algunos elementos */
