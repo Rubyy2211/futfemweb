@@ -39,7 +39,7 @@ const columnaContadores = {
 let ultimaJugadoraId = null; // Aquí guardamos la ID de la última jugadora verificada
 function verificarNacionalidad(equipos, idJugadoraActual) {
     const columnas = ["Equipo4", "Equipo5", "Equipo6"];
-    let columnaEncontrada = null;
+    let columnasEncontradas = [];
 
     // Si es una jugadora nueva, reiniciar contadores
     if (ultimaJugadoraId !== idJugadoraActual) {
@@ -50,14 +50,15 @@ function verificarNacionalidad(equipos, idJugadoraActual) {
     // Limpiar resaltado previo
     columnas.forEach(id => {
         const th = document.getElementById(id);
-        if (th) th.classList.remove("resaltado");
+        //if (th) th.classList.remove("resaltado");
     });
 
-    columnas.some((id, index) => {
-        if (columnaContadores[id] >= 2) return false; // max 2 veces
+    // Revisar todas las columnas
+    columnas.forEach((id, index) => {
+        if (columnaContadores[id] >= 2) return; // max 2 veces
 
         const th = document.getElementById(id);
-        if (!th) return false;
+        if (!th) return;
 
         const imgs = th.querySelectorAll('img');
         const encontrada = equipos.some(equipo => {
@@ -69,20 +70,19 @@ function verificarNacionalidad(equipos, idJugadoraActual) {
 
         if (encontrada) {
             columnaContadores[id]++;
-            columnaEncontrada = index + 1;
-            th.classList.add("resaltado");
-            return true;
+            columnasEncontradas.push(index + 1); // guardo el número de columna
+            //th.classList.add("resaltado");
         }
-
-        return false;
     });
 
-    const resultado = document.getElementById("resultado");
-    resultado.textContent = columnaEncontrada
-        ? `Un equipo de la jugadora se encuentra en la columna ${columnaEncontrada}.`
+    // Mostrar resultado
+    //const resultado = document.getElementById("resultado");
+    resultado.textContent = columnasEncontradas.length > 0
+        ? `Equipos encontrados en columnas: ${columnasEncontradas.join(", ")}.`
         : `Nacionalidad no encontrada en las columnas.`;
+    console.log(`Equipos encontrados en columnas: ${columnasEncontradas.join(", ")}.`)
 
-    return columnaEncontrada;
+    return columnasEncontradas;
 }
 
 
@@ -118,47 +118,49 @@ async function obtenerEquipos(nombre) {
     }
 }
 // Función que compara el ID del país con los ID de las imágenes en la tabla
-function verificarEquipo(equipos,columna) {
+function verificarEquipo(equipos, columna) {
     console.log("Equipos para verificar:", equipos);
-    const trayectoria=equipos.reverse();
+    const trayectoria = equipos.slice().reverse(); // evitar modificar el original
     const columnas = ["Equipo1", "Equipo2", "Equipo3"];
-    let resultadoEncontrado = null;
+    let resultadosEncontrados = [];
 
     for (let equipo of trayectoria) {
         for (let index = 0; index < columnas.length; index++) {
             const th = document.getElementById(columnas[index]);
             if (th) {
                 const img = th.querySelector('img');
-                if (img && img.className==='club'+equipo.equipo) {
-                    //th.classList.add("resaltado");
-                    resultadoEncontrado = index + 1;
-                    const resultado = document.getElementById("resultado");
-                    //resultado.textContent = `El equipo ${equipo.equipo} se encuentra en la fila número ${resultadoEncontrado}.`;
-                    resultado.textContent = `La jugadora se encuentra en la casilla c${resultadoEncontrado},${columna}.`;
-                    //console.log(`El equipo ${equipo.Equipo} se encuentra en la fila número ${resultadoEncontrado}.`);
-                    const idCelda = `c${resultadoEncontrado}${columna}`;
+                if (img && img.className === 'club' + equipo.equipo) {
+
+                    // Calcular fila
+                    const fila = index + 1;
+                    const idCelda = `c${fila}${columna}`;
                     const td = document.getElementById(idCelda);
-                    if (td) {
-                        // Verificar si la celda ya contiene una imagen
-                        if (!td.querySelector('img')) {
-                            if (equipo.imagen===''){
-                                return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
-                            }else{
-                                return  {'columna': resultadoEncontrado, 'foto' : equipo.ImagenJugadora};
-                            }
-                        }else {
-                            //Verificar().then(r => r)
-                        }
-                    }
+
+                    // Guardar coincidencia
+                    resultadosEncontrados.push({
+                        fila: fila,
+                        columna: columna,
+                        equipo: equipo.equipo,
+                        foto: equipo.ImagenJugadora || equipo.imagen || null
+                    });
+
+                    // (Opcional) marcar visualmente
+                    // if (td) td.classList.add("resaltado");
                 }
             }
         }
     }
 
-    // Si no se encontró ningún equipo, mostrar mensaje
-    if (!resultadoEncontrado) {
-        const resultado = document.getElementById("resultado");
+    // Mostrar resultados
+    const resultado = document.getElementById("resultado");
+    if (resultadosEncontrados.length > 0) {
+        const lista = resultadosEncontrados
+            .map(r => `c${r.fila},${r.columna}`)
+            .join(" | ");
+        resultado.textContent = `La jugadora tiene coincidencias en: ${lista}.`;
+        return resultadosEncontrados;
+    } else {
         resultado.textContent = `No se han encontrado coincidencias.`;
-        return null;
+        return [];
     }
 }
