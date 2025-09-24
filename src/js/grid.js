@@ -1,4 +1,5 @@
 let idres;
+let jugadorasProhibidas = [];
 async function iniciar(dificultad) {
     const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
     const answer = localStorage.getItem('Attr4');
@@ -64,6 +65,12 @@ async function Verificar() {
     if (!nombreJugadora) {
         alert("Por favor, introduce el nombre de la jugadora.");
         return;
+    }if (jugadorasProhibidas.includes(nombreJugadora)) {
+        console.log(`La jugadora "${nombreJugadora}" está prohibida.`);
+        return; // opcional: salir de la función
+    } else {
+        console.log(`La jugadora "${nombreJugadora}" está permitida.`);
+        // Aquí va tu lógica normal
     }
 
     // 🔹 Limpiar resaltados de jugadoras anteriores
@@ -109,6 +116,7 @@ async function Verificar() {
             const idCelda = `c${fila}${columna}`;
             await colocarImagenEnTabla(fila, columna, foto);
             gestionarAciertos(idCelda, foto);
+            jugadorasProhibidas.push(nombreJugadora)
 
             if (comprobarFotosEnCeldas()) {
                 console.log("Deteniendo contador...");
@@ -131,6 +139,7 @@ async function Verificar() {
                     td.addEventListener("click", async function handler() {
                         await colocarImagenEnTabla(fila, columna, foto);
                         gestionarAciertos(idCelda, foto);
+                        jugadorasProhibidas.push(nombreJugadora)
 
                         if (comprobarFotosEnCeldas()) {
                             console.log("Deteniendo contador...");
@@ -352,6 +361,7 @@ async function play() {
     const res = localStorage.getItem('res4');
     if(res !== idres || !res){
         localStorage.removeItem('Attr4');
+        jugadorasProhibidas.pop()
         crearPopupInicialJuego('Futfem Grid', texto, imagen);
     } else {
         await iniciar('');
