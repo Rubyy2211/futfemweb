@@ -15,7 +15,6 @@ if(!session_start()) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/registro.css">
-    <link rel="stylesheet" href="css/efectos/wave.css">
 </head>
 <body>
 <?php
@@ -31,9 +30,6 @@ if($rol == null || $rol == "") { // Comprueba si 'rol' es nulo o vacío
     require_once 'header-admin.html';
 }*/
 ?>
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
 <section class="Registro">
   <div class="container">
     <form id="registro-form" novalidate>

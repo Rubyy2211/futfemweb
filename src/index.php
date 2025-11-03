@@ -13,7 +13,7 @@ session_start()?>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/estilos.css?v1.0">
-    <link rel="stylesheet" href="css/efectos/fade.css">
+    <!--<link rel="stylesheet" href="css/efectos/fade.css">-->
     <link rel="stylesheet" href="css/efectos/glow-border.css">
 </head>
 <body>
@@ -22,10 +22,10 @@ session_start()?>
 <div class="container mt-5 sibling-fade">
     <div class="row sibling-fade d-flex justify-content-center">
         <div class="col-md-4">
-            <div id="racha-1" class="fire"></div>
+            <div id="#racha-1" class="fire"></div>
             <div class="game-button glow" onclick="redireccionarA('trayectoria.php')">
                 <img src="img/trayectoria.jpg" alt="Game 1">
-                <h4>Futfem Trajectory</h4>
+                <h4>Futfem Career</h4>
                 <button class="btn btn-primary btn-block" onclick="window.location.href='trayectoria.php'">PLAY</button>
             </div>
         </div>
@@ -76,21 +76,21 @@ session_start()?>
         <div class="col-md-4">
             <div class="game-button glow" onclick="redireccionarA('compañeras.php')">
                 <img src="img/ComingSoon.png" alt="Game 6">
-                <h4>Futfem Compañeras</h4>
+                <h4>Futfem Partners</h4>
                 <button class="btn btn-primary btn-block">PLAY</button>
             </div>
         </div>
     </div>
 </div>
 </section>
-<?php include './widgets/language.html'; ?>
+<?php include 'app/widgets/language.html'; ?>
 <link rel="" href="app/widgets/language.html">
 <script src="js/redireccion.js"></script>
 <script src="js/funciones-tablas.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    obtenerRacha(1)
+    //obtenerRacha(1)
 </script>
 </body>
 </html>
