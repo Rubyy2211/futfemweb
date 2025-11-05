@@ -1,0 +1,199 @@
+body{
+    height: 100vh;
+}
+/* === CONTENEDOR PRINCIPAL === */
+.container-admin {
+    display: flex;
+    width: 92vw;
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: 10vh;
+}
+
+.container-admin>div {
+    max-width: 30vw;
+    /*height: 100%;*/
+}
+
+.container-admin div div{}
+
+    /* === LATERAL IZQUIERDO: JUGADORAS === */
+.container-admin #lateral-admin-izquierda {
+    max-height: 100%;
+    width: 100%;
+}
+
+.container-admin #jugadoras div {
+    height: 100%;
+    width: 100%;
+}
+
+.container-admin #jugadoras #jugadoras-lista {
+    display: flex;
+    flex-direction: column;
+    /*gap: 8px;*/
+    max-height: calc(12 * 60px); /* aprox. 12 items visibles */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+}
+
+.container-admin #jugadoras #jugadoras-lista .equipo-item {
+    display: flex;
+    align-items: center;
+}
+
+.container-admin #jugadoras #jugadoras-lista .equipo-item img {
+    /* width: 2.5vw;*/
+    height: 5vh;
+    /*border-radius: 50%;*/
+    object-fit: cover;
+}
+
+/* === CENTRAL === */
+.container-admin #central{
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.container-admin #central #bienvenida{
+    padding: 0 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-admin #central #central-baja{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+}
+
+/* === LATERAL DERECHO === */
+.container-admin #lateral-admin {
+    width: 100%;
+    max-height: 100%;
+    gap: 20px;
+    display: flex;
+    /*flex-direction: column;*/
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* === CUADROS DE OPCIÓN === */
+.container-admin .cuadro-opcion {
+    border-radius: 20px; /* Bordes redondeados */
+    text-align: left; /* Centrar el contenido dentro del botón */
+    padding: 10px; /* Espaciado interior */
+    background-color: rgba(128,0,128,0.45); /* Color de fondo primario */
+    color: white; /* Color del texto */
+    /*margin-bottom: 20px; /* Espaciado inferior entre botones */
+    transition: transform 0.2s; /* Suavizar el efecto de transformación */
+    border: 0.5px solid rgb(255, 255, 255);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+}
+
+.container-admin .cuadro-opcion h2 {
+    margin: unset;
+}
+
+.container-admin .cuadro-opcion h2:hover {
+   color: var(--color-texto);
+    cursor: pointer;
+}
+
+/* === EQUIPOS === */
+.container-admin #lateral-admin #equipos {
+    width: 100%;
+}
+
+.container-admin #lateral-admin #equipos-lista {
+    display: flex;
+    flex-direction: column;
+    /*gap: 8px;*/
+    max-height: calc(6.6 * 60px); /* aprox. 12 items visibles */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+}
+
+/* Fila impar → fondo transparente */
+.container-admin #lateral-admin #equipos-lista .equipo-item:nth-child(odd) {
+    background: none;
+}
+
+/* Fila par → fondo sólido */
+.container-admin #lateral-admin #equipos-lista .equipo-item:nth-child(even) {
+    background-color: rgba(128,0,128,0.65); /* Color de fondo primario */
+}
+
+.container-admin #lateral-admin #equipos-lista .equipo-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+}
+
+.container-admin #lateral-admin #equipos-lista .equipo-item img {
+    width: 40px;
+    height: 40px;
+    /*border-radius: 50%;*/
+    object-fit: cover;
+}
+
+/* === ITEM GENERAL === */
+.container-admin #lateral-admin .equipo-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    /*border-radius: 8px;*/
+    transition: background-color 0.2s;
+}
+
+.container-admin #lateral-admin .equipo-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* === PAISES === */
+.container-admin #lateral-admin #paises {
+    width: 100%;
+}
+
+.container-admin #lateral-admin #paises-lista {
+    display: flex;
+    flex-direction: column;
+    /*gap: 8px;*/
+    max-height: calc(4 * 60px); /* aprox. 12 items visibles */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+}
+
+.container-admin #lateral-admin #paises-lista .equipo-item img {
+    width: 2.5vw;
+    height: 3vh;
+    /*border-radius: 50%;*/
+    object-fit: cover;
+}
+
+/* Fila impar → fondo transparente */
+.container-admin #lateral-admin #paises-lista .equipo-item:nth-child(odd) {
+    background: none;
+}
+
+/* Fila par → fondo sólido */
+.container-admin #lateral-admin #paises-lista .equipo-item:nth-child(even) {
+    background-color: rgba(128,0,128,0.65); /* Color de fondo primario */
+}
