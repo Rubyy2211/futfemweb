@@ -6,18 +6,31 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Panel Admin</title>
-    <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/admin1.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="../../css/admin1.css">
+    <link rel="stylesheet" href="../../css/efectos/glow-border.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
 <header>
-  <a href="../index.php" class="navbar-brand1"><img src="../img/prueba%20logo.png" alt="logo futfem"></a>
-
+  <div id="submenu-admin">
+      <a href="../../index.php" class="navbar-brand1"><img src="../../img/prueba%20logo.png" alt="logo futfem"></a>
+      <nav>
+          <ul>
+              <li class="active"><a>Inicio</a></li>
+              <li><a href="admin-jugadoras.html">Jugadoras</a></li>
+              <li><a>Equipos</a></li>
+              <li><a>Ligas</a></li>
+              <li><a>Juegos</a></li>
+              <li><a>Usuarios</a></li>
+          </ul>
+      </nav>
+  </div>
 </header>
 <div class="container-admin">
   <div id="lateral-admin-izquierda">
     <div id="jugadoras" class="cuadro-opcion">
-        <h2>Jugadoras</h2>
+        <a style="width: fit-content"><h2 style="width: fit-content">Jugadoras</h2><i class="bi bi-chevron-right"></i></a>
         <div id="jugadoras-lista"></div>
     </div>
   </div>
@@ -157,7 +170,7 @@
         .catch(err => console.error('Error al cargar el HTML:', err));
     async function cargarEquipos() {
         try {
-            const respuesta = await fetch(`../api/equiposall`);
+            const respuesta = await fetch(`../../api/equiposall`);
             const data = await respuesta.json();
 
             if (data.success && Array.isArray(data.success)) {
@@ -206,7 +219,7 @@
 
     async function cargarPaises() {
         try {
-            const respuesta = await fetch(`../api/paisesall`);
+            const respuesta = await fetch(`../../api/paisesall`);
             const data = await respuesta.json();
 
             if (data.success && Array.isArray(data.success)) {
@@ -250,9 +263,9 @@
 
     async function cargarJugadoras() {
         try {
-            const respuesta = await fetch(`../api/jugadorasall`);
+            const respuesta = await fetch(`../../api/jugadorasall`);
             const data = await respuesta.json();
-
+            console.log(data)
             if (data.success && Array.isArray(data.success)) {
                 // ✅ Ordenar alfabéticamente por nombre
                 /*const jugadorasOrdenadas = data.success.sort((a, b) =>
@@ -281,8 +294,9 @@
 
             // Imagen de la jugadora
             const img = document.createElement('img');
-            img.src = jugadora.imagen || '../img/predeterm.jpg'; // imagen por defecto si no hay foto
+            img.src = jugadora.imagen || '../../img/predeterm.jpg'; // imagen por defecto si no hay foto
             img.alt = jugadora.nombre;
+            img.style.borderRadius = '100%';
 
             // Nombre completo o apodo
             const nombre = document.createElement('span');
@@ -290,14 +304,34 @@
                 ? `${jugadora.apodo} (${jugadora.nombre} ${jugadora.apellidos})`
                 : `${jugadora.nombre} ${jugadora.apellidos}`;
 
+            // Nombre completo o apodo
+            const posicion = document.createElement('span');
+            posicion.textContent = jugadora.posicion_abreviatura;
+            posicion.className = 'posicion';
+            posicion.style.textAlign = 'center';
+
+            const bandera = document.createElement('img');
+            bandera.id = 'bandera'+ jugadora.nacionalidad;
+            bandera.src = jugadora.bandera;
+            bandera.alt = jugadora.nacionalidad;
+
+
+            const escudo = document.createElement('img');
+            escudo.id = 'equipo' + jugadora.id;
+            escudo.src = jugadora.escudo_equipo;
+            escudo.alt = jugadora.equipo_nombre;
+
             item.appendChild(img);
             item.appendChild(nombre);
+            item.appendChild(posicion);
+            item.appendChild(bandera);
+            item.appendChild(escudo);
             div.appendChild(item);
         });
     }
 </script>
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/CSSRulePlugin3.min.js"></script>
-<script src="../js/animated-slider.js"></script>
+<script src="../../js/animated-slider.js"></script>
 </body>
 </html>

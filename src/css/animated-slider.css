@@ -27,7 +27,7 @@ html {
 
 @media only screen and (max-width: 1000px) {
     .container {
-        border-radius: 0;
+        /*border-radius: 0;*/
     }
 }
 
@@ -41,7 +41,7 @@ html {
 
 @media only screen and (max-width: 1000px) {
     .slider {
-        height: 100vh;
+        /*height: 100vh;*/
     }
 }
 

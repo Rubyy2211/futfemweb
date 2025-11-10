@@ -1,6 +1,37 @@
 body{
     height: 100vh;
 }
+
+header{
+    background: var(--color-secundario);
+}
+
+header #submenu-admin{
+    display: flex;
+    flex-direction: row;
+    font-size: 2.5vh;
+    gap: 20px;
+    width: 100%;
+}
+
+header li.active a{
+    color: white;
+    cursor: pointer;
+    font-size: 1.1em; /* Aumenta el tamaño del texto */
+}
+
+header a {
+    transition: all 0.2s ease-in-out;
+    color: #696969;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: white;
+    cursor: pointer;
+    font-size: 1.1em; /* Aumenta el tamaño del texto */
+}
+
 /* === CONTENEDOR PRINCIPAL === */
 .container-admin {
     display: flex;
@@ -41,16 +72,33 @@ body{
 }
 
 .container-admin #jugadoras #jugadoras-lista .equipo-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 5vh 1fr 3vh 5vh 5vh; /* imagen | nombre | bandera | escudo */
     align-items: center;
+    gap: 1rem;
 }
+
 
 .container-admin #jugadoras #jugadoras-lista .equipo-item img {
     /* width: 2.5vw;*/
     height: 5vh;
     /*border-radius: 50%;*/
     object-fit: cover;
+    margin-block: 0.25vh;
 }
+
+.container-admin #jugadoras #jugadoras-lista .equipo-item [id^="bandera"] {
+    height: 1.5vh;
+    object-fit: cover;
+    justify-self: end; /* las empuja a la misma línea vertical derecha */
+}
+
+.container-admin #jugadoras #jugadoras-lista .equipo-item [id^="equipo"] {
+    height: 2.5vh;
+    object-fit: cover;
+    justify-self: end; /* las empuja a la misma línea vertical derecha */
+}
+
 
 /* === CENTRAL === */
 .container-admin #central{
@@ -196,4 +244,16 @@ body{
 /* Fila par → fondo sólido */
 .container-admin #lateral-admin #paises-lista .equipo-item:nth-child(even) {
     background-color: rgba(128,0,128,0.65); /* Color de fondo primario */
+}
+
+@media only screen and (max-width: 1000px) {
+    .slider{
+        height: 100%;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .container-admin{
+        margin-bottom: 5vh;
+    }
 }

@@ -53,10 +53,12 @@ const move = (S, T) => {
 };
 
 const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power2.inOut" } });
-tl.from(".bg", { x: "-100%", opacity: 0 }).
-from("p", { opacity: 0 }, "-=0.3").
-from("h1", { opacity: 0, y: "30px" }, "-=0.3").
-from("button", { opacity: 0, y: "-40px" }, "-=0.8");
+
+tl.from(".slider .bg", { x: "-100%", opacity: 0 })
+    .from(".slider p", { opacity: 0 }, "-=0.3")
+    .from(".slider h1", { opacity: 0, y: "30px" }, "-=0.3")
+    .from(".slider button", { opacity: 0, y: "-40px" }, "-=0.8");
+
 
 // function to restart animation
 const animate = () => tl.restart();
