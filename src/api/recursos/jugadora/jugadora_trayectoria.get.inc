@@ -47,9 +47,6 @@ while ($row = $result->fetch_assoc()) {
     if (!empty($row['imagen'])) {
         $row['imagen'] = 'data:image/jpeg;base64,' . base64_encode($row['imagen']);
     }
-    if (!empty($row['ImagenJugadora'])) {
-        $row['ImagenJugadora'] = 'data:image/jpeg;base64,' . base64_encode($row['ImagenJugadora']);
-    }
     // Codificar el escudo del equipo en base64 si está disponible
     if (!empty($row['escudo'])) {
         $row['escudo'] = 'data:image/jpeg;base64,' . base64_encode($row['escudo']);

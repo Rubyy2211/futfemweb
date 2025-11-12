@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="../../css/admin1.css">
+    <link rel="stylesheet" href="../../css/efectos/glow-border.css">
+    <style>
+        .container-admin{
+            width: 100vw;
+            padding-inline: 8vw;
+        }
+
+        .container-admin > div {
+            flex: 1;
+            max-width: 30vw;
+            transition: all 0.6s ease;
+        }
+
+        /* Cuando se expande el lateral izquierdo */
+        .container-admin.expandido #lateral-admin-izquierda {
+            max-width: 100%;
+            flex: 1;
+        }
+
+        /* Ocultar los demás con desvanecido y desplazamiento */
+        .container-admin.expandido > :not(#lateral-admin-izquierda) {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        /* Cuando está normal, todos visibles */
+        .container-admin:not(.expandido) > div {
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+  <div id="submenu-admin">
+    <a href="../../index.php" class="navbar-brand1"><img src="../../img/prueba%20logo.png" alt="logo futfem"></a>
+    <nav>
+      <ul>
+        <li><a href="adminPanel.html">Inicio</a></li>
+        <li class="active"><a href="admin-jugadoras.html">Jugadoras</a></li>
+        <li><a>Equipos</a></li>
+        <li><a>Ligas</a></li>
+        <li><a>Juegos</a></li>
+        <li><a>Usuarios</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="container-admin">
+    <div id="lateral-admin-izquierda">
+        <div id="jugadoras" class="cuadro-opcion">
+            <a style="width: fit-content"><h2 style="width: fit-content">Jugadoras</h2><i class="bi bi-chevron-right"></i></a>
+            <div id="jugadoras-lista"></div>
+        </div>
+    </div>
+
+</div>
+<script src="../../js/admin-funciones.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.container-admin');
+        const lateral = document.getElementById('lateral-admin-izquierda');
+        const trigger = lateral.querySelector('a, h2'); // el enlace o el h2
+
+        trigger.addEventListener('click', () => {
+            // Alterna la clase para expandir o volver
+            container.classList.toggle('expandido');
+        });
+    });
+
+</script>
+</body>
+</html>

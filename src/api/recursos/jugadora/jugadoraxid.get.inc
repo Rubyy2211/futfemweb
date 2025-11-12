@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
         if(empty($fila['imagen'])){
             $imagen = '\futfemweb\src\img\predeterm.jpg';
         }else{
-            $imagen = 'data:image/jpeg;base64,' . base64_encode($fila['imagen']);// Codificar la imagen en base64
+            $imagen = $fila['imagen'];// Codificar la imagen en base64
         }
         $jugadora[] = [
             'id_jugadora' => $fila['id_jugadora'],

@@ -9,6 +9,10 @@ body{
 .container{
 }
 
+.col-md-4{
+    max-width: 20%;
+}
+
 /* Estilos principales para .game-button */
 .game-button {
     border-radius: 20px; /* Bordes redondeados */
@@ -49,6 +53,11 @@ body{
 
 /* Media queries para pantallas de menos de 992px */
 @media (max-width: 992px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .game-button h4 {
         font-size: 1.5rem; /* Ajustar el tamaño de la fuente en pantallas medianas */
     }
@@ -57,6 +66,9 @@ body{
     }
     .col-md-3 {
         max-width: 33.33%; /* Tres columnas por fila en pantallas medianas */
+    }
+    .col-md-4{
+        max-width: 30%;
     }
 }
 
@@ -70,6 +82,9 @@ body{
     }
     .col-md-3 {
         max-width: 50%; /* Dos columnas por fila en pantallas pequeñas */
+    }
+    .col-md-4{
+        max-width: 30%;
     }
     .game-button h4 {
         font-size: 16px; /* Reducir el tamaño de la fuente en pantallas pequeñas */

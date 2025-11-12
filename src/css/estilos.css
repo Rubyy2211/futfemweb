@@ -69,9 +69,17 @@ header{
     font-weight: 600;
     font-style: normal;
     width: 100%;
+    position: relative;
 }
 header nav{
     padding: 0 3.17%;
+}
+header .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 header img{
     width: 75px;
@@ -298,14 +306,22 @@ input::placeholder{
     width: 75%; /* El popup ocupará el 75% del ancho de su contenedor principal */
     /*max-width: 600px; /* Establece un límite de ancho máximo para evitar que se haga demasiado grande */
     background: var(--color-gray-dark); /* Color de fondo con una variable CSS */
-    border-radius: 48px; /* Bordes redondeados */
-    padding: 30px; /* Espaciado interno */
     z-index: 1000; /* Asegura que el popup esté por encima de otros elementos */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Sombra suave para darle un efecto de elevación */
     overflow: hidden; /* Previene que el contenido se desborde */
     opacity: 0; /* Inicialmente oculto para efectos de transición */
     animation: fadeIn 0.3s forwards; /* Animación para mostrar el popup de manera suave */
     align-items: center;
+    border-radius: 20px; /* Bordes redondeados */
+    text-align: center; /* Centrar el contenido dentro del botón */
+    padding: 10px; /* Espaciado interior */
+    background-color: rgba(128,0,128,0.45); /* Color de fondo primario */
+    color: white; /* Color del texto */
+    margin-bottom: 20px; /* Espaciado inferior entre botones */
+    transition: transform 0.2s; /* Suavizar el efecto de transformación */
+    border: 0.5px solid rgb(255, 255, 255);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(10px);
 }
 
 /* Animación de desvanecimiento */
@@ -353,6 +369,10 @@ input::placeholder{
     width: 30%;
 }
 @media (max-width: 768px){
+    header .container{
+        display: flex;
+        flex-direction: row;
+    }
     header .container .botones{
         display: none;
     }
@@ -361,6 +381,25 @@ input::placeholder{
     }
     header{
         position: fixed;
+    }
+    .popup-ex .explicar img{
+        max-width: 100px;
+    }
+    .popup-ex .explicar{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-ex .explicar div:nth-child(2) {
+        text-align: center;
+    }
+    .col-md-4{
+        padding-inline: 5px;
+    }
+    .popup-ex>h2 {
+        font-size: 1.5rem;
     }
 }
 @media (max-width: 650px) {

@@ -3,7 +3,7 @@ require_once "includes/conexion-bbdd.php";
 
 if(!isset($conn)) die();
 
-$query = "SELECT id_pais AS id, nombre FROM paises ORDER BY nombre";
+$query = "SELECT id_pais AS id, nombre, bandera FROM paises ORDER BY nombre";
 $stmt = $conn->prepare($query);
 
 $stmt->execute();
@@ -16,6 +16,7 @@ if ($resultado->num_rows > 0) {
         $paises[] = [
             'nombre' => $fila['nombre'],            
             'id' => $fila['id'],
+            'bandera' => 'data:image/svg+xml;base64,' . base64_encode($fila['bandera'])
         ];
     }
 }

@@ -43,16 +43,8 @@ function ponerBanderas(ids, posiciones) {
                         img.style.height = "auto";
                         img.classList.add('pais'+pais.pais);
 
-                        // Crear y configurar el texto (si se desea incluir)
-                        /*
-                        const text = document.createElement('p');
-                        text.textContent = pais.nombre;
-                        text.style.margin = "0";
-                        */
-
                         // Añadir imagen y texto al elemento th
                         th.appendChild(img);
-                        //th.appendChild(text);
                     } else {
                         console.error(`Elemento con id ${posiciones[index]} no encontrado.`);
                     }
@@ -288,10 +280,6 @@ async function obtenerPosicion(id) {
         console.error('Error al obtener la posición de la jugadora:', error);
         return null; // En caso de error, devolver null
     }
-}
-
-function numeroAleatorio(inicio, fin) {
-    return Math.floor(Math.random() * (fin - inicio + 1)) + inicio;
 }
 
 function numeroAleatorioArray(valores) {

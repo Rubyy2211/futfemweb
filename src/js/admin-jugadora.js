@@ -128,6 +128,9 @@ function displayJugadora(jugadora) {
     document.getElementById('posicion').value = jugadora[0].Posicion;
     document.getElementById('preview').src = jugadora[0].Imagen;
     document.getElementById('retiro').value = jugadora[0].Retiro;
+    if(jugadora[0].Imagen){
+        document.getElementById('ruta').value = jugadora[0].Imagen;
+    }
 }
 
 // Función debounce para limitar las solicitudes
@@ -149,6 +152,7 @@ function actualizarJugadora(){
     const posicionInput = document.getElementById('posicion');
     const retiroInput = document.getElementById('retiro');
     const imagenInput = document.getElementById("imagen");
+    const rutaInput = document.getElementById("ruta");
     const formData = new FormData();
 
     const jugadora = document.getElementById('jugadora_id').value;
@@ -158,6 +162,7 @@ function actualizarJugadora(){
     const nacimiento = nacimientoInput.value;
     const posicion = posicionInput.value;
     const nacionalidad = nacionalidadInput.value;
+    const ruta = rutaInput.value;
     let retiro = retiroInput.value;
 
     formData.append("jugadora_id", jugadora);
@@ -168,6 +173,9 @@ function actualizarJugadora(){
     formData.append("posicion", posicion);
     formData.append("nacionalidad", nacionalidad);
     formData.append("retiro", retiro);
+    if(ruta){
+        formData.append("ruta", ruta)
+    }
 
     let tiposPermitidos = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
@@ -183,7 +191,15 @@ function actualizarJugadora(){
         method: "POST",
         body: formData
     })
-        .then(response => response.json())
+        .then(async (response) => {
+            const text = await response.text(); // lee la respuesta tal cual
+            console.log("📨 Respuesta cruda del servidor:", text);
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                throw new Error("❌ La respuesta no es JSON válido: " + e.message + "\n" + text);
+            }
+        })
         .then(data => {
             if (data.success) {
                 //alert("Registro actualizado correctamente");
@@ -192,7 +208,11 @@ function actualizarJugadora(){
                 alert("Error al actualizar: " + data.error);
             }
         })
-        .catch(error => console.error("Error al actualizar:", error));
+        .catch(error => {
+            console.error("❌ Error al actualizar:", error);
+            alert("Error al actualizar: " + error.message);
+        });
+
 }
 
 

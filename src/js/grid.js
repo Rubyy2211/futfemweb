@@ -1,4 +1,5 @@
 let idres;
+let jugadorasProhibidas = [];
 async function iniciar(dificultad) {
     const popup = document.getElementById('popup-ex'); // Selecciona el primer elemento con la clase 'popup-ex'
     const answer = localStorage.getItem('Attr4');
@@ -55,48 +56,115 @@ async function iniciar(dificultad) {
     }
 }
 
-async function Verificar(){
+async function Verificar() {
     const input = document.getElementById('jugadoraInput');
     input.value = "";
     const nombreJugadora = input.getAttribute('data-id');
     console.log('Procesando jugadora:', nombreJugadora);
+
     if (!nombreJugadora) {
         alert("Por favor, introduce el nombre de la jugadora.");
         return;
+    }if (jugadorasProhibidas.includes(nombreJugadora)) {
+        console.log(`La jugadora "${nombreJugadora}" está prohibida.`);
+        return; // opcional: salir de la función
+    } else {
+        console.log(`La jugadora "${nombreJugadora}" está permitida.`);
+        // Aquí va tu lógica normal
     }
 
+    // 🔹 Limpiar resaltados de jugadoras anteriores
+    document.querySelectorAll('.resaltado').forEach(td => {
+        td.classList.remove('resaltado');
+        td.replaceWith(td.cloneNode(true)); // elimina event listeners previos
+    });
+
     try {
-            // Obtener los equipos
-            const equipos = await obtenerEquipos(nombreJugadora);
-            // Verificar la nacionalidad y obtener la columna
-            const columna = verificarNacionalidad(equipos, nombreJugadora);
+        // Obtener los equipos
+        const equipos = await obtenerEquipos(nombreJugadora);
 
-            if (columna !== null) {
+        // Verificar la nacionalidad y obtener las columnas posibles
+        const columnas = verificarNacionalidad(equipos, nombreJugadora);
+        let todasCoincidencias = [];
 
-                if (equipos) {
-                    // Comparar los equipos con las imágenes en la tabla y obtener la fila
-                    const fila = verificarEquipo(equipos,columna);
-                    if (fila !== null) {
-                            // Colocar la imagen en la celda correcta usando la fila y columna
-                            await colocarImagenEnTabla(fila.columna, columna, fila.foto);
-                            const idCelda = `c${fila.columna}${columna}`;
-                            gestionarAciertos(idCelda,fila.foto);
-                            const celdas = comprobarFotosEnCeldas();
-                            if (celdas) {
-                                console.log("Deteniendo contador..."); // Verificar si llega aquí
-                                //await loadJugadoraById(jugadoraId, true);
-                                stopCounter("grid");  // ⬅️ Detenemos el temporizador si el usuario gana
-                                Ganaste('grid');
-                            }
-                    }
-                }
-        } else {
-            console.log('No se encontró el ID del país.');
+        if (columnas && columnas.length > 0) {
+            for (let columna of columnas) {
+                const coincidencias = verificarEquipo(equipos, columna);
+                todasCoincidencias.push(...coincidencias);
+            }
         }
+
+        if (todasCoincidencias.length === 0) {
+            console.log('No se encontró ninguna coincidencia.');
+            return;
+        }
+
+        // Filtrar coincidencias para celdas libres
+        let coincidenciasLibres = todasCoincidencias.filter(({ fila, columna }) => {
+            const td = document.getElementById(`c${fila}${columna}`);
+            return td && td.children.length === 0; // solo celdas vacías
+        });
+
+        if (coincidenciasLibres.length === 0) {
+            console.log('No hay celdas disponibles para esta jugadora.');
+            return;
+        }
+
+        if (coincidenciasLibres.length === 1) {
+            // 🔹 Caso único → colocar directamente
+            const { fila, columna, foto } = coincidenciasLibres[0];
+            const idCelda = `c${fila}${columna}`;
+            await colocarImagenEnTabla(fila, columna, foto);
+            gestionarAciertos(idCelda, foto);
+            jugadorasProhibidas.push(nombreJugadora)
+
+            if (comprobarFotosEnCeldas()) {
+                console.log("Deteniendo contador...");
+                stopCounter("grid");
+                Ganaste('grid');
+            }
+
+        } else {
+            // 🔹 Caso múltiple → resaltar y esperar clic
+            let celdasDisponibles = [];
+
+            coincidenciasLibres.forEach(({ fila, columna, foto }) => {
+                const idCelda = `c${fila}${columna}`;
+                const td = document.getElementById(idCelda);
+
+                if (td) {
+                    td.classList.add("resaltado");
+                    celdasDisponibles.push(td);
+
+                    td.addEventListener("click", async function handler() {
+                        await colocarImagenEnTabla(fila, columna, foto);
+                        gestionarAciertos(idCelda, foto);
+                        jugadorasProhibidas.push(nombreJugadora)
+
+                        if (comprobarFotosEnCeldas()) {
+                            console.log("Deteniendo contador...");
+                            stopCounter("grid");
+                            Ganaste('grid');
+                        }
+
+                        // 🧹 Limpiar las demás opciones
+                        celdasDisponibles.forEach(celda => {
+                            celda.classList.remove("resaltado");
+                            celda.replaceWith(celda.cloneNode(true));
+                        });
+                    }, { once: true });
+                }
+            });
+        }
+
     } catch (error) {
         console.error('Error en el proceso de verificación:', error);
     }
 }
+
+
+
+
 // Función que coloca la imagen en la celda correcta de la tabla
 async function colocarImagenEnTabla(equipo, columna, player) {
     console.log("Lugar a colocar", equipo, columna);
@@ -293,6 +361,7 @@ async function play() {
     const res = localStorage.getItem('res4');
     if(res !== idres || !res){
         localStorage.removeItem('Attr4');
+        jugadorasProhibidas.pop()
         crearPopupInicialJuego('Futfem Grid', texto, imagen);
     } else {
         await iniciar('');
