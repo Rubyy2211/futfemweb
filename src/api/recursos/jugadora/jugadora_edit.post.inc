@@ -1,5 +1,6 @@
 <?php
 require_once "includes/conexion-bbdd.php"; // Asegúrate de que esta ruta sea correcta
+require "../app/prueba_imagen.php"; // Asegúrate de que esta ruta sea correcta
 if (!isset($conn)) die();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,25 +12,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nacionalidad = $_POST['nacionalidad'] ?? null;
     $posicion = $_POST['posicion'] ?? null;
     $retiro = $_POST['retiro'] ?? null;
+    $ruta_imagen = $_POST['ruta'] ?? null;
+    $imagen_subida = false;
 
     // 🔍 Verificar si se recibió la imagen
     error_log("Datos recibidos: " . print_r($_POST, true));
     error_log("Archivos recibidos: " . print_r($_FILES, true));
 
-    $imagen = null;
-    if (isset($_FILES['Imagen']) && $_FILES['Imagen']['error'] === UPLOAD_ERR_OK) {
-        $imagen = file_get_contents($_FILES['Imagen']['tmp_name']);
+    // 📸 Subir imagen solo si se ha enviado un archivo válido
+    if (isset($_FILES['Imagen']) && $_FILES['Imagen']['error'] === UPLOAD_ERR_OK && !empty($ruta_imagen)) {
+        if (subirOActualizarImagen($_FILES['Imagen'], $ruta_imagen)) {
+            $imagen_subida = true;
+            error_log("✅ Imagen actualizada correctamente: $ruta_imagen");
+        } else {
+            error_log("⚠️ Error al procesar la imagen");
+        }
     }
+
 
     // Construir la consulta dinámicamente
     $query = "UPDATE jugadoras SET Nombre = ?, Apellidos = ?, Apodo = ?, Nacimiento = ?, Nacionalidad = ?, Posicion = ?, retiro = ?";
     $params = [$nombre, $apellidos, $apodo, $nacimiento, $nacionalidad, $posicion, $retiro];
     $types = "ssssiii"; // i: int, s: string
 
-    if ($imagen !== null) {
+    // ✅ Actualizar ruta imagen si se ha subido una nueva o si se ha modificado manualmente
+    if ($imagen_subida || (!empty($ruta_imagen) && !isset($_FILES['Imagen']))) {
         $query .= ", imagen = ?";
-        $params[] = $imagen;
-        $types .= "s"; // Tipo "b" para datos binarios
+        $params[] = $ruta_imagen;
+        $types .= "s";
     }
     $salida = [];
     $query .= " WHERE id_jugadora = ?";

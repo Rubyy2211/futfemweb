@@ -1,0 +1,6 @@
+[11-Nov-2025 09:07:37 Europe/Berlin] PHP Warning:  require(../app/prueba-imagen.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\futfemweb\src\api\recursos\jugadora\jugadora_edit.post.inc on line 9
+[11-Nov-2025 09:07:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../app/prueba-imagen.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\futfemweb\src\api\recursos\jugadora\jugadora_edit.post.inc:9
+Stack trace:
+#0 C:\xampp\htdocs\futfemweb\src\api\index.php(45): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\futfemweb\src\api\recursos\jugadora\jugadora_edit.post.inc on line 9

@@ -74,6 +74,11 @@
     </div>
 
     <div class="form-item">
+        <label for="imagen">Ruta Imagen:</label>
+        <input type="text" name="ruta" id="ruta">
+    </div>
+
+    <div class="form-item">
     <label for="imagen">Imagen:</label>
     <input type="file" name="imagen" id="imagen" accept="image/*" onchange="previewImage()">
     </div>
