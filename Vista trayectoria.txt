@@ -1,0 +1,8 @@
+SELECT j.Nombre,e.nombre,t.años
+from trayectoria t inner join jugadoras j on t.jugadora=j.id_jugadora
+inner join equipos e on t.equipo =e.id_equipo
+order by j.id_jugadora,t.años
+
+/*
+Voy por la jugadora > 78
+*/

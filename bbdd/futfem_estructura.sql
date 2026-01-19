@@ -265,9 +265,10 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de la tabla `pistas`
 --
+/*
 ALTER TABLE `pistas`
   MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT;
-  
+*/
 --
 -- Restricciones para tablas volcadas
 --
