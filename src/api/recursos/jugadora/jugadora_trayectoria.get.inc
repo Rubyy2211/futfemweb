@@ -45,11 +45,13 @@ $data = [];
 while ($row = $result->fetch_assoc()) {
     // Codificar la imagen de la jugadora en base64 si está disponible
     if (!empty($row['imagen'])) {
-        $row['imagen'] = 'data:image/jpeg;base64,' . base64_encode($row['imagen']);
+        //$row['imagen'] = 'data:image/jpeg;base64,' . base64_encode($row['imagen']);
+        $row['imagen'] = "\\futfemweb\src\\" . $row['imagen'];
     }
     // Codificar el escudo del equipo en base64 si está disponible
     if (!empty($row['escudo'])) {
-        $row['escudo'] = 'data:image/jpeg;base64,' . base64_encode($row['escudo']);
+        //$row['escudo'] = 'data:image/jpeg;base64,' . base64_encode($row['escudo']);
+        $row['escudo'] = "\\futfemweb\src\\" . $row['escudo'];
     }
     $data[] = $row;
 }

@@ -24,7 +24,8 @@ if ($id > 0) {
                 $equipos[] = [
                     'equipo' => $fila['id_equipo'],
                     'nombre' => $fila['nombre'],
-                    'escudo' => 'data:image/png;base64,' . base64_encode($fila['escudo']), // Codificar la imagen en base64
+                    //'escudo' => 'data:image/png;base64,' . base64_encode($fila['escudo']), // Codificar la imagen en base64
+                    'escudo' => "\\futfemweb\src\\" . $fila['escudo'],
                     'liga' => $fila['liga'],
                 ];
             }

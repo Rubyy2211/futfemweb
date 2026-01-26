@@ -544,7 +544,7 @@ INSERT INTO `jugadoras` (`id_jugadora`, `Nombre`, `Apellidos`, `Apodo`, `Nacimie
 (382, 'Lotte', 'Keukelaar', 'Lotte', '2005-09-25', 7, 10, NULL, NULL),
 (383, 'Jill Jamie', 'Roord ', 'Roord', '1997-04-22', 7, 7, NULL, NULL),
 (384, 'Daphne', 'van Domselaar', 'Daph', '2000-03-06', 7, 1, NULL, NULL),
-(385, 'Olga', 'San Nicolás Rolando', 'San Nicolás', '2003-11-11', 1, 13, NULL, NULL),
+--(385, 'Olga', 'San Nicolás Rolando', 'San Nicolás', '2003-11-11', 1, 13, NULL, NULL),
 (386, 'María Victoria', 'Losada Gómez', 'Losada', '1991-03-05', 1, 5, NULL, NULL),
 (387, 'Nuria', 'Rabano Blanco', 'Rabano', '1999-06-15', 1, 4, NULL, NULL),
 (388, 'María Paz', 'Vilas Dono', 'Mapi', '1988-02-01', 1, 10, NULL, '2023'),
@@ -629,7 +629,7 @@ INSERT INTO `jugadoras` (`id_jugadora`, `Nombre`, `Apellidos`, `Apodo`, `Nacimie
 (467, 'Lauren', 'May Hemp', 'Hemp', '2000-08-07', 2, 10, NULL, '0000'),
 (468, 'Pauline', 'Peyraud-Magnin', 'Pauline', '1992-03-17', 4, 1, NULL, '0000'),
 (469, 'Elena', 'Linari', 'Linari', '1994-04-15', 6, 3, NULL, '0000'),
-(470, 'Alexandra', 'Morgan Carrasco', 'Morgan', '1989-07-02', 18, 5, NULL, '0000'),
+--(470, 'Alexandra', 'Morgan Carrasco', 'Morgan', '1989-07-02', 18, 5, NULL, '0000'),
 (471, 'Christine', 'Margaret Sinclair ', 'Sinclair ', '1983-07-12', 23, 10, NULL, '0000'),
 (472, 'Kosovare', 'Asllani', 'Asllani', '1989-07-29', 16, 10, NULL, '0000'),
 (473, 'Sofia', 'Jakobsson', 'Jakobsson', '1990-04-23', 16, 10, NULL, '0000');
