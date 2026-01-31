@@ -47,6 +47,8 @@ UPDATE `equipos` SET `escudo`='media\\ES\\clubes\\Valenciacf.png' WHERE id_equip
 UPDATE `equipos` SET `escudo`='media\\ES\\clubes\\Villarreal_CF.png' WHERE id_equipo =27;
 UPDATE `equipos` SET `escudo`='media\\ES\\clubes\\zaragoza_cff.png' WHERE id_equipo =44;
 UPDATE `equipos` SET `escudo`='media\\ES\\clubes\\SMX.png' WHERE id_equipo =63;
+UPDATE `equipos` SET `escudo`='media\\ES\\clubes\\SD_Eibar.png' WHERE id_equipo =80;
+
 
 /* ENG */
 UPDATE `equipos` SET `escudo`='media\\ENG\\clubes\\Arsenal_FC.png' WHERE id_equipo =5;

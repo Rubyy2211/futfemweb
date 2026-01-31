@@ -31,7 +31,7 @@ JOIN
     jugadoras ON trayectoria.jugadora = jugadoras.id_jugadora 
 WHERE 
     trayectoria.jugadora = ?
-AND equipos.liga != 17
+AND equipos.liga != 16
 ORDER BY 
     trayectoria.años;
 ";
